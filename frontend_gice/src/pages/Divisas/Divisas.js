@@ -6,9 +6,10 @@ import "./Divisas.css"
 const Divisas = () => {
 
     const [rates, setRates] = useState([])
+    const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
 
-    const fetchExchangeRates = async () =>{
-        const valorMonedaBase = 'MXN';
+    const fetchExchangeRates = async (divisa) =>{
+        const valorMonedaBase = divisa;
         const url = 'https://exchangerate-api.p.rapidapi.com/rapid/latest/' + valorMonedaBase;
         const options = {
             method: 'GET',
@@ -26,9 +27,14 @@ const Divisas = () => {
     }
 
     useEffect(() => {
-        fetchExchangeRates(); // Llamada a la API al cargar el componente
+        fetchExchangeRates("MXN"); // Llamada a la API al cargar el componente
     }, []); // Dependencia vacía para que se ejecute solo una vez al montar el componente
 
+
+    function changeCurrency(event){
+        const divisa = event.target.value;
+        fetchExchangeRates(divisa);
+    }
 
     return (
         <div className='Divisas'>
@@ -44,15 +50,26 @@ const Divisas = () => {
                     </div>
                 </div>
                 <div>
-                    <h1 className='secondaryTitle'>Basado en: MXN</h1>
+                    <div className='selectDivisasContainer'>
+                        <h1 className='secondaryTitle'>Basado en:</h1>
+                        <select className='selectDivisas secondaryTitle' onChange={changeCurrency}>
+                            {Object.keys(rates).map(currency => (
+                                <option value={currency} key={`option${currency}`}>{currency}</option>
+                            ))}
+                        </select>
+                    </div>
                     <div className='cardsContainerDivisas'>
-                        {Object.keys(rates).map(currency => (
-                            <div className='cardDivisas' key={currency}>
-                                <p className='titleCardDivisas azul'>{currency}</p>
-                                <h2 className='price'>$ {rates[currency].toFixed(2)}</h2>
-                                {/* toFixed se utilizo para reducir los decimales */}
-                            </div>
-                        ))}
+                        {Object.keys(rates).slice(0,10).map((currency, index) => {
+                            // Usa el índice para seleccionar una clase del array
+                            const clase = clases[index % clases.length];
+                            return (
+                                <div className={`cardDivisas`} key={currency}>
+                                    <p className={`titleCardDivisas ${clase}`}>{currency}</p>
+                                    <h2 className='price'>$ {rates[currency].toFixed(2)}</h2>
+                                    {/* toFixed se utilizó para reducir los decimales */}
+                                </div>
+                            );
+                        })}
                     </div>
                 </div>
                 <div className='bottomBannerDivisas'>

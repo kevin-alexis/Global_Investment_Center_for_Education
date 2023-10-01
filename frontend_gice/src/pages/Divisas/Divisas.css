@@ -44,6 +44,12 @@
     padding: 70px;
 }
 
+.selectDivisasContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .secondaryTitle{
     height: 80px;
     font-family: Andada Pro;
@@ -55,6 +61,16 @@
     background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
+}
+
+.selectDivisas{
+    height: auto;
+    border: 0;
+}
+
+.selectDivisas:active{
+    height: auto;
+    border: 0;
 }
 
 .cardsContainerDivisas{
@@ -111,6 +127,10 @@
 
 .rojo{
     border-left: 3px solid #FB1919;
+}
+
+.naranja{
+    border-left: 3px solid #fb5219;
 }
 
 .bottomBannerDivisas{
