@@ -1,0 +1,29 @@
+.div-footer {
+    height: 118px;
+    left: 0;
+    position: absolute;
+    top: 1795px;
+    width: 100%;
+} 
+
+.overlap {
+    background-color: #000508;
+    border: 1px solid;
+    border-color: #141414;
+    border-radius: 12px 12px 0px 0px;
+    height: 141px;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.element-global {
+    text-align: center;
+    color: #848895;
+    font-family: "Andada Pro", Helvetica;
+    font-size: 16px;
+    font-weight: 400;
+    letter-spacing: 0;
+    text-align: center;
+}
