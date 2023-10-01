@@ -1,3 +1,9 @@
+.Divisas{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .divisasTitle{
     display: flex;
     justify-content: space-around;
@@ -53,13 +59,16 @@
 
 .cardsContainerDivisas{
     display: grid;
+    justify-content: center;
+    align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
     padding: 200px;
 }
 
 .cardDivisas{
-    width: 453px;
+    padding-left: 120px;
+    width: 253px;
     height: 205px;
 }
 

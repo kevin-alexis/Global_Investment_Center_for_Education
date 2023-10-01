@@ -7,7 +7,7 @@ const Divisas = () => {
 
     const [rates, setRates] = useState([])
 
-    const fetchExchangeRates = async () => {
+    const fetchExchangeRates = async () =>{
         const valorMonedaBase = 'MXN';
         const url = 'https://exchangerate-api.p.rapidapi.com/rapid/latest/' + valorMonedaBase;
         const options = {
@@ -18,15 +18,12 @@ const Divisas = () => {
             },
         };
 
-        try {
-            const response = await fetch(url, options);
-            const result = await response.json();
-            console.log(result);
-            setRates(result); // Guardar los resultados en el estado
-        } catch (error) {
-            console.error(error);
-        }
-    };
+        fetch(url, options)
+        .then(response => response.json())
+        .then(data => setRates(data.rates))
+        .catch(err => console.error(err))
+        .catch(error => console.log(error))
+    }
 
     useEffect(() => {
         fetchExchangeRates(); // Llamada a la API al cargar el componente
@@ -49,10 +46,13 @@ const Divisas = () => {
                 <div>
                     <h1 className='secondaryTitle'>Basado en: MXN</h1>
                     <div className='cardsContainerDivisas'>
-                        <div className='cardDivisas'>
-                            <p className='titleCardDivisas azul'>Dolar Estadounidense</p>
-                            <h2 className='price'>$50.86</h2>
-                        </div>
+                        {Object.keys(rates).map(currency => (
+                            <div className='cardDivisas' key={currency}>
+                                <p className='titleCardDivisas azul'>{currency}</p>
+                                <h2 className='price'>$ {rates[currency].toFixed(2)}</h2>
+                                {/* toFixed se utilizo para reducir los decimales */}
+                            </div>
+                        ))}
                     </div>
                 </div>
                 <div className='bottomBannerDivisas'>

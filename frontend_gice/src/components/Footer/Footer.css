@@ -1,7 +1,10 @@
+footer{
+    margin-top: 200px;
+}
+
 .div-footer {
     height: 118px;
     left: 0;
-    position: absolute;
     top: 1795px;
     width: 100%;
 } 
