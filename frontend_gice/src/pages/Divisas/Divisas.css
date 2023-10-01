@@ -1,0 +1,126 @@
+.divisasTitle{
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    margin: auto;
+    margin-left: 40px;
+    margin-right: 40px;
+}
+
+.imageContainerDivisas{
+    width: 600px;
+    height: 700px;
+    flex-shrink: 0;
+    background: url(../../assets/divisasBanner.png);
+    background-size: cover;
+}
+
+.titleDivisas{
+    color: #FFF;
+    text-align: center;
+    font-family: Russo One;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75.6px; /* 78.75% */
+    letter-spacing: 0.68px;
+    margin-bottom: 80px;
+}
+
+.white-text{
+    color: #FFF;
+    font-family: Andada Pro;
+    font-size: 29px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75.6px;
+    letter-spacing: 0.68px;
+    padding: 70px;
+}
+
+.secondaryTitle{
+    height: 80px;
+    font-family: Andada Pro;
+    font-size: 106px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 132px; /* 124.528% */
+    background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cardsContainerDivisas{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 50px;
+    padding: 200px;
+}
+
+.cardDivisas{
+    width: 453px;
+    height: 205px;
+}
+
+.titleCardDivisas{
+    color: #FFF;
+    font-family: Andada Pro;
+    font-size: 28px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 33.04px; /* 118% */
+    text-align: start;
+    padding-left: 25px;
+}
+
+.price{
+    color: #C4C4C4;
+    font-family: Andada Pro;
+    font-size: 48px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27.3px; /* 56.875% */
+    text-align: start;
+}
+
+.azul{
+    border-left: 3px solid #1FCFF1;
+}
+
+.amarillo{
+    border-left: 3px solid #FFD512;
+}
+
+.morado{
+    border-left: 3px solid #9945FF;
+}
+
+.verde{
+    border-left: 3px solid #19FB9B;
+}
+
+.rojo{
+    border-left: 3px solid #FB1919;
+}
+
+.bottomBannerDivisas{
+    display: flex;
+    align-items: center;
+    padding-left: 100px;
+    padding-right: 100px;
+    height: 159px;
+    flex-shrink: 0;
+    background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
+}
+
+.textBottomBannerDivisas{
+    color: #000;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 22px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27.3px; /* 113.75% */
+    text-transform: uppercase;
+}
