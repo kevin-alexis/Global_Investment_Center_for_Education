@@ -4,6 +4,7 @@ import Home from './pages/Home/Home.js'
 import Divisas from './pages/Divisas/Divisas.js';
 import Criptomonedas from './pages/Criptomonedas/Criptomonedas.js';
 import Curso from './pages/Curso/Curso.js'
+import Login from './pages/Login/Login.js';
 
 function AppRouter() {
   return (
@@ -14,7 +15,7 @@ function AppRouter() {
         <Route path="/divisas" element={<Divisas/>}/>
         <Route path="/criptomonedas" element={<Criptomonedas/>}/>
         <Route path="/curso" element={<Curso/>}/>
-        <Route path="/login" element={<Home/>}/>
+        <Route path="/login" element={<Login/>}/>
       </Routes>
     </>
   );

@@ -13,6 +13,9 @@ nav{
 
 .rightNavbar,
 .leftNavbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     z-index: 4;
 }
@@ -60,3 +63,6 @@ a{
     z-index: 4;
 }
 
+.loginIcon{
+    display: flex;
+}
