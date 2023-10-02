@@ -7,6 +7,7 @@ const Divisas = () => {
 
     const [rates, setRates] = useState([])
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
+    const [loading, setLoading] = useState(true);
 
     const fetchExchangeRates = async (divisa) =>{
         const valorMonedaBase = divisa;
@@ -21,8 +22,10 @@ const Divisas = () => {
 
         fetch(url, options)
         .then(response => response.json())
-        .then(data => setRates(data.rates))
-        .catch(err => console.error(err))
+        .then(data => {
+            setRates(data.rates)
+            setLoading(false)
+        })
         .catch(error => console.log(error))
     }
 
@@ -49,29 +52,32 @@ const Divisas = () => {
                         <p className='white-text'>¿Y si me arriesgo y pierdo...? ¿Y si te arriesgas y ganas?</p>
                     </div>
                 </div>
-                <div>
-                    <div className='selectDivisasContainer'>
-                        <h1 className='secondaryTitle'>Basado en:</h1>
-                        <select className='selectDivisas secondaryTitle' onChange={changeCurrency}>
-                            {Object.keys(rates).map(currency => (
-                                <option value={currency} key={`option${currency}`}>{currency}</option>
-                            ))}
-                        </select>
+                {loading ? <h2 className='avisoCargando'>Cargando datos...</h2> :
+                    <div>
+                        <div className='selectDivisasContainer'>
+                            <h1 className='secondaryTitle'>Basado en:</h1>
+                            <select className='selectDivisas secondaryTitle' onChange={changeCurrency} disabled={loading}>
+                                {Object.keys(rates).map(currency => (
+                                    <option value={currency} key={`option${currency}`}>{currency}</option>
+                                ))}
+                            </select>
+                        </div>
+                        <div className='cardsContainerDivisas'>
+                            {Object.keys(rates).slice(0,160).map((currency, index) => {
+                                // Usa el índice para seleccionar una clase del array
+                                const clase = clases[index % clases.length];
+                                return (
+                                    <div className={`cardDivisas`} key={currency}>
+                                        <p className={`titleCardDivisas ${clase}`}>{currency}</p>
+                                        <h2 className='price'>$ {rates[currency].toFixed(2)}</h2>
+                                        {/* toFixed se utilizó para reducir los decimales */}
+                                    </div>
+                                );
+                            })}
+                        </div>
                     </div>
-                    <div className='cardsContainerDivisas'>
-                        {Object.keys(rates).slice(0,10).map((currency, index) => {
-                            // Usa el índice para seleccionar una clase del array
-                            const clase = clases[index % clases.length];
-                            return (
-                                <div className={`cardDivisas`} key={currency}>
-                                    <p className={`titleCardDivisas ${clase}`}>{currency}</p>
-                                    <h2 className='price'>$ {rates[currency].toFixed(2)}</h2>
-                                    {/* toFixed se utilizó para reducir los decimales */}
-                                </div>
-                            );
-                        })}
-                    </div>
-                </div>
+                }
+                
                 <div className='bottomBannerDivisas'>
                     <p className='textBottomBannerDivisas'>“No esperes el momento preciso en el que el mercado esté listo para invertir. Empieza ahora. El mejor momento para sembrar un roble fue hace 20 años. El segundo mejor momento es ahora”</p>
                 </div>

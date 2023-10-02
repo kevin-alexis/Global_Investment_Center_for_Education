@@ -19,7 +19,7 @@ const Navbar = () => {
                         <Link to="/divisas">Divisas</Link>
                     </li>
                     <li>
-                        <Link to="/divisas">Criptomonedas</Link>
+                        <Link to="/criptomonedas">Criptomonedas</Link>
                     </li>
                     <li>
                         <Link to="/curso">Curso</Link>

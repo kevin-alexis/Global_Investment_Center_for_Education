@@ -141,6 +141,7 @@
     height: 159px;
     flex-shrink: 0;
     background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
+    margin-bottom: 200px;
 }
 
 .textBottomBannerDivisas{

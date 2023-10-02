@@ -1,0 +1,81 @@
+.Criptomonedas{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    /* background: url(../../assets/city.png); */
+    /* background-size: cover;
+    background-position: center;
+    background-attachment: fixed; */
+    width: 100%;
+    height: 100%;
+}
+
+.titleCriptomonedas{
+    padding: 100px;
+    text-align: center;
+    color: #FFF;
+    text-align: center;
+    font-family: Russo One;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75.6px; /* 78.75% */
+    letter-spacing: 0.68px;
+}
+
+.secondaryTitleCriptos{
+    height: 80px;
+    font-family: Andada Pro;
+    font-size: 106px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 132px; /* 124.528% */
+    background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.avisoCargando{
+    height: 100vh;
+    width: 100%;
+    font-family: Andada Pro;
+    font-size: 106px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 132px; /* 124.528% */
+    background: var(--s-gradient-2, linear-gradient(260deg, #ff0000 -13.37%, #d400b4 109.53%));
+    background-clip: text;
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+}
+
+.cardsContainerCriptomonedas{
+    /* background: url(../../assets/city.png);
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+    width: 100%;
+    height: 100%; */
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    grid-gap: 40px;
+    padding: 100px;
+    margin-left: 60px;
+    box-sizing: border-box;
+}
+
+.cardCriptomonedas{
+    padding-left: 40px;
+    padding-right: 10px;
+    backdrop-filter: blur(150px);
+    width: 446px;
+    height: 166px;
+    border-radius: 24px;
+    background: rgba(0, 0, 0, 0.28);
+    backdrop-filter: blur(10px);
+    box-sizing: border-box;
+    align-self: center;
+    justify-self: center;
+}
