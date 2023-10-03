@@ -9,7 +9,7 @@ function UniNew({noticia}) {
         <>
             <div className="UniNewsModuloIndividual">
                 <div className='UniNewsParteIzquierda'>
-            <img alt={title } src={urlToImage}/>
+            <img src={urlToImage}/>
                 </div>
 
 

@@ -31,12 +31,13 @@ function News() {
 
 
     useEffect(() => {
+
         const getNoticias = async (prim, segu) => {
             try {
                 let apiKey = '453fd047213746b9b3ec5f83342dcf7a'
                 const response = await axios.get(`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=${apiKey}`)
-                setNoticia(response.data.articles)
-                setNum(response.data.articles.slice(primero, segundo))
+                setNoticia(response.data.articles.filter((articles)=> !(articles.urlToImage == null)))
+                setNum(response.data.articles.filter((articles)=> !(articles.urlToImage == null)).slice(primero, segundo))
                 console.log(noticia)
             } catch (error) {
                 console.log(error)
