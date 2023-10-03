@@ -1,0 +1,15 @@
+.NoticiasFondo {
+    background-image: url('../../assets/FondoNoticias.png');
+    z-index: -999;
+    width: 100%;
+    height: 570px;
+    position: absolute;
+    
+
+}
+
+.NoticiasTitulo {
+    font-size: 50px;
+    margin-top: 25px;
+    margin-bottom: 30px;
+}
