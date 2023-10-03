@@ -1,3 +1,9 @@
+.Divisas{
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+}
+
 .divisasTitle{
     display: flex;
     justify-content: space-around;
@@ -38,6 +44,12 @@
     padding: 70px;
 }
 
+.selectDivisasContainer{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .secondaryTitle{
     height: 80px;
     font-family: Andada Pro;
@@ -51,15 +63,28 @@
     -webkit-text-fill-color: transparent;
 }
 
+.selectDivisas{
+    height: auto;
+    border: 0;
+}
+
+.selectDivisas:active{
+    height: auto;
+    border: 0;
+}
+
 .cardsContainerDivisas{
     display: grid;
+    justify-content: center;
+    align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
     padding: 200px;
 }
 
 .cardDivisas{
-    width: 453px;
+    padding-left: 120px;
+    width: 253px;
     height: 205px;
 }
 
@@ -104,6 +129,10 @@
     border-left: 3px solid #FB1919;
 }
 
+.naranja{
+    border-left: 3px solid #fb5219;
+}
+
 .bottomBannerDivisas{
     display: flex;
     align-items: center;
@@ -112,6 +141,7 @@
     height: 159px;
     flex-shrink: 0;
     background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
+    margin-bottom: 200px;
 }
 
 .textBottomBannerDivisas{

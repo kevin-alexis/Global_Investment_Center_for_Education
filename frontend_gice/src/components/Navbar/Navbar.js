@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css'
+import loginIcon from "../../assets/loginIcon.png"
 
 const Navbar = () => {
     return (
@@ -19,10 +20,15 @@ const Navbar = () => {
                         <Link to="/divisas">Divisas</Link>
                     </li>
                     <li>
+                        <Link to="/criptomonedas">Criptomonedas</Link>
+                    </li>
+                    <li>
                         <Link to="/curso">Curso</Link>
                     </li>
                     <li>
-                        <Link to="/login">LOGIN</Link>
+                        <Link to="/login">
+                            <img src={loginIcon} className='loginIcon'></img>
+                        </Link>
                     </li>
                 </ul>
             </div>

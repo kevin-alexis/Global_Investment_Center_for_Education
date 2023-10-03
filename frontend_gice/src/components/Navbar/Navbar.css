@@ -13,6 +13,9 @@ nav{
 
 .rightNavbar,
 .leftNavbar{
+    display: flex;
+    justify-content: center;
+    align-items: center;
     padding: 20px;
     z-index: 4;
 }
@@ -43,7 +46,7 @@ ul li{
     
 }
 
-ul li:nth-child(4){
+ul li:nth-child(5){
     list-style: none;
     padding-left: 100px;
 }
@@ -60,3 +63,6 @@ a{
     z-index: 4;
 }
 
+.loginIcon{
+    display: flex;
+}
