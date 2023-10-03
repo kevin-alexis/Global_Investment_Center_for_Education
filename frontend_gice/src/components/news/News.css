@@ -1,0 +1,19 @@
+.NewsMargen {
+  width: 100%;
+  height: 120vh;
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.NewsNoSirve{
+  opacity: 0.4;
+}
+
+.NewsSiSirve{  
+  cursor: pointer;
+}
+
+.NewsSiSirve:hover{
+  transform: scale(1.05);
+}
