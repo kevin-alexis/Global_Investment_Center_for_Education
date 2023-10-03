@@ -5,6 +5,7 @@ import { useEffect, useState } from 'react'
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
 
+
 function News() {
 
     const [noticia, setNoticia] = useState([0, 0])

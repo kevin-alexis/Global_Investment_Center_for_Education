@@ -6,6 +6,9 @@ import Footer from '../../components/Footer/Footer'
 function Noticias() {
     return (
         <>
+            <div className='NoticiasFondo'>
+                
+            </div>
             <div >
                 <Navbar />
                 <h1 className='NoticiasTitulo'> Noticias</h1>
