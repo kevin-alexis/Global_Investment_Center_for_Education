@@ -6,7 +6,7 @@ import './Home.css';
 
 const Home = () => {
     return (
-        <div className='Home'>
+        <div>
             <Navbar/>
             <div className='layoutSectionsHome'>
                 <div className='containerTitleHome'>
@@ -28,8 +28,10 @@ const Home = () => {
                             <p className='allTheTitle'>ducation</p>
                         </div>
                     </div>
-                    <div className='blurContainer'></div>
-                    <div className='containerImage'></div>
+                    <div className='ImagenLugarPila'>
+                        <div className='blurContainer'></div>
+                        <div className='containerImage'></div>
+                    </div>
                 </div>
                 <div className='containerHome2'>
                     <h2 className='subtitle'>Comenzemos.</h2>

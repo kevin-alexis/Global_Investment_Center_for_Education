@@ -13,18 +13,25 @@ const Navbar = () => {
             </div>
             <div className='rightNavbar'>
                 <ul>
-                    <li>
-                        <Link to="/noticias">Noticias</Link>
-                    </li>
-                    <li>
-                        <Link to="/divisas">Divisas</Link>
-                    </li>
-                    <li>
-                        <Link to="/criptomonedas">Criptomonedas</Link>
-                    </li>
-                    <li>
-                        <Link to="/curso">Curso</Link>
-                    </li>
+                    {(window.innerWidth >= 700) && (window.innerHeight >= 500) ?
+                        <>
+                            <li>
+                                <Link to="/noticias">Noticias</Link>
+                            </li>
+                            <li>
+                                <Link to="/divisas">Divisas</Link>
+                            </li>
+                            <li>
+                                <Link to="/criptomonedas">Criptomonedas</Link>
+                            </li>
+                            <li>
+                                <Link to="/curso">Curso</Link>
+                            </li>
+                        </>
+                        : ''
+
+                    }
+
                     <li>
                         <Link to="/login">
                             <img src={loginIcon} className='loginIcon'></img>

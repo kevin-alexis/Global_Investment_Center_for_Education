@@ -1,6 +1,6 @@
 .UniNewsModuloIndividual {
   width:45%;
-  height: 35vh;
+  height: 40vh;
   margin: 10px;
   background-color: #1A1A1A;
   display: flex;
@@ -34,4 +34,50 @@
     width: 100%;
     height:100%;
     object-fit:cover;
+}
+
+@media screen and (max-width: 900px) {
+
+  .UniNewsModuloIndividual {
+    width:100%;
+    height: 20vh;
+  }
+  
+  .UniNewsParteDerecha p {
+    font-size: 15px;
+  }
+
+  .UniNewsParteDerecha h3 {
+    font-size: 15px;
+  }
+
+  .UniNewsParteDerecha a {
+    font-size: 15px;
+  }
+
+
+}
+
+@media screen and (max-width: 500px) {  
+
+
+
+  .UniNewsParteDerecha p {
+    font-size: 10px;
+  }
+
+  .UniNewsParteDerecha h3 {
+    font-size: 10px;
+  }
+
+  .UniNewsParteDerecha a {
+    font-size: 10px;
+  }
+}
+
+@media screen and (max-height: 400px) {
+  .UniNewsModuloIndividual {
+    width:80%;
+    height: 50vh;
+  }
 }

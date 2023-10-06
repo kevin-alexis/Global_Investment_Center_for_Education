@@ -5,14 +5,12 @@ nav{
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 300px;
-    padding-right: 50px;
     box-sizing: border-box;
     z-index: 4;
 }
 
 .rightNavbar,
-.leftNavbar{
+.leftNav{
     display: flex;
     justify-content: center;
     align-items: center;

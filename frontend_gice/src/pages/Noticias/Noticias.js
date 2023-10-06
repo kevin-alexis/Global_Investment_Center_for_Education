@@ -7,16 +7,18 @@ function Noticias() {
     return (
         <>
             <div className='NoticiasFondo'>
-                
+
             </div>
+
+            <Navbar />
+            
             <div >
-                <Navbar />
                 <h1 className='NoticiasTitulo'> Noticias</h1>
             </div>
 
             <News />
             <div>
-                <Footer/>
+                <Footer />
             </div>
         </>
     )
