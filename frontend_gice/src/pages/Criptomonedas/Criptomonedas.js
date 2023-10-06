@@ -7,6 +7,7 @@ import Derecho from '../../assets/Derecho.png'
 
 const Criptomonedas = () => {
 
+    const [show, setShow] = useState(false);
     const [rates, setRates] = useState([])
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
@@ -46,7 +47,11 @@ const Criptomonedas = () => {
 
     return (
         <div className='Criptomonedas'>
-            <Navbar/>
+            <Navbar show={show} setShow={setShow}/>
+            {show
+            ?
+            null
+            :
             <div className='criptomonedasContainer'>
                 <div className='criptomonedasTitle'>
                     <h1 className='titleCriptomonedas'>Criptomonedas</h1>
@@ -91,9 +96,12 @@ const Criptomonedas = () => {
                 }
                 
             </div>
-            
-            
-            <Footer/>
+            }
+            {show
+            ?
+            null
+            :
+            <Footer/>}
         </div>
     );
 }

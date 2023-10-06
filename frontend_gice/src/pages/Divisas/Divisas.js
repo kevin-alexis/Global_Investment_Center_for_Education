@@ -7,6 +7,7 @@ import Derecho from '../../assets/Derecho.png'
 
 const Divisas = () => {
 
+    const [show, setShow] = useState(false);
     const [rates, setRates] = useState([])
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
@@ -52,7 +53,9 @@ const Divisas = () => {
 
     return (
         <div className='Divisas'>
-            <Navbar/>
+            <Navbar show={show} setShow={setShow}/>
+            {show?
+            null:
             <div className='divisasContainer'>
                 <div className='divisasTitle'>
                     <div className='imageContainerDivisas'>
@@ -108,8 +111,14 @@ const Divisas = () => {
                     <p className='textBottomBannerDivisas'>“No esperes el momento preciso en el que el mercado esté listo para invertir. Empieza ahora. El mejor momento para sembrar un roble fue hace 20 años. El segundo mejor momento es ahora”</p>
                 </div>
             </div>
-            
+            }
+            {show?
+            null:
             <Footer/>
+            }
+            
+            
+            
         </div>
     );
 }

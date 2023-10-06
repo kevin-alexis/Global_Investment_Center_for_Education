@@ -5,7 +5,7 @@ import { useEffect, useState } from 'react'
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
 
-function News() {
+function News({loading, setLoading}) {
 
     const [noticia, setNoticia] = useState([])
     const [primero, setPrimero] = useState(0)
@@ -39,6 +39,7 @@ function News() {
                 setNoticia(response.data.articles.filter((articles)=> !(articles.urlToImage == null)))
                 setNum(response.data.articles.filter((articles)=> !(articles.urlToImage == null)).slice(primero, segundo))
                 // console.log(noticia)
+                setLoading(false);
             } catch (error) {
                 console.log(error)
             }
@@ -57,27 +58,31 @@ function News() {
 
 
     return (
-        <>
-            <div className='NewsMargen'>
-                {num.map((news, index) => {
-                    return (
-                        <UniNew key={index} noticia={news} ></UniNew>)
-                })
+        loading ? (
+            <h2 className='avisoCargando'>Cargando datos...</h2> // Muestra un mensaje de carga mientras los datos se están cargando
+            ) :(<>
+        
+                <div className='NewsMargen'>
+                    {num.map((news, index) => {
+                        return (
+                            <UniNew key={index} noticia={news} ></UniNew>)
+                    })
+                    }
+                </div>
+    
+                {(pagina > 1)
+                    ? <img src={Izquierdo} className='NewsSiSirve' onClick={restandoMostrar} />
+                    : <img className='NewsNoSirve' src={Izquierdo} />
                 }
-            </div>
-
-            {(pagina > 1)
-                ? <img src={Izquierdo} className='NewsSiSirve' onClick={restandoMostrar} />
-                : <img className='NewsNoSirve' src={Izquierdo} />
-            }
-
-
-            {(pagina <= 10)
-                ? <img src={Derecho} className='NewsSiSirve' onClick={sumandoMostrar} />
-                : <img className='NewsNoSirve' src={Derecho} />
-            }
-
-        </>
+    
+    
+                {(pagina <= 10)
+                    ? <img src={Derecho} className='NewsSiSirve' onClick={sumandoMostrar} />
+                    : <img className='NewsNoSirve' src={Derecho} />
+                }
+    
+            </>)
+        
     )
 }
 

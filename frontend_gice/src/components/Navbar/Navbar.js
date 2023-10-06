@@ -3,9 +3,9 @@ import { Link } from 'react-router-dom';
 import './Navbar.css'
 import loginIcon from "../../assets/loginIcon.png"
 
-const Navbar = () => {
+const Navbar = ({setShow, show}) => {
 
-    const [show, setShow] = useState(false)
+    // const [show, setShow] = useState(false)
 
     function showHamburger() {
         setShow(!show)

@@ -1,13 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "./Curso.css"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
 
 
 const Curso = () => {
+    const [show, setShow] = useState(false);
     return (
         <div className='Curso'>
-            <Navbar/>
+            <Navbar show={show} setShow={setShow}/>
+            {show?
+            null:
             <div className='cursoContainer'>
                 <div className='titleCursoContainer'>
                     <div>
@@ -37,7 +40,13 @@ const Curso = () => {
                 </div>
 
             </div>
+            }
+            {show?
+            null:
             <Footer/>
+            }
+            
+            
         </div>
     );
 }

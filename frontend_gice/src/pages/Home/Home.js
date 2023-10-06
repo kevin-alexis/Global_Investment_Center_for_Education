@@ -1,14 +1,17 @@
-import React from 'react';
+import React, {useState} from 'react';
 import { Link } from 'react-router-dom';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import './Home.css';
 
 const Home = () => {
+    const [show, setShow] = useState(false);
     return (
         <div>
-            <Navbar/>
-            <div className='layoutSectionsHome'>
+            <Navbar setShow={setShow} show={show}/>
+            {show?
+            null
+            :<div className='layoutSectionsHome'>
                 <div className='containerTitleHome'>
                     <div className='titleContainer'>
                         <div className='containerLineTitle'>
@@ -53,9 +56,9 @@ const Home = () => {
                                 <p className='text'>Noticias</p>
                                 <button className='arrowButton'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 27 26" fill="none">
-                                    <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M13.0161 18L18.0161 13L13.0161 8" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8.01611 13H18.0161" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M13.0161 18L18.0161 13L13.0161 8" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M8.01611 13H18.0161" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
                                 </button>
                             </div>
@@ -71,13 +74,13 @@ const Home = () => {
                             </div>
                             <div className='titleCard'>
                                 <p className='text'>Curso para principiantes</p>
-                                <Link className='arrowButton'>
+                                <div className='arrowButton'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 27 26" fill="none">
-                                    <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M13.0161 18L18.0161 13L13.0161 8" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8.01611 13H18.0161" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M13.0161 18L18.0161 13L13.0161 8" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M8.01611 13H18.0161" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
-                                </Link>
+                                </div>
                             </div>
                         </div>
                     </Link>
@@ -91,19 +94,25 @@ const Home = () => {
                             </div>
                             <div className='titleCard'>
                                 <p className='text'>Divisas</p>
-                                <Link className='arrowButton'>
+                                <div className='arrowButton'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 27 26" fill="none">
-                                    <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M13.0161 18L18.0161 13L13.0161 8" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
-                                    <path d="M8.01611 13H18.0161" stroke="#848895" stroke-linecap="round" stroke-linejoin="round"/>
+                                    <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M13.0161 18L18.0161 13L13.0161 8" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
+                                    <path d="M8.01611 13H18.0161" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
                                     </svg>
-                                </Link>
+                                </div>
                             </div>
                         </div> 
                     </Link>
                 </div>
             </div>
+            }
+            {show ? 
+            null:
             <Footer/>
+            }
+            
+            
         </div>
     );
 }
