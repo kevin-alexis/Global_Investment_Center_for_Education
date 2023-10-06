@@ -1,6 +1,6 @@
 const express = require('express');
 const app = express(); //Servidor
-const cors = require('cors');
+// const cors = require('cors');
 const mysql = require('mysql');
 const bodyParser = require('body-parser');
 
