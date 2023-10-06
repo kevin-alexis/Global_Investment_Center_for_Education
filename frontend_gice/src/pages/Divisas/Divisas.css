@@ -4,6 +4,10 @@
     min-height: 100vh;
 }
 
+.divisasContainer{
+    width: 100%;
+}
+
 .divisasTitle{
     display: flex;
     justify-content: space-around;

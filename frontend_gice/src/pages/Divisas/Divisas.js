@@ -64,7 +64,7 @@ const Divisas = () => {
                     </div>
                 </div>
                 {loading ? <h2 className='avisoCargando'>Cargando datos...</h2> :
-                    <div>
+                    <div className='divisasContentContainer'>
                         <div className='selectDivisasContainer'>
                             <h1 className='secondaryTitle'>Basado en:</h1>
                             <select className='selectDivisas secondaryTitle' onChange={changeCurrency} disabled={loading}>

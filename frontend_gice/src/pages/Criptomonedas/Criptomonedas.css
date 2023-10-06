@@ -24,7 +24,7 @@
 }
 
 .secondaryTitleCriptos{
-    height: 80px;
+    height: 100%;
     font-family: Andada Pro;
     font-size: 106px;
     font-style: normal;
@@ -50,12 +50,16 @@
     -webkit-text-fill-color: transparent;
 }
 
+.divisasContentContainer{
+    width: 100%;
+}
+
 .cardsContainerCriptomonedas{
     display: grid;
     grid-template-columns: 1fr 1fr;
     grid-gap: 40px;
     padding: 100px;
-    margin-left: 60px;
+    width: 100%;
     box-sizing: border-box;
 }
 
@@ -64,7 +68,7 @@
     padding-right: 10px;
     backdrop-filter: blur(150px);
     width: 296px;
-    height: 166px;
+    height: 160px;
     border-radius: 24px;
     background: rgba(0, 0, 0, 0.28);
     backdrop-filter: blur(10px);
@@ -76,7 +80,58 @@
 .contadorCriptomonedas{
     width: 100%;
     display: flex;
+    padding: 30px;
     justify-content: center;
     align-self: center;
     box-sizing: border-box;
+}
+
+/* Celular */
+@media (min-width:320px) and (max-width:679px){
+
+    .titleCriptomonedas{
+        padding: 50px;
+        font-size: 40px;
+        font-weight: 400;
+        line-height: 75.6px; /* 78.75% */
+        letter-spacing: 0.68px;
+        padding-bottom: 0;
+    }
+
+    .secondaryTitleCriptos{
+        font-size: 36px;
+        line-height: 132px; /* 124.528% */
+    }
+    
+    .cardsContainerCriptomonedas{
+        display: grid;
+        grid-template-columns: 1fr;
+        padding: 0;
+    }
+
+}
+
+/* Tablet */
+@media (min-width:680px) and (max-width:799px){
+    .titleCriptomonedas{
+        padding: 50px;
+        font-size: 86px;
+        font-weight: 400;
+        line-height: 75.6px; /* 78.75% */
+        letter-spacing: 0.68px;
+    }
+
+    .secondaryTitleCriptos{
+        font-size: 66px;
+        line-height: 132px; /* 124.528% */
+    }
+
+    .avisoCargando{
+        font-size: 36px;
+    }
+    
+    .cardsContainerCriptomonedas{
+        padding: 0;
+        margin: 0;
+    }
 }
