@@ -2,12 +2,15 @@ import React, {useState, useEffect} from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import "./Divisas.css"
+import Izquierdo from '../../assets/Izquierdo.png'
+import Derecho from '../../assets/Derecho.png'
 
 const Divisas = () => {
 
     const [rates, setRates] = useState([])
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
+    const [contador, setContador] = useState(0);
 
     const fetchExchangeRates = async (divisa) =>{
         const valorMonedaBase = divisa;
@@ -27,6 +30,14 @@ const Divisas = () => {
             setLoading(false)
         })
         .catch(error => console.log(error))
+    }
+
+    function aumentarContador(){
+        setContador(contador + 6);
+    }
+
+    function decrementarContador(){
+        setContador(contador - 6);
     }
 
     useEffect(() => {
@@ -63,7 +74,7 @@ const Divisas = () => {
                             </select>
                         </div>
                         <div className='cardsContainerDivisas'>
-                            {Object.keys(rates).slice(0,160).map((currency, index) => {
+                            {Object.keys(rates).slice(contador,contador+6).map((currency, index) => {
                                 // Usa el índice para seleccionar una clase del array
                                 const clase = clases[index % clases.length];
                                 return (
@@ -74,7 +85,22 @@ const Divisas = () => {
                                     </div>
                                 );
                             })}
+                            
+                            
                         </div>
+                        <div className='contadorDivisas'>
+                                {(contador > 1)
+                                ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} />
+                                : <img className='NewsNoSirve' src={Izquierdo} />
+                                }
+
+
+                                {(contador <= 150)
+                                    ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
+                                    : <img className='NewsNoSirve' src={Derecho} />
+                                }
+                        </div>
+                        
                     </div>
                 }
                 

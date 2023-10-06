@@ -74,12 +74,14 @@
 }
 
 .cardsContainerDivisas{
+    width: 100%;
+    box-sizing: border-box;
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
-    padding: 200px;
+    padding: 100px;
 }
 
 .cardDivisas{
@@ -133,6 +135,14 @@
     border-left: 3px solid #fb5219;
 }
 
+.contadorDivisas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 80px;
+}
+
 .bottomBannerDivisas{
     display: flex;
     align-items: center;
@@ -141,7 +151,6 @@
     height: 159px;
     flex-shrink: 0;
     background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
-    margin-bottom: 200px;
 }
 
 .textBottomBannerDivisas{
