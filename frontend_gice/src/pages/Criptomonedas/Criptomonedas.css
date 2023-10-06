@@ -109,6 +109,10 @@
         padding: 0;
     }
 
+    .avisoCargando{
+        font-size: 56px;
+    }
+
 }
 
 /* Tablet */

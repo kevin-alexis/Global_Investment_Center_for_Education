@@ -38,7 +38,7 @@ function News() {
                 const response = await axios.get(`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=${apiKey}`)
                 setNoticia(response.data.articles.filter((articles)=> !(articles.urlToImage == null)))
                 setNum(response.data.articles.filter((articles)=> !(articles.urlToImage == null)).slice(primero, segundo))
-                console.log(noticia)
+                // console.log(noticia)
             } catch (error) {
                 console.log(error)
             }
