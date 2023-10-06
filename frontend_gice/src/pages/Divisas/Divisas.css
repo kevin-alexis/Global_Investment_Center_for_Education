@@ -4,6 +4,10 @@
     min-height: 100vh;
 }
 
+.divisasContainer{
+    width: 100%;
+}
+
 .divisasTitle{
     display: flex;
     justify-content: space-around;
@@ -51,7 +55,8 @@
 }
 
 .secondaryTitle{
-    height: 80px;
+    /* height: 80px; */
+    height: 100%;
     font-family: Andada Pro;
     font-size: 106px;
     font-style: normal;
@@ -74,12 +79,14 @@
 }
 
 .cardsContainerDivisas{
+    width: 100%;
+    box-sizing: border-box;
     display: grid;
     justify-content: center;
     align-items: center;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
-    padding: 200px;
+    padding: 100px;
 }
 
 .cardDivisas{
@@ -133,6 +140,14 @@
     border-left: 3px solid #fb5219;
 }
 
+.contadorDivisas{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin-bottom: 80px;
+}
+
 .bottomBannerDivisas{
     display: flex;
     align-items: center;
@@ -141,7 +156,6 @@
     height: 159px;
     flex-shrink: 0;
     background: var(--s-gradient-2, linear-gradient(260deg, #0047FF -13.37%, #00BCD4 109.53%));
-    margin-bottom: 200px;
 }
 
 .textBottomBannerDivisas{
@@ -153,4 +167,112 @@
     font-weight: 400;
     line-height: 27.3px; /* 113.75% */
     text-transform: uppercase;
+}
+
+
+/* Celular */
+@media (min-width:320px) and (max-width:780px){
+    .divisasTitle{
+        margin: 40px;
+    }
+    
+    .imageContainerDivisas{
+        display: none;
+    }
+    
+    .titleDivisas{
+        font-size: 96px;
+        line-height: 75.6px; /* 78.75% */
+        letter-spacing: 0.68px;
+        margin-bottom: 0;
+    }
+
+    .white-text{
+        font-size: 19px;
+        line-height: 35.6px;
+        padding: 30px;
+    }
+
+    .secondaryTitle{    
+        font-size: 66px;
+        line-height: 132px; /* 124.528% */
+    }
+    
+    .selectDivisas{
+        height: auto;
+        border: 0;
+    }
+
+    .selectDivisasContainer {
+        flex-direction: column;
+    }
+
+    .cardsContainerDivisas {
+        gap: 0;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .bottomBannerDivisas{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .textBottomBannerDivisas{
+        font-size: 12px;
+        line-height: 17.3px;
+    }
+
+}
+
+/* Tablet */
+@media (min-width:780px) and (max-width:1230px){
+    .divisasTitle{
+        margin-left: 40px;
+        margin-right: 40px;
+    }
+    
+    .imageContainerDivisas{
+        display: none;
+    }
+    
+    .titleDivisas{
+        font-size: 96px;
+        line-height: 75.6px; /* 78.75% */
+        letter-spacing: 0.68px;
+        margin-bottom: 0;
+    }
+
+    .white-text{
+        font-size: 19px;
+        line-height: 35.6px;
+        padding: 30px;
+    }
+
+    .secondaryTitle{    
+        font-size: 66px;
+        line-height: 132px; /* 124.528% */
+    }
+    
+    .selectDivisas{
+        height: auto;
+        border: 0;
+    }
+
+    .cardsContainerDivisas {
+        width: 100%;
+        grid-template-columns: 1fr 1fr;
+        gap: 10px;
+    }
+
+    .bottomBannerDivisas{
+        padding-left: 30px;
+        padding-right: 30px;
+    }
+
+    .textBottomBannerDivisas{
+        font-size: 18px;
+        line-height: 19.3px;
+    }
+    
 }

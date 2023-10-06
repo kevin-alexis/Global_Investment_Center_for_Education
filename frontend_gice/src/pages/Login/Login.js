@@ -23,7 +23,7 @@ const Login = () => {
                         {/* <label>Contraseña</label> */}
                         <input type='password' placeholder='CONTRASEÑA' className='inputLogin'/>
                         <a href='' className='forgotPasswordLink'>OLVIDE MI CONTRASEÑA</a>
-                        <button className='buttonLogin'>Iniciar Sesión</button>
+                        <button type='submit' className='buttonLogin'>Iniciar Sesión</button>
                     </form>
 
                 </div>

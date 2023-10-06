@@ -2,12 +2,15 @@ import React, {useEffect, useState} from 'react';
 import Navbar from '../../components//Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import './Criptomonedas.css'
+import Izquierdo from '../../assets/Izquierdo.png'
+import Derecho from '../../assets/Derecho.png'
 
 const Criptomonedas = () => {
 
     const [rates, setRates] = useState([])
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
+    const [contador, setContador] = useState(0);
 
     const getCriptomonedas = () =>{
         const url = "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0"
@@ -29,6 +32,13 @@ const Criptomonedas = () => {
         .catch(error=>console.log(error))
     }
 
+    function aumentarContador(){
+        setContador(contador + 6);
+    }
+
+    function decrementarContador(){
+        setContador(contador - 6);
+    }
 
     useEffect(() => {
         getCriptomonedas()
@@ -47,7 +57,7 @@ const Criptomonedas = () => {
                 ) : (
                     <div className='cardsContainerCriptomonedas'>
                         {/* <h1>Card</h1> */}
-                        {rates.slice(0, 50).map((currency, index) => {
+                        {rates.slice(contador, contador+6).map((currency, index) => {
                             // Usa el índice para seleccionar una clase del array
                             const clase = clases[index % clases.length];
                             const price = typeof currency.price === 'number' ? currency.price.toFixed(2) : parseFloat(currency.price).toFixed(2);
@@ -59,8 +69,27 @@ const Criptomonedas = () => {
                                 </div>
                             );
                         })}
-                </div>
+                        
+                    </div>
                 )}
+                {loading?
+                    null
+                    :
+                    <div className='contadorCriptomonedas'>
+                        {(contador > 1)
+                        ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} />
+                        : <img className='NewsNoSirve' src={Izquierdo} />
+                        }
+
+
+                        {(contador <= 45)
+                            ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
+                            : <img className='NewsNoSirve' src={Derecho} />
+                        }
+                    </div>
+
+                }
+                
             </div>
             
             

@@ -1,12 +1,17 @@
+.Home{
+    width: 100%;
+}
+
 .layoutSectionsHome{
     width: 90%;
     margin: auto;
     flex-shrink: 0;
     margin-bottom: 200px;
+    box-sizing: border-box;
 }
 
-.containerTitleHome     {
-    width: 100%;
+
+.containerTitleHome{
     display: flex;
     align-items: center;
     margin-top: 10px;
@@ -14,13 +19,7 @@
 }
 
 .titleContainer{
-    margin-top: 80px;
-    margin-left: 80px;
-    margin-right: 80px;
-}
-
-.containerHome2{
-    margin-bottom: 50px;
+    padding: 80px;
 }
 
 .containerLineTitle{
@@ -69,6 +68,10 @@
     z-index: 1;
 }
 
+.containerHome2{
+    width: 100%;
+}
+
 .subtitle{
     color: #FFF;
     font-family: Andada Pro;
@@ -106,6 +109,8 @@
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
     gap: 20px;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .banner2Container{
@@ -117,6 +122,8 @@
     background-size: cover;
     background-position: center;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .banner3Container{
@@ -128,6 +135,8 @@
     background-size: cover;
     background-position: center;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .banner4Container{
@@ -139,6 +148,8 @@
     background-size: cover;
     background-position: center;
     position: relative;
+    width: 100%;
+    box-sizing: border-box;
 }
 
 .decoration{
