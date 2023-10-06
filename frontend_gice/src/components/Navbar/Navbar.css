@@ -119,7 +119,7 @@ a{
     display: flex;
 }
 
-@media (min-width:320px) and (max-width:780px){
+@media (max-width:780px) {
     .navbar-mobileContainer{
         display: flex;
     }
