@@ -2,8 +2,8 @@ const credentials = {
     host: 'localhost',
     user: 'root',
     password: '',
-    database: '',
-    port: 3307
+    database: 'GICE',
+    port: 3306
 }
 
 module.exports = credentials;
