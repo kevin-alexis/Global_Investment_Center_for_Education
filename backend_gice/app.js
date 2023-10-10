@@ -1,9 +1,11 @@
-const express = require('express');
+import express from 'express';
 const app = express(); //Servidor
-const routes = require('./app/routes/routes.js');
-const middlewares = require('./app/middleware/middleware.js');
+import indexRoutes from './app/routes/index.routes.js';
+import rutaPrincipalRoutes from './app/routes/rutaPrincipal.routes.js';
+import middlewares from './app/middleware/middleware.js';
 
 app.use(middlewares);
-app.use(routes);
+app.use(indexRoutes);
+app.use(rutaPrincipalRoutes);
 
-module.exports = app;
+export default app;
