@@ -27,6 +27,8 @@ const Login = () => {
                         <input type='password' placeholder='CONTRASEÑA' className='inputLogin'/>
                         <a href='' className='forgotPasswordLink'>OLVIDE MI CONTRASEÑA</a>
                         <button type='submit' className='buttonLogin'>Iniciar Sesión</button>
+                        <button type='submit' className='buttonLogin'>Iniciar Sesión con Google</button>
+                        <button type='submit' className='buttonRegister'>REGISTRARSE</button>
                     </form>
 
                 </div>
