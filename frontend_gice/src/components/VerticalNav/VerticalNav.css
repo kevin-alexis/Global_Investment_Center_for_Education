@@ -1,0 +1,12 @@
+
+.VerticalNavBar {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+    height: 100vh;
+    background-color: #364153;
+}
+
+.TextoVerticalNav{
+    font-family: Russo One;
+}

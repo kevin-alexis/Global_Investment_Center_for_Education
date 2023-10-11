@@ -1,0 +1,75 @@
+.DashboardContent {
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: space-around;
+
+}
+
+.DashboardNombreUsuario {
+    font-family: Russo One;
+    letter-spacing: 2px;
+    margin: 30px;
+    font-size: 50px;
+    color: #ffff;
+}
+
+.DashboardOptionsBloques{
+    background-color: #364153;
+    width: 90%;
+    height: 80%;
+    border-radius: 3px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+}
+
+.DashboardOptions{
+    width: 40%;
+    height: 35%;
+    display: grid;
+    grid-template-columns: 50% 50%;
+    grid-template-rows: 50% 50%;
+    margin-bottom: 240px;
+    align-items: center;
+    justify-items: center;
+    
+}
+
+.DashHomeObjetoColor{
+    width: 60px;
+    height: 60px;
+    border-radius: 10px;
+    display: grid;
+    align-items: center;
+    justify-items: center;
+    
+}
+
+.DashHomeObjetoColor :hover{
+    opacity: 0.5;
+}
+
+.DashHomeTexto{
+    width: 40%;
+    color: #ffff;
+    margin-left: 20px;  
+    text-align: left;
+}
+
+.DashHomeTexto h3{
+    margin:1px;
+    font-size: 18px;
+}
+
+
+.DashHomeTexto p {
+    margin:1px;
+    font-size: 11px;
+}
+
+.SimboloDashHome{
+    width: 50%;
+}
