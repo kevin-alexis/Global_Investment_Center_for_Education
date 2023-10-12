@@ -30,5 +30,3 @@ CREATE TABLE estadisticas(
 );
 
 
-
-

@@ -1,4 +1,4 @@
-const credentials = {
+const config = {
     host: 'localhost',
     user: 'root',
     password: '',
@@ -6,4 +6,4 @@ const credentials = {
     port: 3306
 }
 
-module.exports = credentials;
+export default config;
