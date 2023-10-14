@@ -20,13 +20,10 @@ CREATE TABLE documentos(
     titulo VARCHAR(100),
     descripcion VARCHAR(100),
     rutaDocumento VARCHAR(100),
-    rutaImagen VARCHAR(100)
+    rutaImagen VARCHAR(100),
+    numDescargas INT
 );
 
-CREATE TABLE estadisticas(
-	idEstadistica INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100),
-    cantidad INT
-);
+SELECT * FROM documentos;
 
 
