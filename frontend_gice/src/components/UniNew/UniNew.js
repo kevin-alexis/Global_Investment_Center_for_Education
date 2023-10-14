@@ -16,7 +16,7 @@ function UniNew({noticia}) {
                 <div className="UniNewsParteDerecha">
                     <h3>{title}</h3>
                     <p>{description}</p>
-                    <a href={url} style={{color:"blueviolet", position:"absolute", left:20, bottom:10+'px'}}>Learn more about</a>
+                    <a href={url}>Learn more about</a>
                 </div>
 
             </div>

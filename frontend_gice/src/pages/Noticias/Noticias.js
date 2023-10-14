@@ -30,14 +30,6 @@ function Noticias() {
                 </>
 
             }
-            {/* <div >
-                <h1 className='NoticiasTitulo'> Noticias</h1>
-            </div>
-
-            <News />
-            <div>
-                <Footer />
-            </div> */}
         </>
     )
 }

@@ -14,10 +14,26 @@
   width:50% ;
   height: 100%;
   margin-left: 10px;
-  display: flex;
-  flex-direction: column;
   align-items: center; 
   position: relative;
+  display: grid;
+  grid-template-rows: 1fr 2fr 1fr;
+  padding-left: 20px;
+  padding-right: 20px;
+  box-sizing: border-box;
+}
+
+.UniNewsParteDerecha a{
+  color:blueviolet;
+  position:"absolute";
+  left:20;
+  bottom:10+'px'
+}
+
+.UniNewsParteDerecha p{
+  text-overflow: ellipsis;
+  overflow: hidden;
+  height: -webkit-fill-available;
 }
 
 .UniNewsParteIzquierda{
@@ -55,6 +71,10 @@
   .UniNewsModuloIndividual {
     width:100%;
     height: 30vh;
+  }
+
+  .UniNewsParteDerecha p{
+    height: none;  
   }
 
 }

@@ -11,5 +11,6 @@ app.use(indexRoutes);
 app.use(rutaPrincipalRoutes);
 app.use(cursosRoutes);
 app.use(usuariosRoutes);
+app.use('/uploads', express.static('uploads'));
 
 export default app;

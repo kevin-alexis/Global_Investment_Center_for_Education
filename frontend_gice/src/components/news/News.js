@@ -1,6 +1,5 @@
 import './News.css'
 import UniNew from '../UniNew/UniNew.js'
-import axios from 'axios'
 import { useEffect, useState } from 'react'
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'

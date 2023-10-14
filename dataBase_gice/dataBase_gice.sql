@@ -6,6 +6,9 @@ CREATE TABLE tipoUsuarios(
     nombre VARCHAR(100)
 );
 
+INSERT INTO tipoUsuarios(nombre) VALUES ('Administrador');
+INSERT INTO tipoUsuarios(nombre) VALUES ('Usuario');
+
 CREATE TABLE usuarios(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
     nombre VARCHAR(100),
@@ -15,8 +18,8 @@ CREATE TABLE usuarios(
     FOREIGN KEY (idTipoUsuarioId) REFERENCES tipoUsuarios(idTipoUsuario)
 );
 
-CREATE TABLE documentos(
-	idDocumento INT PRIMARY KEY AUTO_INCREMENT,
+CREATE TABLE cursos(
+	idCurso INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
     descripcion VARCHAR(100),
     rutaDocumento VARCHAR(100),
@@ -24,6 +27,8 @@ CREATE TABLE documentos(
     numDescargas INT
 );
 
-SELECT * FROM documentos;
+SELECT * FROM cursos;
+SELECT * FROM usuarios;
 
+TRUNCATE TABLE usuarios;
 
