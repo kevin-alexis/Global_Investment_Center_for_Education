@@ -14,6 +14,7 @@ CREATE TABLE usuarios(
     nombre VARCHAR(100),
     correoElectronico VARCHAR(100),
     contraseña VARCHAR(100),
+    token VARCHAR(100),
     idTipoUsuarioId INT,
     FOREIGN KEY (idTipoUsuarioId) REFERENCES tipoUsuarios(idTipoUsuario)
 );
