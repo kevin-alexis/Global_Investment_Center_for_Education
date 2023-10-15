@@ -76,17 +76,51 @@ export const obtenerCursos = (req, res) => {
 };
 
 export const actualizarCurso = (req, res) => {
-    const {idCurso, titulo, descripcion, rutaDocumento, rutaImagen} = req.body
-    pool.query(`UPDATE cursos SET titulo = ?, descripcion = ?, rutaDocumento = ?, rutaImagen = ? WHERE idCurso = ?`, [titulo, descripcion, rutaDocumento, rutaImagen, idCurso], (err, result) =>{
-        if(err){
-            res.status(500).send(err)
-        }else{
-            if(result.affectedRows > 0){
-                res.status(200).send("Curso modificado");
-            }else{
-                res.status(400).send('Curso no existente')
+    upload(req, res, async function(err) {
+        const rutaDocumentoNueva = req.files['rutaDocumento'][0].filename;
+        const rutaImagenNueva = req.files['rutaImagen'][0].filename;
+        const { idCurso, titulo, descripcion } = req.body;
+        // Obtener rutas de documentos e imágenes actuales del curso
+        pool.query('SELECT rutaDocumento, rutaImagen FROM cursos WHERE idCurso = ?', [idCurso], (err, result) => {
+            if (err) {
+                res.status(500).send(err);
+            } else {
+                const rutaDocumentoAntigua = result[0].rutaDocumento;
+                const rutaImagenAntigua = result[0].rutaImagen;
+
+                // Eliminar archivos antiguos del servidor
+                fs.unlink(`uploads/${rutaDocumentoAntigua}`, (err) => {
+                    if (err) {
+                        console.error("Error al eliminar archivo de documento antiguo:", err);
+                    } else {
+                        console.log("Archivo de documento antiguo eliminado con éxito");
+                    }
+                });
+
+                fs.unlink(`uploads/${rutaImagenAntigua}`, (err) => {
+                    if (err) {
+                        console.error("Error al eliminar archivo de imagen antiguo:", err);
+                    } else {
+                        console.log("Archivo de imagen antiguo eliminado con éxito");
+                    }
+                });
+
+                // Actualizar la base de datos con las nuevas rutas de archivos
+                pool.query('UPDATE cursos SET titulo=?, descripcion=?, rutaDocumento=?, rutaImagen=? WHERE idCurso=?',
+                    [titulo, descripcion, rutaDocumentoNueva, rutaImagenNueva, idCurso],
+                    (err, result) => {
+                        if (err) {
+                            res.status(500).send(err);
+                        } else {
+                            if (result.affectedRows > 0) {
+                                res.status(200).send("Curso modificado correctamente");
+                            } else {
+                                res.status(400).send('Curso no existente');
+                            }
+                        }
+                    });
             }
-        }
+        });
     })
 };
 
@@ -122,3 +156,5 @@ export const obtenerImagen = (req, res) => {
         res.status(404).send('Imagen no encontrada');
     }
 };
+
+
