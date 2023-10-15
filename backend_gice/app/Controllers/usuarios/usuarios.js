@@ -111,3 +111,20 @@ export const eliminarUsuario = (req, res) => {
     }
   );
 };
+
+export const obtenerCantidadUsuarios = (req, res) => {
+  pool.query(
+    `SELECT * FROM usuarios;`,
+    (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        if (result) {
+          res.status(200).json(result.length);
+        } else {
+          res.status(400).send("Usuario no existente");
+        }
+      }
+    }
+  );
+};

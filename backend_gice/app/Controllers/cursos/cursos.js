@@ -139,7 +139,6 @@ export const eliminarCurso = (req, res) => {
     })
 };
 
-
 export const obtenerImagen = (req, res) => {
     const nombreImagen = req.params.nombreImagen;
     
@@ -157,4 +156,17 @@ export const obtenerImagen = (req, res) => {
     }
 };
 
-
+export const actualizarCursoDescarga = (req, res) => {
+    const {idCurso} = req.body
+    pool.query(`UPDATE cursos SET numDescargas = numDescargas + 1 WHERE idCurso = ?;`, [idCurso],(err, result) =>{
+        if(err){
+            res.status(500).send(err)
+        }else{ 
+            if(result){
+                res.status(200).send('Descarga agregada')
+            }else{
+                res.status(400).send('Curso no existente')
+            }
+        }
+    })
+};
