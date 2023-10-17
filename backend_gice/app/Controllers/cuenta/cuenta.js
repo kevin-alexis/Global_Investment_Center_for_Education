@@ -2,6 +2,7 @@ import pool from '../../config/MySQL/database.js';
 import bcrypt from "bcrypt"; // Librería para encriptar contraseñas
 import crypto from "crypto"; // Librería para generar tokens aleatorios
 import transporter from '../../config/nodemailer/mailer.js';
+import jwt from 'jsonwebtoken';
 
 // Función para hashear la contraseña con salt y key stretching
 async function hashPassword(password) {
@@ -31,6 +32,9 @@ function generateToken() {
 }
 
 // Iniciar Sesión
+// Secret key for signing the token
+const secretKey = 'your-secret-key'; // Reemplázalo con tu clave secreta segura para producción
+
 export const iniciarSesion = (req, res) => {  
     const { correoElectronico, contraseña } = req.body;
     const plainPassword = contraseña;
@@ -44,7 +48,11 @@ export const iniciarSesion = (req, res) => {
                 try {
                     const match = await checkPassword(plainPassword, hashedPassword);
                     if (match) {
-                        res.status(200).send(result);
+                    // Generar un token JWT
+                    const token = jwt.sign({ id: result[0].idUsuario, correoElectronico: result[0].correoElectronico }, secretKey); 
+            
+                    // Devolver el token y la información del usuario en la respuesta
+                    res.status(200).json({ token, user: result });
                     } else {
                         res.status(400).send('Contraseña incorrecta');
                     }
@@ -58,6 +66,7 @@ export const iniciarSesion = (req, res) => {
         }
     });
 };
+
 
 // ! RECUPERAR CONTRASEÑA - SE LE  ENVIA POR CORREO UN LINK CON UN TOKEN PARA CAMBIAR SU CONTRA
 
