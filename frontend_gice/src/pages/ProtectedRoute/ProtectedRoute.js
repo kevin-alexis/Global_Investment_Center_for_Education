@@ -1,9 +1,12 @@
-import { Navigate } from "react-router-dom"
-import { useState } from "react"
-import axios from "axios"
-import { useEffect } from "react"
+import React from 'react'
+import { Navigate, Outlet } from 'react-router-dom'
 
-export const ProtectedRoute = ({ children }) => {
+const ProtectedRoute = ({children, isAllowed, redirectTo='/login'}) => {
+    if(!isAllowed){
+        return <Navigate to={redirectTo}/>
+    }
 
-  return children;
-};
+    return children ? children : <Outlet/>
+}
+
+export default ProtectedRoute

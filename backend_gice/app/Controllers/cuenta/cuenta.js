@@ -39,7 +39,10 @@ export const iniciarSesion = (req, res) => {
     const { correoElectronico, contraseña } = req.body;
     const plainPassword = contraseña;
 
-    pool.query(`SELECT * FROM usuarios WHERE correoElectronico = ?`, [correoElectronico], async (err, result) => {
+    pool.query(`SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.rol
+    FROM usuarios
+    INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
+    WHERE usuarios.correoElectronico = ?`, [correoElectronico], async (err, result) => {
         if (err) {
             res.status(500).send(err);
         } else {
@@ -49,8 +52,7 @@ export const iniciarSesion = (req, res) => {
                     const match = await checkPassword(plainPassword, hashedPassword);
                     if (match) {
                     // Generar un token JWT
-                    const token = jwt.sign({ id: result[0].idUsuario, correoElectronico: result[0].correoElectronico }, secretKey); 
-            
+                    const token = jwt.sign({ id: result[0].idUsuario, correoElectronico: result[0].correoElectronico, rol: result[0].rol }, secretKey); 
                     // Devolver el token y la información del usuario en la respuesta
                     res.status(200).json({ token, user: result });
                     } else {

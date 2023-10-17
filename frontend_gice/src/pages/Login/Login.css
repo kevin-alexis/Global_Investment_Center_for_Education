@@ -77,6 +77,12 @@
     margin-bottom: 40px;
 }
 
+.userTextNotFound{
+    font-size: xx-large;
+    color:red;
+    font-weight: bold;
+}
+
 .buttonLogin{
     border-radius: 36px;
     padding: 15px;

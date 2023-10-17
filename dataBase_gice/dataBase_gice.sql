@@ -6,8 +6,8 @@ CREATE TABLE tipoUsuarios(
     nombre VARCHAR(100)
 );
 
-INSERT INTO tipoUsuarios(nombre) VALUES ('Administrador');
-INSERT INTO tipoUsuarios(nombre) VALUES ('Usuario');
+INSERT INTO tipoUsuarios(nombre) VALUES ('admin');
+INSERT INTO tipoUsuarios(nombre) VALUES ('user');
 
 CREATE TABLE usuarios(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
