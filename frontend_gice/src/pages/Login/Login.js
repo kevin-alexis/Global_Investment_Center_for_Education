@@ -3,6 +3,7 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import "./Login.css"
 import jwt_decode from 'jwt-decode'
+import { Link } from 'react-router-dom';
 
 const Login = () => {
 
@@ -52,7 +53,7 @@ const Login = () => {
                             <div style={{display:'flex', height:70+ 'px', alignItems:'center', justifyContent:'center'}}>
                                 <div id='signInDiv'></div>
                             </div>
-                            <button type='submit' className='buttonRegister'>REGISTRARSE</button>
+                            <Link to='/registro' className='buttonRegister'>REGISTRARSE</Link>
                             
                         </form>
 
