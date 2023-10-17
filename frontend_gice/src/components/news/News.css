@@ -5,34 +5,39 @@
   justify-content: center;
 }
 
-.NewsNoSirve{
+.NewsNoSirve {
   opacity: 0.4;
   margin-top: 10px;
+  max-height: 200px; /* Establece la altura máxima que desees */
 }
 
-.NewsSiSirve{  
+.NewsSiSirve {  
   cursor: pointer;
   margin-top: 10px;
+  transition: transform 0.3s ease;
+  max-height: 200px; /* Establece la misma altura máxima que en .NewsNoSirve */
 }
 
-.NewsSiSirve:hover{
+.NewsSiSirve:hover {
   transform: scale(1.05);
 }
 
-@media (max-width:1000px) {
-  .UniNewsModuloIndividual{
+@media (max-width: 1000px) {
+  .UniNewsModuloIndividual {
     display: flex;
     flex-direction: column;
     height: 100% !important;
   }
 
   .UniNewsParteIzquierda,
-  .UniNewsParteDerecha{
+  .UniNewsParteDerecha {
     width: 100% !important;
-    margin:0 !important;
+    margin: 0 !important;
   }
 
-  .UniNewsParteDerecha a{
-    position: flex !important;
+  .UniNewsParteDerecha a {
+    display: flex !important;
+    justify-content: center;
+    align-items: center;
   }
 }
