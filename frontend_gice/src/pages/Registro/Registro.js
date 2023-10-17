@@ -4,8 +4,8 @@ import Footer from '../../components/Footer/Footer';
 import jwt_decode from 'jwt-decode';
 import "./Registro.css"
 
-const Login = () => {
-
+const Registro = () => {
+    
     function handleCallbackResponse(response) {
         console.log('Encoded JWT ID token: ' + response.credential)
         var userObject = jwt_decode(response.credential)
@@ -30,14 +30,38 @@ const Login = () => {
     const [show, setShow] = useState(false);
     const [datos, setDatos] = useState({
         nombre: '',
-        correo: '',
+        correoElectronico: '',
         contraseña: '',
-        confirmarCOntraseña: ''
+        confirmarContraseña: '',
+        idTipoUsuarioId: 2
     });
 
     const register = (event) => {
-        event.preventDefault()
-
+        event.preventDefault();
+        if(datos.contraseña === datos.confirmarContraseña){
+            const URL = 'http://localhost:8080/usuarios';
+    
+        // Fetch options
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(datos)
+        };
+    
+        // Fetch request
+        fetch(URL, requestOptions)
+            .then(response => response.json())
+            .then(data => {console.log(data);})
+            .catch((error)=>{
+                console.log(error)
+                // userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
+              })
+        }else{
+            console.log(datos);
+            console.log("Las contraseñas no coinciden");
+        }
     }
 
 
@@ -57,12 +81,10 @@ const Login = () => {
                     <div className='loginFormContainer'>
 
                         <form className='loginForm' onSubmit={register}>
-                            {/* <label>Usuario</label> */}
-                            <input type='text' placeholder='NOMBRE' className='inputLogin' onChange={e => ({ ...setDatos, nombre: e.target.value })} />
-                            <input type='text' placeholder='CORREO' className='inputLogin' onChange={e => ({ ...setDatos, correo: e.target.value })} />
-                            {/* <label>Contraseña</label> */}
-                            <input type='password' placeholder='CONTRASEÑA' className='inputLogin' onChange={e => ({ ...setDatos, contraseña: e.target.value })} />
-                            <input type='password' placeholder='REPETIR CONTRASEÑA' className='inputLogin' onChange={e => ({ ...setDatos, confirmarCOntraseña: e.target.value })} />
+                            <input required type='text' placeholder='NOMBRE' className='inputLogin' onChange={e => (setDatos({ ...datos, nombre: e.target.value }))} />
+                            <input required type='email' placeholder='CORREO' className='inputLogin' onChange={e => (setDatos({ ...datos, correoElectronico: e.target.value }))} />
+                            <input required type='password' placeholder='CONTRASEÑA' className='inputLogin' onChange={e => (setDatos({ ...datos, contraseña: e.target.value }))} />
+                            <input required type='password' placeholder='REPETIR CONTRASEÑA' className='inputLogin' onChange={e => (setDatos({ ...datos, confirmarContraseña: e.target.value }))} />
                             <div style={{ display: 'flex', height: 70 + 'px', alignItems: 'center', justifyContent: 'center' }}>
                                 <div id='signInDiv'></div>
                             </div>
@@ -82,4 +104,4 @@ const Login = () => {
     );
 }
 
-export default Login;
+export default Registro;

@@ -30,18 +30,28 @@ function generateToken() {
 }
 
 export const agregarUsuario = async (req, res) => {
+
    try{
 
     const { nombre, correoElectronico, contraseña, idTipoUsuarioId } = req.body;
-    const hashedPassword = await hashPassword(contraseña);
-    const token = generateToken();
-    const result = await pool.query(
-      "INSERT INTO usuarios(nombre, correoElectronico, contraseña, token, idTipoUsuarioId) VALUES (?, ?, ?, ?, ?)",
-      [nombre, correoElectronico, hashedPassword, token, idTipoUsuarioId]
-    );
-    console.log(result);
-    res.send("Usuario creado");
-    
+
+    pool.query("SELECT correoElectronico FROM usuarios WHERE correoElectronico = ?",[correoElectronico], async (err, result) => {
+      console.log(result);
+      if(result.length > 0) {
+        return res.status(400).send("El correo electrónico ya está registrado")
+      }else{
+        const hashedPassword = await hashPassword(contraseña);
+        const token = generateToken();
+        const result = await pool.query(
+          "INSERT INTO usuarios(nombre, correoElectronico, contraseña, token, idTipoUsuarioId) VALUES (?, ?, ?, ?, ?)",
+          [nombre, correoElectronico, hashedPassword, token, idTipoUsuarioId]
+        );
+        console.log(result);
+        res.send("Usuario creado");
+      } 
+
+    });
+
   } catch (error) {
     console.log(error);
     res.satus(500).send("Error al crear usuario");

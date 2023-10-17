@@ -8,8 +8,8 @@ import { Link } from 'react-router-dom';
 const Login = () => {
 
     const [datos, setDatos] = useState({
-        "correoElectronico":"",
-        "contraseña": ""
+        correoElectronico:'',
+        contraseña: ''
     })
     
 
@@ -66,6 +66,27 @@ const Login = () => {
             { size: 'large', shape:'pill' }
         )
 
+        // const loadGoogleScript = () => {
+        //     const script = document.createElement('script');
+        //     script.src = 'https://accounts.google.com/gsi/client';
+        //     script.async = true;
+        //     document.body.appendChild(script);
+
+        //     script.onload = () => {
+        //         google.accounts.id.initialize({
+        //             client_id: '990331222556-dv2o8bfq96mcir6ac91ohene0qg34v69.apps.googleusercontent.com',
+        //             callback: handleCallbackResponse,
+        //         });
+
+        //         google.accounts.id.renderButton(
+        //             document.getElementById('signInDiv'),
+        //             { size: 'large', shape: 'pill' }
+        //         );
+        //     };
+        // };
+
+        // loadGoogleScript();
+
     }, [])
 
     const [show, setShow] = useState(false);
@@ -76,17 +97,14 @@ const Login = () => {
             {show ?
                 null :
                 <div className='loginContainer'>
-
                     <div className='titleContainer'>
-
-
                         <h1 className='titleLogin'>Iniciar Sesión</h1>
                     </div>
                     <div className='loginFormContainer'>
 
                         <form className='loginForm' onSubmit={iniciarSesion}>
-                            <input type='text' placeholder='CORREO' className='inputLogin' onChange={(e)=>{setDatos({...datos, correoElectronico:e.target.value})}}/>
-                            <input type='password' placeholder='CONTRASEÑA' className='inputLogin' onChange={(e)=>{setDatos({...datos, contraseña:e.target.value})}}/>
+                            <input required type='email' placeholder='CORREO' className='inputLogin' onChange={(e)=>{setDatos({...datos, correoElectronico:e.target.value})}}/>
+                            <input required type='password' placeholder='CONTRASEÑA' className='inputLogin' onChange={(e)=>{setDatos({...datos, contraseña:e.target.value})}}/>
                             <div id='userNotFound'>
 
                             </div>

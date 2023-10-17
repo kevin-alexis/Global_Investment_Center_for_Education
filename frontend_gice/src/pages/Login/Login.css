@@ -84,6 +84,7 @@
 }
 
 .buttonLogin{
+    cursor: pointer;
     border-radius: 36px;
     padding: 15px;
     background: var(--S-button, linear-gradient(99deg, #8C01FA -2.99%, #000 102.28%));
