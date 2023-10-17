@@ -9,6 +9,7 @@ import Login from './pages/Login/Login.js';
 import Registro from './pages/Registro/Registro.js';
 import { ProtectedRoute } from './pages/ProtectedRoute/ProtectedRoute.js';
 import Dashboard from './pages/Dashboard/Dashboard.js';
+import DashboardCursos from './pages/DashboardCursos/DashboardCursos.js';
 
 function AppRouter() {
   return (
@@ -22,6 +23,7 @@ function AppRouter() {
         <Route path="/login" element={<Login/>}/>
         <Route path="/registro" element={<Registro/>}/>
         <Route path='/dashboard' element={<ProtectedRoute><Dashboard/></ProtectedRoute>}/>
+        <Route path='/dashboard/cursos' element={<ProtectedRoute><DashboardCursos/></ProtectedRoute>}/>
       </Routes>
     </>
   );

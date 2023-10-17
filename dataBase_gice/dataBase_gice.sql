@@ -22,7 +22,7 @@ CREATE TABLE usuarios(
 CREATE TABLE cursos(
 	idCurso INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
-    descripcion VARCHAR(100),
+    descripcion TEXT,
     rutaDocumento VARCHAR(100),
     rutaImagen VARCHAR(100),
     numDescargas INT
@@ -33,3 +33,4 @@ SELECT * FROM usuarios;
 
 TRUNCATE TABLE usuarios;
 
+SELECT * FROM usuarios WHERE idUsuario = 2;
