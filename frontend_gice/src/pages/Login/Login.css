@@ -8,12 +8,12 @@
     z-index: 1;
     height: 100%;
     width: 100%;
-    padding: 40px;
+    padding: 0px;
     box-sizing: border-box;
 }
 
 .imageContainer{
-    position: absolute;
+    position: fixed;
     right: 0;
     bottom: 0;
     width: 216px;
