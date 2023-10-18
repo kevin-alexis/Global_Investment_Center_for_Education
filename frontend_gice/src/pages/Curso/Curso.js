@@ -41,7 +41,10 @@ const Curso = () => {
                 const url = window.URL.createObjectURL(blob);
                 const a = document.createElement('a');
                 a.href = url;
-                a.download = 'nombre-del-archivo.pdf';
+                let nombreArchivo = rutaDocumento;
+                let partes = nombreArchivo.split("-");
+                let nuevoNombre = partes.slice(1).join("-"); // Toma las partes desde la segunda posición y las une con "-"
+                a.download = nuevoNombre;
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);

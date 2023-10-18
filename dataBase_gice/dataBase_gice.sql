@@ -3,11 +3,11 @@ USE GICE;
 
 CREATE TABLE tipoUsuarios(
 	idTipoUsuario INT PRIMARY KEY AUTO_INCREMENT,
-    nombre VARCHAR(100)
+    rol VARCHAR(100)
 );
 
-INSERT INTO tipoUsuarios(nombre) VALUES ('admin');
-INSERT INTO tipoUsuarios(nombre) VALUES ('user');
+INSERT INTO tipoUsuarios(rol) VALUES ('admin');
+INSERT INTO tipoUsuarios(rol) VALUES ('user');
 
 CREATE TABLE usuarios(
 	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
@@ -34,3 +34,9 @@ SELECT * FROM usuarios;
 TRUNCATE TABLE usuarios;
 
 SELECT * FROM usuarios WHERE idUsuario = 2;
+
+SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.rol
+FROM usuarios
+INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
+WHERE usuarios.correoElectronico = 'Admin@gmail.com';
+
