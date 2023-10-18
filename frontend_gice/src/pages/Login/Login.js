@@ -55,6 +55,7 @@ const Login = () => {
     };
 
     useEffect(() => {
+        
         /* global google*/
         google.accounts.id.initialize({
             client_id: '990331222556-dv2o8bfq96mcir6ac91ohene0qg34v69.apps.googleusercontent.com',

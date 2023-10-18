@@ -16,10 +16,13 @@ import jwt_decode from 'jwt-decode';
 
 function AppRouter() {
 
+  if(localStorage.getItem('sesion_token')){
   const token_jwt = localStorage.getItem('sesion_token'); // Obtén el token del localStorage o del lugar donde lo estás almacenando
   const decodedToken = jwt_decode(token_jwt);
-  const userRoles = decodedToken.rol; // Esto contendrá el rol o los permisos del usuario
-
+  setUserRoles(decodedToken.rol); // Esto contendrá el rol o los permisos del usuario
+  }
+ 
+  const [userRoles, setUserRoles] = useState('');
   const [user, setUser] = useState({
     user_token: localStorage.user_token,
     permissions: [userRoles]
