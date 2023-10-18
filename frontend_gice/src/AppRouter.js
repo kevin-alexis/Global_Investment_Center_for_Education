@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import { Routes, Route } from 'react-router-dom'; // Importa Routes y Route
 import Home from './pages/Home/Home.js'
 import Divisas from './pages/Divisas/Divisas.js';
@@ -15,14 +15,11 @@ import jwt_decode from 'jwt-decode';
 
 
 function AppRouter() {
-
-  if(localStorage.getItem('sesion_token')){
   const token_jwt = localStorage.getItem('sesion_token'); // Obtén el token del localStorage o del lugar donde lo estás almacenando
-  const decodedToken = jwt_decode(token_jwt);
-  setUserRoles(decodedToken.rol); // Esto contendrá el rol o los permisos del usuario
-  }
- 
-  const [userRoles, setUserRoles] = useState('');
+  const decodedToken = token_jwt ? jwt_decode(token_jwt) : null;
+  const userRoles = decodedToken ? decodedToken.rol : null; // Esto contendrá el rol o los permisos del usuario
+
+
   const [user, setUser] = useState({
     user_token: localStorage.user_token,
     permissions: [userRoles]
