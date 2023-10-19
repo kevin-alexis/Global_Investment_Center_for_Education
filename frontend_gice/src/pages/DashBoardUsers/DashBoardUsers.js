@@ -1,22 +1,22 @@
+import DashBoardCRUD from "../../components/DashBoardCRUD/DashBoardCRUD"
 import DashHome from "../../components/DashHome/DashHome"
 import VerticalNav from "../../components/VerticalNav/VerticalNav"
-import './Dashboard.css'
 
-function Dashboard() {
+function DashboardUsers() {
     return (
         <>
             <div className="DashboardBody">
 
-                <VerticalNav />
-                
                 <div className='VerticalNavBar'>
+                    <VerticalNav />
+
                 </div>
 
-                <DashHome></DashHome>
 
+                <DashBoardCRUD titulo='Users' />
             </div>
         </>
     )
 }
 
-export default Dashboard
+export default DashboardUsers

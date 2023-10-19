@@ -12,6 +12,7 @@ import Dashboard from './pages/Dashboard/Dashboard.js';
 import DashboardCursos from './pages/DashboardCursos/DashboardCursos.js';
 import NotFound from './pages/NotFound/NotFound.js';
 import jwt_decode from 'jwt-decode';
+import DashboardUsers from './pages/DashBoardUsers/DashBoardUsers.js';
 
 
 function AppRouter() {
@@ -46,6 +47,7 @@ function AppRouter() {
         <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('admin')}/>}>
           <Route path='/dashboard' element={<Dashboard/>}/>
           <Route path='/dashboard/cursos' element={<DashboardCursos/>}/>
+          <Route path='/dashboard/users' element={<DashboardUsers/>}/>
         </Route>
 
         {/* RUTA NO ENCONTRADA */}
