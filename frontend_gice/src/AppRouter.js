@@ -47,7 +47,7 @@ function AppRouter() {
 
         {/* RUTAS PROTEGIDAS DEL ADMIN */}
         <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('admin')} />}>
-          +
+          
         </Route>
 
         <Route path='/dashboard' element={<Dashboard />} />

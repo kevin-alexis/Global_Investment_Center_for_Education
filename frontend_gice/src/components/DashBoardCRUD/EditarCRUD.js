@@ -1,9 +1,31 @@
+import { useState } from "react"
 
-function EditarCRUD({ titulo }) {
+function EditarCRUD({ titulo, data }) {
+
+    //Crear funciones en las que se guardara la informacion recopilada del formulario
+    //Estas funciones seran declaradas con UseState
+    //Es una funcion por cada apartado
+    // Funciones a crear para Cursos: titulo, descripcion, imagen, documento
+    // Funciones a crear para Usuarios : nombre, correo, contraseña
+    //Las funciones necesitaran de argumentos
+    const [info, setInfo] = useState(data)
+
 
     const CancelarAccion = () => {
         window.location.reload()
     }
+
+    if (titulo == 'Usuarios') {
+        //Llamado al back de usarios
+            
+        //contraseña vacia al momento de editar (hasheada)
+
+    } else if (titulo == 'Cursos') {
+        //Peticion get para los cursos
+        console.log(info)
+    }
+
+
 
     return (
         <>
@@ -16,9 +38,9 @@ function EditarCRUD({ titulo }) {
                             titulo == 'Cursos' ?
                                 <form>
                                     <label htmlFor="titulo">
-                                        Titulo
+                                        Titulo {/* El nombre que se le va a dar a la variable de abajo es titulo */}
                                     </label>
-                                    <input id="titulo">
+                                    <input onChange={(e)=>({...info, titulo: e.target.value})} value={info.titulo} id="titulo"> {/*La sintaxis de onChange es la misma en todas lo unico que cambia es el nombre de la variable, al igual que la de value*/}
                                     </input>
 
                                     <label htmlFor="descripcion">

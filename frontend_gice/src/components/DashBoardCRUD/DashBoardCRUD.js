@@ -7,23 +7,31 @@ import CrearCRUD from './CrearCRUD'
 
 function DashBoardCRUD({ titulo }) {
 
-    const [array, setArray] = useState([1, 2, 3, [], [], 1, 2, 3, [], []])
+    const [array, setArray] = useState([]) // cambiar para que consuma la peticion de get (aqui se guardara el array de respuesta)
     const [abrirNuevo, setAbrirNuevo] = useState(false)
     const [editarObjeto, setEditarObjeto] = useState(false)
-    const [eliminarObjeto, setEliminarObjeto] = useState(false)
+    const [object, setObject] = useState({})
+    //crear crud 
 
     if (titulo == 'Usuarios') {
         //Llamado al back de usarios
+        //la llamada que va hacer sera un metodo get
+        setArray([{titulo: ""}])
+        //contraseña vacia al momento de editar (hasheada)
+
     } else if (titulo == 'Cursos') {
         //Peticion get para los cursos
     }
 
     const FuncEliminar = () => {
+        //peticion a la api para eliminar el objeto
     }
 
-    const FuncEditar = () => {
+    const FuncEditar = (element) => {
+        setObject(element)
         setEditarObjeto(true)
         console.log(editarObjeto)
+        
     }
 
     const FuncCrear = () => {
@@ -34,7 +42,7 @@ function DashBoardCRUD({ titulo }) {
     return (
         <>
             {editarObjeto?
-                <EditarCRUD titulo ={titulo} />
+                <EditarCRUD titulo ={titulo} data = {object} />
                 :
                 ''
             }
@@ -73,17 +81,17 @@ function DashBoardCRUD({ titulo }) {
                                     <tbody>
 
                                         {
-                                            array.map((element) => {
+                                            array.map((element, index) => {
                                                 console.log(element)
                                                 return (
                                                     <tr className='DashBoardCRUDTable'>
-                                                        <td>{element}</td>
+                                                        <td>{index}</td>  
                                                         <td>Primer Curso</td>
                                                         <td>Esto es la descripcion</td>
                                                         <th>esta es la rutaDocumento</th>
                                                         <th>esta es la rutaImagen</th>
                                                         <th>8</th>
-                                                        <th><img onClick={FuncEditar} style={{cursor:'pointer'}} src={EditButton}></img></th>
+                                                        <th><img onClick={()=>FuncEditar(element)} style={{cursor:'pointer'}} src={EditButton}></img></th>
                                                         <th><img onClick={FuncEliminar} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
@@ -106,15 +114,15 @@ function DashBoardCRUD({ titulo }) {
                                     <tbody>
 
                                         {
-                                            array.map((element) => {
+                                            array.map((element, index) => {
                                                 console.log(element)
                                                 return (
                                                     <tr className='DashBoardCRUDTable'>
-                                                        <td>{element}</td>
+                                                        <td>{index}</td>
                                                         <td>Nombre</td>
                                                         <td>@gmail.com</td>
                                                         <th>****</th>
-                                                        <th><img onClick={FuncEditar} style={{cursor:'pointer'}} src={EditButton}></img></th>
+                                                        <th><img onClick={()=>FuncEditar(element)} style={{cursor:'pointer'}} src={EditButton}></img></th>
                                                         <th><img onClick={FuncEliminar} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
