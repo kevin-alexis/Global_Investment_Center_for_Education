@@ -1,4 +1,4 @@
-import React, {useState, useEffect} from 'react';
+import React, { useState, useEffect } from 'react';
 import { Routes, Route } from 'react-router-dom'; // Importa Routes y Route
 import Home from './pages/Home/Home.js'
 import Divisas from './pages/Divisas/Divisas.js';
@@ -30,32 +30,32 @@ function AppRouter() {
     <>
       <Routes>
         {/* RUTAS PUBLICAS */}
-        <Route path="/" element={<Home/>}/>
-        <Route path="/noticias" element={<Noticias/>}/>
-        <Route path="/divisas" element={<Divisas/>}/>
-        <Route path="/criptomonedas" element={<Criptomonedas/>}/>
-       
-        <Route path="/login" element={<Login/>}/>
-        <Route path="/registro" element={<Registro/>}/>
+        <Route path="/" element={<Home />} />
+        <Route path="/noticias" element={<Noticias />} />
+        <Route path="/divisas" element={<Divisas />} />
+        <Route path="/criptomonedas" element={<Criptomonedas />} />
+
+        <Route path="/login" element={<Login />} />
+        <Route path="/registro" element={<Registro />} />
 
         {/* RUTAS PROTEGIDAS DEL USUARIO */}
-        <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('user')}/>}>
-          </Route>
-
-          <Route path="/curso" element={<Curso/>}/>
-        
-
-        {/* RUTAS PROTEGIDAS DEL ADMIN */}
-        <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('admin')}/>}>
-+
+        <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('user')} />}>
+          <Route path="/curso" element={<Curso />} />
         </Route>
 
-        <Route path='/dashboard' element={<Dashboard/>}/>
-          <Route path='/dashboard/cursos' element={<DashboardCursos/>}/>
-          <Route path='/dashboard/users' element={<DashboardUsers/>}/>
+
+
+        {/* RUTAS PROTEGIDAS DEL ADMIN */}
+        <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('admin')} />}>
+          +
+        </Route>
+
+        <Route path='/dashboard' element={<Dashboard />} />
+        <Route path='/dashboard/cursos' element={<DashboardCursos />} />
+        <Route path='/dashboard/users' element={<DashboardUsers />} />
 
         {/* RUTA NO ENCONTRADA */}
-        <Route path='/*' element={<NotFound/>}/>
+        <Route path='/*' element={<NotFound />} />
       </Routes>
     </>
   );
