@@ -13,19 +13,60 @@ function DashBoardCRUD({ titulo }) {
     const [object, setObject] = useState({})
     //crear crud 
 
-    if (titulo == 'Usuarios') {
-        //Llamado al back de usarios
-        //la llamada que va hacer sera un metodo get
-        setArray([{titulo: ""}])
-        //contraseña vacia al momento de editar (hasheada)
+    // if (titulo == 'Usuarios') {
+    //     //Llamado al back de usarios
+    //     //la llamada que va hacer sera un metodo get
+    //     setArray([{titulo: ""}])
+    //     //contraseña vacia al momento de editar (hasheada)
 
-    } else if (titulo == 'Cursos') {
-        //Peticion get para los cursos
-    }
+    // } else if (titulo == 'Cursos') {
+    //     //Peticion get para los cursos
+    // }
 
-    const FuncEliminar = () => {
+const FuncEliminar = async () => {
         //peticion a la api para eliminar el objeto
+    if('Usuarios'){
+        try {
+            const URL = `http://localhost:8080/usuarios`;
+    
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            };
+    
+            const response = await fetch(URL, requestOptions);
+    
+            if (response.ok) {
+            } else {
+                console.error('Error al eliminar el objeto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar el objeto', error);
+        }
+    }else if('Cursos'){
+        try {
+            const URL = `http://localhost:8080/cursos`;
+    
+            const requestOptions = {
+                method: 'DELETE',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            };
+    
+            const response = await fetch(URL, requestOptions);
+    
+            if (response.ok) {
+            } else {
+                console.error('Error al eliminar el objeto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar el objeto', error);
+        }
     }
+}
 
     const FuncEditar = (element) => {
         setObject(element)
