@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import './DashBoardCRUD.css'
 import EditButton from '../../assets/EditButton.png'
 import DeleteButton from '../../assets/DeleteButton.png'
@@ -12,16 +12,6 @@ function DashBoardCRUD({ titulo }) {
     const [editarObjeto, setEditarObjeto] = useState(false)
     const [object, setObject] = useState({})
     //crear crud 
-
-    // if (titulo == 'Usuarios') {
-    //     //Llamado al back de usarios
-    //     //la llamada que va hacer sera un metodo get
-    //     setArray([{titulo: ""}])
-    //     //contraseña vacia al momento de editar (hasheada)
-
-    // } else if (titulo == 'Cursos') {
-    //     //Peticion get para los cursos
-    // }
 
 const FuncEliminar = async () => {
         //peticion a la api para eliminar el objeto
@@ -79,11 +69,63 @@ const FuncEliminar = async () => {
         setAbrirNuevo(true)
     }
 
+    useEffect(()=>{
+        FuncLlamar()
+    },[])
+
+
+const FuncLlamar = async () => {
+        //peticion a la api para eliminar el objeto
+    if('Usuarios'){
+        try {
+            const URL = `http://localhost:8080/usuarios`;
+    
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            };
+
+            const response = await fetch(URL, requestOptions)
+            if (response.ok) {
+            } else {
+                console.error('Error al eliminar el objeto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar el objeto', error);
+        }
+    }else if('Cursos'){
+        try {
+            const URL = `http://localhost:8080/cursos`;
+    
+            const requestOptions = {
+                method: 'GET',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+            };
+    
+            const response = await fetch(URL, requestOptions);
+    
+            if (response.ok) {
+            } else {
+                console.error('Error al eliminar el objeto');
+            }
+        } catch (error) {
+            console.error('Error al eliminar el objeto', error);
+        }
+    }
+}
+
 
     return (
         <>
             {editarObjeto?
-                <EditarCRUD titulo ={titulo} data = {object} />
+                titulo == "Users" ?
+                <></>
+                :
+                <></>
                 :
                 ''
             }
@@ -133,7 +175,7 @@ const FuncEliminar = async () => {
                                                         <th>esta es la rutaImagen</th>
                                                         <th>8</th>
                                                         <th><img onClick={()=>FuncEditar(element)} style={{cursor:'pointer'}} src={EditButton}></img></th>
-                                                        <th><img onClick={FuncEliminar} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
+                                                        <th><img onClick={()=>FuncEliminar()} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
                                             })

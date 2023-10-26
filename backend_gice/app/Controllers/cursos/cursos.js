@@ -23,7 +23,7 @@ const upload = multer({ storage: storage }).fields([
     { name: 'rutaImagen', maxCount: 1 }
 ]);
 
-export const agregarCurso = async (req, res) => {
+export const agregarCurso = async (req,file, res) => {
     try {
         upload(req, res, async function(err) {
             if (err) {
@@ -33,8 +33,11 @@ export const agregarCurso = async (req, res) => {
             }
 
             const { titulo, descripcion } = req.body;
-            const rutaDocumento = req.files['rutaDocumento'][0].filename;
-            const rutaImagen = req.files['rutaImagen'][0].filename;
+            console.log("ALGO  AQUI->",file);
+            const rutaDocumento = req.files['rutaDocumento'][0].path;
+            const rutaImagen = req.files['rutaImagen'][0].path;
+            //const rutaDocumento =  req.body.rutaDocumento;
+            //const rutaImagen =  req.body.rutaImagen;
             const numDescargas = 0;
 
             try {
