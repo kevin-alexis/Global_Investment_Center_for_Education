@@ -3,6 +3,8 @@ import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import jwt_decode from 'jwt-decode';
 import "./Registro.css"
+import Swal from 'sweetalert2';
+
 
 const Registro = () => {
 
@@ -37,31 +39,52 @@ const Registro = () => {
 
     const register = (event) => {
         event.preventDefault();
-        if(datos.contraseña === datos.confirmarContraseña){
+        if (datos.contraseña === datos.confirmarContraseña) {
             const URL = 'http://localhost:8080/usuarios';
     
-        // Fetch options
-        const requestOptions = {
-            method: 'POST',
-            headers: {
-                "Content-Type": "application/json"
-            },
-            body: JSON.stringify(datos)
-        };
+            // Fetch options
+            const requestOptions = {
+                method: 'POST',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(datos)
+            };
     
-        // Fetch request
-        fetch(URL, requestOptions)
-            .then(response => response.json())
-            .then(data => {console.log(data)})
-            .catch((error)=>{
-                console.log(error)
-                // userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
-              })
-        }else{
-            console.log(datos);
-            console.log("Las contraseñas no coinciden");
+            // Fetch request
+            fetch(URL, requestOptions)
+            .then(response => {
+                if (response.ok) {
+                    // Mostrar SweetAlert2 de éxito
+                    Swal.fire({
+                        title: 'Registro Exitoso',
+                        text: '¡Bienvenido! Tu cuenta ha sido creada exitosamente.',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.href = '/login';
+                    });
+                } else {
+                    // Si la respuesta no es exitosa, muestra una alerta de error
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ya hay una cuenta con ese correo.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                }
+            })
+        } else {
+            // Mostrar SweetAlert2 de error cuando las contraseñas no coinciden
+            Swal.fire({
+                title: 'Error',
+                text: 'Las contraseñas no coinciden. Por favor, inténtalo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
         }
-    }
+    };
+    
 
 
     return (
