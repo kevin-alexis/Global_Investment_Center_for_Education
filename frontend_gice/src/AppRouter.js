@@ -13,6 +13,8 @@ import DashboardCursos from './pages/DashboardCursos/DashboardCursos.js';
 import NotFound from './pages/NotFound/NotFound.js';
 import jwt_decode from 'jwt-decode';
 import DashboardUsers from './pages/DashBoardUsers/DashBoardUsers.js';
+import OlvideMiContraseña from './pages/OlvideMiContraseña/OlvideMiContraseña.js';
+import CambiarPassword from './pages/CambiarPassword/CambiarPassword.js';
 
 
 function AppRouter() {
@@ -37,6 +39,8 @@ function AppRouter() {
 
         <Route path="/login" element={<Login />} />
         <Route path="/registro" element={<Registro />} />
+        <Route path="/olvide-contraseña" element={<OlvideMiContraseña />} />
+        <Route path="/cambiar-password" element={<CambiarPassword />} />
 
         {/* RUTAS PROTEGIDAS DEL USUARIO */}
         <Route element={<ProtectedRoute isAllowed={!!user.user_token && user.permissions.includes('user')} />}>

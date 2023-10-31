@@ -109,7 +109,7 @@ const Login = () => {
                             <div id='userNotFound'>
 
                             </div>
-                            <a href='' className='forgotPasswordLink'>OLVIDE MI CONTRASEÑA</a>
+                            <a href='/olvide-contraseña' className='forgotPasswordLink'>OLVIDE MI CONTRASEÑA</a>
                             
                             <button type='submit' className='buttonLogin'>Iniciar Sesión</button>
                             <div style={{display:'flex', height:70+ 'px', alignItems:'center', justifyContent:'center'}}>

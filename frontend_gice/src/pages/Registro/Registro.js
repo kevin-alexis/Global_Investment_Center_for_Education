@@ -5,7 +5,7 @@ import jwt_decode from 'jwt-decode';
 import "./Registro.css"
 
 const Registro = () => {
-    
+
     function handleCallbackResponse(response) {
         console.log('Encoded JWT ID token: ' + response.credential)
         var userObject = jwt_decode(response.credential)
@@ -25,7 +25,6 @@ const Registro = () => {
         )
 
     }, [])
-
 
     const [show, setShow] = useState(false);
     const [datos, setDatos] = useState({
@@ -53,7 +52,7 @@ const Registro = () => {
         // Fetch request
         fetch(URL, requestOptions)
             .then(response => response.json())
-            .then(data => {console.log(data);})
+            .then(data => {console.log(data)})
             .catch((error)=>{
                 console.log(error)
                 // userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`

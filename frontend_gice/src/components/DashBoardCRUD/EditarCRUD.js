@@ -16,8 +16,7 @@ function EditarCRUD() {
     const [contraUsua, setContraUsua] = useState('');
 
     //Las funciones necesitaran de argumentos
-    const [info, setInfo] = useState(data)
-
+    const [info, setInfo] = useState('')
 
     const CancelarAccion = () => {
         window.location.reload()

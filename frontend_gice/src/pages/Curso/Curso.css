@@ -185,6 +185,12 @@
 
 /* MOVIL */
 @media (max-width: 767px) {
+
+    .titleCursoContainer{
+        background: linear-gradient(rgba(0, 0, 255, 0.848), black);
+    }
+
+
     .titleCurso {
         font-size: 3em;
     }

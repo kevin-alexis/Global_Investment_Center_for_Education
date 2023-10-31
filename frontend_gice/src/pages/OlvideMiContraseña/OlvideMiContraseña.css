@@ -1,0 +1,141 @@
+.OlvideMiContraseña {
+    display: flex;
+    flex-direction: column;
+}
+
+.OlvideMiContraseñaContainer {
+    z-index: 1;
+    height: 100%;
+    width: 100%;
+    padding: 0px;
+    box-sizing: border-box;
+}
+
+.imageContainer {
+    position: fixed;
+    right: 0;
+    bottom: 0;
+    width: 216px;
+    height: 904px;
+    flex-shrink: 0;
+    background-size: cover;
+    overflow: hidden;
+    background-image: url(../../assets/divisasBanner.png);
+}
+
+.titleOlvideMiContraseña {
+    color: #FFF;
+    text-align: center;
+    font-family: Russo One;
+    font-size: 96px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 75.6px;
+    letter-spacing: 0.68px;
+}
+
+.OlvideMiContraseñaFormContainer {
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 40px;
+}
+
+.IngCorreo {
+    color: white;
+    margin-bottom: 80px;
+    margin-top: 0;
+}
+
+.OlvideMiContraseñaForm {
+    color: white;
+    display: flex;
+    flex-direction: column;
+    min-width: 250px;
+    max-width: 325px;
+}
+
+.inputOlvideMiContraseña {
+    border-radius: 36px;
+    background: #000;
+    border: 1px solid white;
+    padding: 15px;
+    margin-bottom: 80px;
+    color: white;
+}
+
+.inputOlvideMiContraseña::placeholder {
+    color: white;
+}
+
+.forgotPasswordLink {
+    color: #FFF;
+    text-align: center;
+    font-family: Andada Pro;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 600;
+    line-height: 16.8px;
+    letter-spacing: 0.8px;
+    text-transform: uppercase;
+    margin-bottom: 40px;
+}
+
+.userTextNotFound {
+    font-size: xx-large;
+    color: red;
+    font-weight: bold;
+}
+
+.buttonOlvideMiContraseña,
+.buttonRegister {
+    cursor: pointer;
+    border-radius: 36px;
+    padding: 15px;
+    color: #FFF;
+    text-align: center;
+    font-family: Roboto;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 20px;
+    text-transform: uppercase;
+    margin-bottom: 10px;
+}
+
+.buttonOlvideMiContraseña {
+    background: var(--S-button, linear-gradient(99deg, #8C01FA -2.99%, #000 102.28%));
+    border: 0;
+}
+
+.buttonRegister {
+    background-color: transparent;
+    border: 1px solid var(--S-button, linear-gradient(99deg, #8C01FA -2.99%, #000 102.28%));
+}
+
+@media screen and (max-width: 768px) {
+    .titleOlvideMiContraseña {
+        font-size: 48px;
+        line-height: 1.2;
+    }
+
+    .OlvideMiContraseñaForm {
+        min-width: 200px;
+        max-width: 280px;
+    }
+
+    .inputOlvideMiContraseña {
+        margin-bottom: 40px;
+    }
+
+    .forgotPasswordLink {
+        margin-bottom: 20px;
+    }
+
+    .buttonOlvideMiContraseña,
+    .buttonRegister {
+        padding: 12px;
+    }
+}

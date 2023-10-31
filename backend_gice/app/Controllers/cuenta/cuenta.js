@@ -74,7 +74,7 @@ export const iniciarSesion = (req, res) => {
 
 export const recuperarCuenta = (req, res) => {
     const correoElectronico = req.body.correoElectronico;
-    const url = 'http://localhost:8080/cambiar-password?token='
+    const url = 'http://localhost:3000/cambiar-password?token='
     pool.query(`SELECT * FROM usuarios WHERE correoElectronico = ?`,[correoElectronico], (err, result) =>{
         if(err){
             res.status(500).send(err)
