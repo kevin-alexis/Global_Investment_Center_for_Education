@@ -67,27 +67,6 @@ const Login = () => {
             { size: 'large', shape:'pill' }
         )
 
-        // const loadGoogleScript = () => {
-        //     const script = document.createElement('script');
-        //     script.src = 'https://accounts.google.com/gsi/client';
-        //     script.async = true;
-        //     document.body.appendChild(script);
-
-        //     script.onload = () => {
-        //         google.accounts.id.initialize({
-        //             client_id: '990331222556-dv2o8bfq96mcir6ac91ohene0qg34v69.apps.googleusercontent.com',
-        //             callback: handleCallbackResponse,
-        //         });
-
-        //         google.accounts.id.renderButton(
-        //             document.getElementById('signInDiv'),
-        //             { size: 'large', shape: 'pill' }
-        //         );
-        //     };
-        // };
-
-        // loadGoogleScript();
-
     }, [])
 
     const [show, setShow] = useState(false);
