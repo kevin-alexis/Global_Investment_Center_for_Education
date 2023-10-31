@@ -1,40 +1,101 @@
 import { useState } from "react"
-//import bcrypt from "bcrypt";
 
-function EditarCRUD() {
-//Crear funciones en las que se guardara la informacion recopilada del formulario
-//Estas funciones seran declaradas con UseState
-//Es una funcion por cada apartado
-//Funciones a crear para Cursos: titulo, descripcion, imagen, documento
-    const [tituloCurs, setTituloCurs] = useState('');
-    const [desCurs, setDesCurs] = useState('');
-    const [imgCurs, setImgCurs] = useState('');
-    const [docuCurs, setDocuCurs] = useState('');
-//Funciones a crear para Usuarios : nombre, correo, contraseña
-    const [nomUsua, setNomUsua] = useState('');
-    const [correoUsua, setCorreoUsua] = useState('');
-    const [contraUsua, setContraUsua] = useState('');
+function EditarCRUD({titulo, usersOrCurso, setOpen}) {
+    const [tituloCurs, setTituloCurs] = useState(usersOrCurso?.titulo);
+    const [desCurs, setDesCurs] = useState(usersOrCurso?.descripcion);
+    const [imgCurs, setImgCurs] = useState(usersOrCurso?.rutaImagen);
+    const [docuCurs, setDocuCurs] = useState(usersOrCurso?.rutaDocumento);
 
-    //Las funciones necesitaran de argumentos
-    const [info, setInfo] = useState(data)
-    const data = ''
-    const titulo = ''
+    const [nomUsua, setNomUsua] = useState(usersOrCurso?.nombre);
+    const [correoUsua, setCorreoUsua] = useState(usersOrCurso?.correoElectronico);
+    const [contraUsua, setContraUsua] = useState(usersOrCurso?.pass);
+
+    const editar = async () => {
+        if (titulo == 'Users') {
+
+            const URL = 'http://localhost:8080/usuarios';
+
+            const objectUsuario = { 
+                nombre: nomUsua, 
+                correoElectronico: correoUsua, 
+                pass: contraUsua, 
+                idUsuario: usersOrCurso.idUsuario};
+
+            const requestOptionsAgregar = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+
+                body: JSON.stringify(objectUsuario)
+            };
+
+            
+            await fetch(URL, requestOptionsAgregar)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data);
+                    console.log("agregado");
+                    setOpen(false)
+                })
+                .catch (error => { 
+                    console.log(error);
+                    console.log("error");
+                })
+
+        } else if (titulo == 'Cursos') {
+            //console.log(titulo);
+            const URL = 'http://localhost:8080/cursos';
+            console.log(tituloCurs, desCurs, docuCurs, imgCurs, usersOrCurso.idCurso);
+
+            const data = {
+                titulo: tituloCurs,
+                descripcion: desCurs,
+                rutaImagen: imgCurs,
+                rutaDocumento: docuCurs,
+                idCurso: usersOrCurso.idCurso
+            }
+
+            const formDataUno = new FormData();
+            //console.log("entre a curso");
+            formDataUno.append("titulos", tituloCurs)
+            //formDataUno.append("descripcion", desCurs)
+            //formDataUno.append("rutaDocumento", docuCurs)
+            //formDataUno.append("rutaImagen", imgCurs)
+            //formDataUno.append("idCurso", usersOrCurso?.idCurso)
+
+            console.log(data);
+            const requestOptionsModificar = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            };
+
+            fetch(URL, requestOptionsModificar)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data)
+                    console.log("agregado")
+                    setOpen(false)
+                })
+                .catch((error) => {
+                    console.log(error)
+                })
+        }
+
+    }
+
+    const editarUsuario = async (e) => {
+        e.preventDefault();
+        await editar();
+    }
 
 
     const CancelarAccion = () => {
-        window.location.reload()
+        setOpen(false)
     }
-
-    if (titulo == 'Usuarios') {
-        //Llamado al back de usarios
-        //contraseña vacia al momento de editar (hasheada)
-
-
-    } else if (titulo == 'Cursos') {
-        //Peticion get para los cursos
-        console.log(info)
-    }
-
 
 
     return (
@@ -46,61 +107,67 @@ function EditarCRUD() {
                         <h2>Editar {titulo}</h2>
                         {
                             titulo == 'Cursos' ?
-                                <form>
+                           
+                                <form onSubmit={editarUsuario}>
                                     <label htmlFor="titulo">
-                                        Titulo {/* El nombre que se le va a dar a la variable de abajo es titulo */}
+                                        Titulo 
                                     </label>
                                     <input
-                                    onChange={(e)=>({...info, titulo: e.target.value})} value={info.titulo} id="titulo"> {/*La sintaxis de onChange es la misma en todas lo unico que cambia es el nombre de la variable, al igual que la de value*/}
+                                        onChange={(e) => setTituloCurs(e.target.value)} value={tituloCurs} id="titulo"> 
                                     </input>
 
                                     <label htmlFor="descripcion">
                                         Descripcion
                                     </label>
                                     <input
-                                    onChange={(e)=>({...info, descripcion: e.target.value})} value={info.descripcion} id="descripcion">
+                                        onChange={(e)=>setDesCurs(e.target.value)} value={desCurs} id="descripcion">
                                     </input>
 
                                     <label htmlFor="imagen">
                                         Imagen
                                     </label>
+                                    <span>Actualmente : {imgCurs}</span>
                                     <input
-                                    onChange={(e)=>({...info, imagen: e.target.value})} value={info.info} id="imagen">
+                                        id="imagen" onChange={(e)=>setImgCurs(e.target.value)} type="file">
                                     </input>
+
 
                                     <label htmlFor="documento">
                                         Documento
                                     </label>
+                                    <span>Actualmente : {docuCurs}</span>
                                     <input
-                                    onChange={(e)=>({...info, documento: e.target.value})} value={info.documento} id="documento">
+                                        id="documento" onChange={(e)=>setDocuCurs(e.target.value)} type="file" >
                                     </input>
 
                                 </form>
-                                :
-                                <form>
+                                : 
+                                <form onSubmit={editarUsuario}>
                                     <label htmlFor="nombre">
                                         Nombre
                                     </label>
-                                    <input id="nombre">
+                                    <input 
+                                        onChange={(e) => setNomUsua(e.target.value)} value={nomUsua} id="nombre">
                                     </input>
 
                                     <label htmlFor="correo">
                                         Correo Electronico
                                     </label>
-                                    <input id="correo">
+                                    <input 
+                                        onChange={(e) => setCorreoUsua(e.target.value)} value={correoUsua} id="correo">
                                     </input>
                                     <label htmlFor="contraseña">
                                         Contraseña
                                     </label>
-                                    <input id="contraseña">
+                                    <input 
+                                        type="password" onChange={(e) => setContraUsua(e.target.value)} value={contraUsua} id="password">
                                     </input>
-
 
                                 </form>
                         }
                         <div className="EditCrearBotones">
-                            <button> Editar</button>
-                            <button onClick={CancelarAccion}>Cancelar</button>
+                            <button className="crear" type="submit" onClick={editarUsuario}> Editar</button>
+                            <button id="cancelar" onClick={CancelarAccion}>Cancelar</button>
                         </div>
                     </div>
 

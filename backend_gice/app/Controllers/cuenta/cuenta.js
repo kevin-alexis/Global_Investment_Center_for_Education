@@ -38,8 +38,7 @@ const secretKey = 'your-secret-key'; // Reemplázalo con tu clave secreta segura
 export const iniciarSesion = (req, res) => {  
     const { correoElectronico, contraseña } = req.body;
     const plainPassword = contraseña;
-
-    pool.query(`SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.rol
+    pool.query(`SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.pass, usuarios.token, tipoUsuarios.rol
     FROM usuarios
     INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
     WHERE usuarios.correoElectronico = ?`, [correoElectronico], async (err, result) => {
@@ -47,7 +46,7 @@ export const iniciarSesion = (req, res) => {
             res.status(500).send(err);
         } else {
             if (result.length > 0) {
-                const hashedPassword = result[0].contraseña;
+                const hashedPassword = result[0].pass;
                 try {
                     const match = await checkPassword(plainPassword, hashedPassword);
                     if (match) {

@@ -1,8 +1,8 @@
 import {Router} from 'express';
-import {actualizarCurso, agregarCurso, eliminarCurso, obtenerCursos, descargarCurso, obtenerImagen, actualizarCursoDescarga} from "../Controllers/cursos/cursos.js"
+import {actualizarCurso, agregarCurso, eliminarCurso, obtenerCursos, descargarCurso, obtenerImagen, actualizarCursoDescarga, upload, actualiCurso} from "../Controllers/cursos/cursos.js"
 const router = Router()
 
-router.post('/cursos', agregarCurso);
+router.post('/cursos', upload.single("docu"), agregarCurso);
 router.get('/cursos', obtenerCursos);
 router.put('/cursos', actualizarCurso);
 router.delete('/cursos', eliminarCurso);

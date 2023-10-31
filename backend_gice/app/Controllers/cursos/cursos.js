@@ -11,31 +11,36 @@ const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
     destination: function(req, file, cb) {
-        cb(null, 'uploads');
+        console.log(file, "jkjkjkjk");
+        cb(null, './uploads');
     },
     filename: function(req, file, cb) {
+        console.log(file, "xxxxxx"); 
         cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
 
-const upload = multer({ storage: storage }).fields([
+export const upload = multer({ storage: storage })/*.fields([
     { name: 'rutaDocumento', maxCount: 1 },
     { name: 'rutaImagen', maxCount: 1 }
-]);
+]);*/
 
-export const agregarCurso = async (req,file, res) => {
+export const agregarCurso = async (req, res) => {
     try {
-        upload(req, res, async function(err) {
-            if (err) {
+        //upload(req, res, async function(err) {
+            /*if (err) {
                 // Manejar errores de Multer
                 console.log(err);
                 return res.status(500).send("Error al subir el archivo");
-            }
+            }*/
 
-            const { titulo, descripcion } = req.body;
-            console.log("ALGO  AQUI->",file);
-            const rutaDocumento = req.files['rutaDocumento'][0].path;
-            const rutaImagen = req.files['rutaImagen'][0].path;
+            const { titulo, descripcion, rutaDocumento, rutaImagen } = req.body;
+            console.log(titulo, descripcion);
+            console.log("ALGO  AQUI->",req.body);
+            //const rutaDocumento = req.files['rutaDocumento'][0].path;
+            //const rutaImagen = req.files['rutaImagen'][0].path;
+            //console.log(res);
+            //return res.status(200)
             //const rutaDocumento =  req.body.rutaDocumento;
             //const rutaImagen =  req.body.rutaImagen;
             const numDescargas = 0;
@@ -44,13 +49,14 @@ export const agregarCurso = async (req,file, res) => {
                 const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas) VALUES (?, ?, ?, ?, ?)',
                     [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas]);
 
-                console.log(result);
-                res.send("Curso agregado correctamente");
+                //console.log(result);
+                res.status(200).json({mensaje: "Curso agregado correctamente"});
             } catch (error) {
                 console.log(error);
                 res.status(500).send("Error al añadir curso a la base de datos");
             }
-        });
+        //}
+        //);
     } catch (error) {
         console.log(error);
         res.status(500).send("Error interno del servidor");
@@ -78,11 +84,18 @@ export const obtenerCursos = (req, res) => {
     })
 };
 
+export const actualiCurso = (req, res) => {
+    console.log(req.body);
+    res.status(200).send({mensaje: "no perder mensaje"})
+}
 export const actualizarCurso = (req, res) => {
-    upload(req, res, async function(err) {
-        const rutaDocumentoNueva = req.files['rutaDocumento'][0].filename;
-        const rutaImagenNueva = req.files['rutaImagen'][0].filename;
-        const { idCurso, titulo, descripcion } = req.body;
+    //upload(req, res, async function(err) {
+        //const rutaDocumentoNueva = req.files['rutaDocumento'][0].filename;
+        //const rutaImagenNueva = req.files['rutaImagen'][0].filename;
+        const { idCurso, titulo, descripcion, rutaImagen, rutaDocumento } = req.body;
+        console.log("req solo",req)
+        console.log("mensaje de prueba",req.body);
+        if(!idCurso||!titulo||!descripcion||!rutaImagen||!rutaDocumento) return res.status(400).send({mensaje : "es necesario la siguientes propiedades idCurso, titulo, descripcion, rutaImagen, rutaDocumento"}) 
         // Obtener rutas de documentos e imágenes actuales del curso
         pool.query('SELECT rutaDocumento, rutaImagen FROM cursos WHERE idCurso = ?', [idCurso], (err, result) => {
             if (err) {
@@ -92,7 +105,7 @@ export const actualizarCurso = (req, res) => {
                 const rutaImagenAntigua = result[0].rutaImagen;
 
                 // Eliminar archivos antiguos del servidor
-                fs.unlink(`uploads/${rutaDocumentoAntigua}`, (err) => {
+                /*fs.unlink(`uploads/${rutaDocumentoAntigua}`, (err) => {
                     if (err) {
                         console.error("Error al eliminar archivo de documento antiguo:", err);
                     } else {
@@ -106,17 +119,17 @@ export const actualizarCurso = (req, res) => {
                     } else {
                         console.log("Archivo de imagen antiguo eliminado con éxito");
                     }
-                });
+                });*/
 
                 // Actualizar la base de datos con las nuevas rutas de archivos
                 pool.query('UPDATE cursos SET titulo=?, descripcion=?, rutaDocumento=?, rutaImagen=? WHERE idCurso=?',
-                    [titulo, descripcion, rutaDocumentoNueva, rutaImagenNueva, idCurso],
+                    [titulo, descripcion, rutaDocumento, rutaImagen, idCurso],
                     (err, result) => {
                         if (err) {
                             res.status(500).send(err);
                         } else {
                             if (result.affectedRows > 0) {
-                                res.status(200).send("Curso modificado correctamente");
+                                res.status(200).send({mensaje: "Curso modificado correctamente"});
                             } else {
                                 res.status(400).send('Curso no existente');
                             }
@@ -124,7 +137,7 @@ export const actualizarCurso = (req, res) => {
                     });
             }
         });
-    })
+    
 };
 
 export const eliminarCurso = (req, res) => {

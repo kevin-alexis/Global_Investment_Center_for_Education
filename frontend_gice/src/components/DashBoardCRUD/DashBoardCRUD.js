@@ -6,63 +6,63 @@ import EditarCRUD from './EditarCRUD'
 import CrearCRUD from './CrearCRUD'
 
 function DashBoardCRUD({ titulo }) {
-
-    const [array, setArray] = useState([]) // cambiar para que consuma la peticion de get (aqui se guardara el array de respuesta)
+    const [cursos, setCursos] = useState([])
     const [abrirNuevo, setAbrirNuevo] = useState(false)
-    const [editarObjeto, setEditarObjeto] = useState(false)
-    const [object, setObject] = useState({})
-    //crear crud 
+    const [mostarFormEditar, setMostarFormEditar] = useState(false)
+    const [users, setUsers] = useState([])
+    const [usersOrCurso, setUsersOrCurso] = useState({})
 
-const FuncEliminar = async () => {
-        //peticion a la api para eliminar el objeto
-    if('Usuarios'){
-        try {
-            const URL = `http://localhost:8080/usuarios`;
+
+    const FuncEliminar = async (id) => {
+        //console.log(idUsuario);
     
-            const requestOptions = {
+            const requestOptionsEliminar = {
                 method: 'DELETE',
                 headers: {
-                    "Content-Type": "application/json"
+                     "Content-Type": "application/json"
                 },
-            };
+                body: titulo == 'Users' ? JSON.stringify({idUsuario: id}) : JSON.stringify({idCurso: id})
+            
+        };
+        if (titulo == 'Users') {
+            //let object = { nombre: nomUsua, correoElectronico: correoUsua, pass: contraUsua, idTipoUsuarioId: 2 }
+            const URL = `http://localhost:8080/usuarios`;
+            
     
-            const response = await fetch(URL, requestOptions);
-    
-            if (response.ok) {
-            } else {
-                console.error('Error al eliminar el objeto');
+            try {
+                const response = await fetch(URL, requestOptionsEliminar);
+                console.log("mensaje",response)
+
+                if (response.ok) {
+                    console.log('Usuario eliminado con éxito');
+                    FuncLlamar();
+                } else {
+                    console.error('Error al eliminar el usuario');
+                }
+            } catch (error) {
+                console.error('Error al eliminar', error);
             }
-        } catch (error) {
-            console.error('Error al eliminar el objeto', error);
-        }
-    }else if('Cursos'){
-        try {
+        } else if (titulo == 'Cursos') {
+    
             const URL = `http://localhost:8080/cursos`;
     
-            const requestOptions = {
-                method: 'DELETE',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-            };
-    
-            const response = await fetch(URL, requestOptions);
-    
-            if (response.ok) {
-            } else {
-                console.error('Error al eliminar el objeto');
+            try {
+                const response = await fetch(URL, requestOptionsEliminar);
+                if (response.ok) {
+                    console.log('Curso eliminado con éxito');
+                    FuncLlamar();
+                } else {
+                    console.error('Error al eliminar el curso');
+                }
+            } catch (error) {
+                console.error('Error al eliminar el curso', error);
             }
-        } catch (error) {
-            console.error('Error al eliminar el objeto', error);
         }
-    }
-}
+    };
 
     const FuncEditar = (element) => {
-        setObject(element)
-        setEditarObjeto(true)
-        console.log(editarObjeto)
-        
+        setUsersOrCurso(element)
+        setMostarFormEditar(true)
     }
 
     const FuncCrear = () => {
@@ -71,12 +71,11 @@ const FuncEliminar = async () => {
 
     useEffect(()=>{
         FuncLlamar()
-    },[])
+    },[mostarFormEditar])
 
 
 const FuncLlamar = async () => {
-        //peticion a la api para eliminar el objeto
-    if('Usuarios'){
+    if(titulo == 'Users'){
         try {
             const URL = `http://localhost:8080/usuarios`;
     
@@ -88,6 +87,8 @@ const FuncLlamar = async () => {
             };
 
             const response = await fetch(URL, requestOptions)
+            const listadoUsers = await response.json()
+            setUsers(listadoUsers)  
             if (response.ok) {
             } else {
                 console.error('Error al eliminar el objeto');
@@ -95,7 +96,7 @@ const FuncLlamar = async () => {
         } catch (error) {
             console.error('Error al eliminar el objeto', error);
         }
-    }else if('Cursos'){
+    }else if(titulo == 'Cursos'){
         try {
             const URL = `http://localhost:8080/cursos`;
     
@@ -109,6 +110,8 @@ const FuncLlamar = async () => {
             const response = await fetch(URL, requestOptions);
     
             if (response.ok) {
+            const listadoCursos = await response.json()
+            setCursos(listadoCursos) 
             } else {
                 console.error('Error al eliminar el objeto');
             }
@@ -121,18 +124,17 @@ const FuncLlamar = async () => {
 
     return (
         <>
-            {editarObjeto?
-                titulo == "Users" ?
-                <></>
-                :
-                <></>
+            {mostarFormEditar
+                ?
+                <EditarCRUD titulo = {titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar}/>
                 :
                 ''
+
             }
             
             {abrirNuevo
                 ?
-                <CrearCRUD titulo ={titulo} />
+                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar}/>
                 :
                 ''
             }
@@ -143,7 +145,7 @@ const FuncLlamar = async () => {
                     <div className='DashBoardCRUDBorder'>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
                             <h2 className='DashBoardCRUDTittle' style={{ fontSize: 32 + 'px' }}>{titulo}</h2>
-                            <h3 style={{ cursor:'pointer'}} onClick={FuncCrear}>Nuevo_{titulo}...</h3>
+                            <h3 style={{ cursor:'pointer'}} onClick={FuncCrear}>Nuevo {titulo}</h3>
                         </div>
                         <div className='TableDashboard'>
 
@@ -164,18 +166,18 @@ const FuncLlamar = async () => {
                                     <tbody>
 
                                         {
-                                            array.map((element, index) => {
-                                                console.log(element)
+                                            cursos?.map((curso, index) => {
+                                                
                                                 return (
-                                                    <tr className='DashBoardCRUDTable'>
+                                                    <tr key={curso.idCurso} className='DashBoardCRUDTable'>
                                                         <td>{index}</td>  
-                                                        <td>Primer Curso</td>
-                                                        <td>Esto es la descripcion</td>
-                                                        <th>esta es la rutaDocumento</th>
-                                                        <th>esta es la rutaImagen</th>
-                                                        <th>8</th>
-                                                        <th><img onClick={()=>FuncEditar(element)} style={{cursor:'pointer'}} src={EditButton}></img></th>
-                                                        <th><img onClick={()=>FuncEliminar()} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
+                                                        <td>{curso.titulo}</td>
+                                                        <td>{curso.descripcion}</td>
+                                                        <th>{curso.rutaDocumento}</th>
+                                                        <th>{curso.rutaImagen}</th>
+                                                        <th>{curso.numDescargas}</th>
+                                                        <th><img onClick={()=>FuncEditar(curso)} style={{cursor:'pointer'}} src={EditButton}></img></th>
+                                                        <th><img onClick={()=>FuncEliminar(curso.idCurso)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
                                             })
@@ -197,21 +199,21 @@ const FuncLlamar = async () => {
                                     <tbody>
 
                                         {
-                                            array.map((element, index) => {
-                                                console.log(element)
+                                            users?.map((user, index) => {    //el ? significa que solo muestre datos si users tiene algo
+                                               
                                                 return (
-                                                    <tr className='DashBoardCRUDTable'>
+                                                    <tr key={user.idUsuario}className='DashBoardCRUDTable'>
                                                         <td>{index}</td>
-                                                        <td>Nombre</td>
-                                                        <td>@gmail.com</td>
-                                                        <th>****</th>
-                                                        <th><img onClick={()=>FuncEditar(element)} style={{cursor:'pointer'}} src={EditButton}></img></th>
-                                                        <th><img onClick={FuncEliminar} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
+                                                        <td>{user.nombre}</td>
+                                                        <td>{user.correoElectronico}</td>
+                                                        <th>*****</th>
+                                                        <th><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></th>
+                                                        <th><img onClick={()=>FuncEliminar(user.idUsuario)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
                                             })
                                         }
-                                    </tbody>
+                                    </tbody>    
                                 </table>
                             }
                         </div>

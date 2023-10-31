@@ -2,7 +2,7 @@ import pool from "../../config/MySQL/database.js";
 import crypto from "crypto"; // Librería para generar tokens aleatorios
 import bcrypt from "bcrypt"; // Librería para encriptar contraseñas
 
-// Función para hashear la contraseña con salt y key stretching
+// Función para hashear la pass con salt y key stretching
 async function hashPassword(password) {
   const saltRounds = 12; 
 // ? Número de rondas de key stretching - hacerlo lento, contrataca el ataques de fuerza bruta y diccionario. 
@@ -14,7 +14,7 @@ async function hashPassword(password) {
   return hashedPassword;
 }
 
-// Función para verificar la contraseña
+// Función para verificar la pass
 async function checkPassword(inputPassword, hashedPassword) {
   try {
       const passwordMatch = await bcrypt.compare(inputPassword, hashedPassword);
@@ -33,32 +33,34 @@ export const agregarUsuario = async (req, res) => {
 
    try{
 
-    const { nombre, correoElectronico, contraseña, idTipoUsuarioId } = req.body;
+    const { nombre, correoElectronico, pass, idTipoUsuarioId } = req.body;
+    console.log("prueba",req.body);
 
     pool.query("SELECT correoElectronico FROM usuarios WHERE correoElectronico = ?",[correoElectronico], async (err, result) => {
       console.log(result);
       if(result.length > 0) {
-        return res.status(400).send("El correo electrónico ya está registrado")
+        return res.status(400).send({mensaje: "El correo electrónico ya está registrado"})
       }else{
-        const hashedPassword = await hashPassword(contraseña);
+        const hashedPassword = await hashPassword(pass);
         const token = generateToken();
         const result = await pool.query(
-          "INSERT INTO usuarios(nombre, correoElectronico, contraseña, token, idTipoUsuarioId) VALUES (?, ?, ?, ?, ?)",
+          "INSERT INTO usuarios(nombre, correoElectronico, pass, token, idTipoUsuarioId) VALUES (?, ?, ?, ?, ?)",
           [nombre, correoElectronico, hashedPassword, token, idTipoUsuarioId]
         );
         console.log(result);
-        res.send("Usuario creado");
+        res.send({mensaje: "creado"});
       } 
 
     });
 
   } catch (error) {
     console.log(error);
-    res.satus(500).send("Error al crear usuario");
+    res.status(500).send("Error al crear usuario");
   }
 };
 
 export const obtenerUsuarios = (req, res) => {
+  console.log("prueba");
   pool.query(`SELECT * FROM usuarios`, (err, result) => {
     if (err) {
       res.status(500).send(err);
@@ -74,23 +76,23 @@ export const obtenerUsuarios = (req, res) => {
 
 export const actualizarUsuario = async (req, res) => {
   try {
-    const { idUsuario, nombre, correoElectronico, contraseña, idTipoUsuarioId } = req.body;
+    const { idUsuario, nombre, correoElectronico, pass /*idTipoUsuarioId*/ } = req.body;
     pool.query('SELECT * FROM usuarios WHERE idUsuario = ?', [idUsuario], async (err, result) =>{
       if (result.length === 0) {
         res.status(404).json({ error: "Usuario no encontrado" });
         return;
       }  
-      const contraseñaCoincidePlano = await checkPassword(contraseña, result[0].contraseña);
-      const contraseñaCoincideHash = (contraseña === result[0].contraseña);
-      let hashedPassword = result[0].contraseña;
+      const contraseñaCoincidePlano = await checkPassword(pass, result[0].pass);
+      const contraseñaCoincideHash = (pass === result[0].pass);
+      let hashedPassword = result[0].pass;
   
       if (!contraseñaCoincidePlano && !contraseñaCoincideHash) {
-        hashedPassword = await hashPassword(contraseña);
+        hashedPassword = await hashPassword(pass);
       }
   
       await pool.query(
-        `UPDATE usuarios SET nombre = ?, correoElectronico = ?, contraseña = ?, idTipoUsuarioId = ? WHERE idUsuario = ?`,
-        [nombre, correoElectronico, hashedPassword, idTipoUsuarioId, idUsuario]
+        `UPDATE usuarios SET nombre = ?, correoElectronico = ?, pass = ? WHERE idUsuario = ?`,
+        [nombre, correoElectronico, hashedPassword, /*idTipoUsuarioId,*/ idUsuario]
       );
   
       res.json({ message: "Usuario modificado" });
@@ -104,7 +106,10 @@ export const actualizarUsuario = async (req, res) => {
 };
 
 export const eliminarUsuario = (req, res) => {
+  console.log("eliminarUsuario")
   const { idUsuario } = req.body;
+  console.log(idUsuario)
+  if(!idUsuario) return res.status(400).send("id de usuario requerido")
   pool.query(
     `DELETE FROM usuarios WHERE idUsuario = ?;`,
     [idUsuario],
@@ -113,9 +118,9 @@ export const eliminarUsuario = (req, res) => {
         res.status(500).send(err);
       } else {
         if (result) {
-          res.status(200).send("Usuario eliminado con exito");
+          res.status(200).send({mensaje: "Usuario eliminado con exito"});
         } else {
-          res.status(400).send("Usuario no existente");
+          res.status(404).send("Usuario no existente");
         }
       }
     }
