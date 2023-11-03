@@ -58,6 +58,23 @@ export const agregarUsuario = async (req, res) => {
   }
 };
 
+export const agregarUsuarioGoogle = async (req, res) => {
+  try {
+    const { nombre, correoElectronico, token, idTipoUsuarioId } = req.body;
+    const result = await pool.query(
+      "INSERT INTO usuariosGoogle(nombre, correoElectronico, token, idTipoUsuarioId) VALUES (?, ?, ?, ?)",
+      [nombre, correoElectronico, token, idTipoUsuarioId]
+    );
+    console.log(result);
+    res.send("Usuario creado");
+  } catch (error) {
+    console.log(error);
+    res.status(500).send("Error al crear usuario");
+  }
+
+}
+
+
 export const obtenerUsuarios = (req, res) => {
   pool.query(`SELECT * FROM usuarios`, (err, result) => {
     if (err) {

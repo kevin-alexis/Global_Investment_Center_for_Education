@@ -30,6 +30,12 @@ CREATE TABLE cursos(
 
 SELECT * FROM cursos;
 SELECT * FROM usuarios;
+SELECT * FROM tipoUsuarios;
+
+SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.nombre
+FROM usuarios
+INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
+WHERE usuarios.correoElectronico = 'kevinbello7u7@gmail.com';
 
 TRUNCATE TABLE usuarios;
 

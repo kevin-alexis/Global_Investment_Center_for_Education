@@ -126,6 +126,23 @@ a {
     margin-left: auto;
 }
 
+.logOutButton{
+    cursor: pointer;
+    color: #FFF;
+    text-align: center;
+    font-family: Andada Pro;
+    font-size: 15px;
+    font-style: normal;
+    font-weight: 400;
+    line-height: 27.3px;
+    border-radius: 15px;
+    border: 1px solid #A962FF;
+    background: #111;
+    width: fit-content;
+    padding: 5px 20px;
+    align-self: center;
+}
+
 /* Media queries para la responsividad */
 @media (max-width: 780px) {
     .navbar-mobileContainer {

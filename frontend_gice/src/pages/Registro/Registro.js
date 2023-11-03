@@ -8,11 +8,63 @@ import Swal from 'sweetalert2';
 
 const Registro = () => {
 
+    const [googleData, setGoogleData] = useState({
+        nombre: '',
+        correoElectronico:'',
+        token: '',
+        idTipoUsuarioId: 2
+    })
+
     function handleCallbackResponse(response) {
         console.log('Encoded JWT ID token: ' + response.credential)
-        var userObject = jwt_decode(response.credential)
+        let userObject = jwt_decode(response.credential)
         console.log(jwt_decode(response.credential))
+        setGoogleData({ 
+            nombre: userObject.name,
+            correoElectronico: userObject.email,
+            token: userObject.sub
+        })
+
+        console.log(googleData);
+
+
+        // const URL = 'http://localhost:8080/usuarios-google';
+
+        // // Fetch options
+        // const requestOptions = {
+        //     method: 'POST',
+        //     headers: {
+        //         "Content-Type": "application/json"
+        //     },
+        //     body: JSON.stringify(googleData)
+        // };
+
+        // // Fetch request
+        // fetch(URL, requestOptions)
+        // .then(response => {
+        //     if (response.ok) {
+        //         // Mostrar SweetAlert2 de éxito
+        //         Swal.fire({
+        //             title: 'Registro Exitoso',
+        //             text: '¡Bienvenido! Tu cuenta ha sido creada exitosamente.',
+        //             icon: 'success',
+        //             confirmButtonText: 'OK'
+        //         }).then(() => {
+        //             window.location.href = '/login';
+        //         });
+        //     } else {
+        //         // Si la respuesta no es exitosa, muestra una alerta de error
+        //         Swal.fire({
+        //             title: 'Error',
+        //             text: 'Ya hay una cuenta con ese correo.',
+        //             icon: 'error',
+        //             confirmButtonText: 'OK'
+        //         });
+        //     }
+        // })
+        
     }
+
 
     useEffect(() => {
         /* global google*/
@@ -36,6 +88,8 @@ const Registro = () => {
         confirmarContraseña: '',
         idTipoUsuarioId: 2
     });
+
+    
 
     const register = (event) => {
         event.preventDefault();

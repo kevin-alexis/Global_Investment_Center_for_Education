@@ -11,19 +11,10 @@ const Login = () => {
         correoElectronico:'',
         contraseña: ''
     })
-    
-
-    function handleCallbackResponse(response) {
-        console.log('Encoded JWT ID token: ' + response.credential)
-        var userObject = jwt_decode(response.credential)
-        console.log(jwt_decode(response.credential))
-    }
 
     const iniciarSesion = (e) => {
         e.preventDefault();
         const URL = 'http://localhost:8080/iniciar-sesion';
-    
-        // Fetch options
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -39,20 +30,27 @@ const Login = () => {
             .then(response => response.json())
             .then(data => {
                 // console.log(data.user[0].token);
-            localStorage.setItem('auth', "yes")
-            localStorage.setItem('sesion_token', data.token)
-            localStorage.setItem('user_token', data.user[0].token)
-            if(data.user[0].rol=='user'){ // USUARIO
-                window.location.href = '/';
-              }else if(data.user[0].rol=='admin'){ //ADMIN
-                window.location.href = '/dashboard';
-              }
+                localStorage.setItem('auth', "yes")
+                localStorage.setItem('sesion_token', data.token)
+                localStorage.setItem('user_token', data.user[0].token)
+                if(data.user[0].rol=='user'){ // USUARIO
+                    window.location.href = '/';
+                }else if(data.user[0].rol=='admin'){ //ADMIN
+                    window.location.href = '/dashboard';
+                }
             })
             .catch((error)=>{
                 console.log(error)
                 userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
-              })
+            })
     };
+
+    // Google Login 
+    function handleCallbackResponse(response) {
+        console.log('Encoded JWT ID token: ' + response.credential)
+        var userObject = jwt_decode(response.credential)
+        console.log(jwt_decode(response.credential))
+    }
 
     useEffect(() => {
         

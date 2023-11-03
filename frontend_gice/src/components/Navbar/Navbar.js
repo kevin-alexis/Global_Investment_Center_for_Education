@@ -1,4 +1,4 @@
-import React, {useState} from 'react';
+import React, {useEffect, useState} from 'react';
 import { Link } from 'react-router-dom';
 import './Navbar.css'
 import loginIcon from "../../assets/loginIcon.png"
@@ -10,6 +10,14 @@ const Navbar = ({setShow, show}) => {
     function showHamburger() {
         setShow(!show)
     }
+
+    const [isLoged, setIsLoged] = useState(false)
+
+    useEffect(()=>{
+        if(localStorage.auth){
+            setIsLoged(true)
+        }
+    },[localStorage])
 
     return (
         <nav>
@@ -45,11 +53,17 @@ const Navbar = ({setShow, show}) => {
                     </div>
                     <div className='rightNavbar'>
                         <ul>
-                            <li>
-                                <Link to="/login" className='loginLinK'>
-                                    <img src={loginIcon} className='loginIcon'></img>
-                                </Link>
-                            </li>
+                        {
+                            isLoged?
+                            <Link to="/login" className='loginLinK'>
+                                <button className='logOutButton' onClick={()=>localStorage.clear()}>LOG OUT</button>
+                            </Link>
+                            
+                            :
+                            <Link to="/login" className='loginLinK'>
+                                <img src={loginIcon} className='loginIcon'></img>
+                            </Link>
+                            }
                         </ul>
                     </div>
                 </div>
@@ -79,9 +93,17 @@ const Navbar = ({setShow, show}) => {
                             </>
 
                         <li>
-                            <Link to="/login" className='loginLinK'>
-                                <img src={loginIcon} className='loginIcon'></img>
-                            </Link>
+                            {
+                                isLoged?
+                                <Link to="/login" className='loginLinK'>
+                                    <button className='logOutButton' onClick={()=>localStorage.clear()}>LOG OUT</button>
+                                </Link>
+                                :
+                                <Link to="/login" className='loginLinK'>
+                                    <img src={loginIcon} className='loginIcon'></img>
+                                </Link>
+                            }
+                            
                         </li>
                     </ul>
                 </div>

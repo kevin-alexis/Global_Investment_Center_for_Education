@@ -38,7 +38,6 @@ const secretKey = 'your-secret-key'; // Reemplázalo con tu clave secreta segura
 export const iniciarSesion = (req, res) => {  
     const { correoElectronico, contraseña } = req.body;
     const plainPassword = contraseña;
-
     pool.query(`SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.rol
     FROM usuarios
     INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
@@ -68,6 +67,12 @@ export const iniciarSesion = (req, res) => {
         }
     });
 };
+
+
+// export const iniciarSesionGoogle = (req, res) => {
+//     const { nombre, correoElectronico, token } = req.body;
+    
+// }
 
 
 // ! RECUPERAR CONTRASEÑA - SE LE  ENVIA POR CORREO UN LINK CON UN TOKEN PARA CAMBIAR SU CONTRA
