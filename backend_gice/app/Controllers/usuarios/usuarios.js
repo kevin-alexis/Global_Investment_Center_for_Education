@@ -155,3 +155,20 @@ export const obtenerCantidadUsuarios = (req, res) => {
     }
   );
 };
+
+export const obtenerCantidadUsuariosGoogle = (req, res) => {
+  pool.query(
+    `SELECT * FROM usuariosGoogle;`,
+    (err, result) => {
+      if (err) {
+        res.status(500).send(err);
+      } else {
+        if (result) {
+          res.status(200).json(result.length);
+        } else {
+          res.status(400).send("Usuario no existente");
+        }
+      }
+    }
+  );
+};

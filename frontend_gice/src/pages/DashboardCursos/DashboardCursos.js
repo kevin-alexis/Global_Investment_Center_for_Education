@@ -11,9 +11,6 @@ function DashboardCursos() {
         <>
         
             <div className="DashboardBody">
-                <div className='VerticalNavBar'>
-                </div>
-
                 <VerticalNav />
 
                 <DashBoardCRUD titulo={'Cursos'}></DashBoardCRUD>

@@ -6,12 +6,7 @@ function DashboardUsers() {
     return (
         <>
             <div className="DashboardBody">
-
-                <div className='VerticalNavBar'>
-                    <VerticalNav />
-
-                </div>
-
+                <VerticalNav />
 
                 <DashBoardCRUD titulo='Users' />
             </div>

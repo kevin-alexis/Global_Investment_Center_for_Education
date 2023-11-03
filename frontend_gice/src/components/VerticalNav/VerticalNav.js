@@ -3,11 +3,13 @@ import './VerticalNav.css'
 import BotonDashUsers from '../../assets/BotonDashUsers.png'
 import BotonDashCursos from '../../assets/BotonDashCursos.png'
 import BotonDashInicio from '../../assets/BotonDashInicio.png'
+import BotonLogOut from '../../assets/LogOut.png'
+
 
 
 function VerticalNav() {
     return(
-        <>
+        <div className='verticalNavBarContainer'>
             <div className='VerticalNavBar VerticalNavBar2'>
                 <Link to='/' className='TextoVerticalNav'>GICE</Link>
                 <div>
@@ -17,9 +19,11 @@ function VerticalNav() {
                         <Link style={{width:100+ '%'}} to ='/dashboard/users'><img style={{width:30+ '%'}} src={BotonDashUsers}></img></Link>
                     </div>
                 </div>
-                <Link to='/' >Hola</Link>
+                <Link to='/' onClick={()=>localStorage.clear()}>
+                    <img src={BotonLogOut} className='BotonLogOut'></img>
+                </Link>
             </div>
-        </>
+        </div>
     )
 }
 

@@ -8,9 +8,6 @@ function Dashboard() {
             <div className="DashboardBody">
 
                 <VerticalNav />
-                
-                <div className='VerticalNavBar'>
-                </div>
 
                 <DashHome></DashHome>
 
