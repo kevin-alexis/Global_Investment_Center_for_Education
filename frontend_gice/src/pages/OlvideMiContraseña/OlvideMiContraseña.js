@@ -7,6 +7,9 @@ import Swal from 'sweetalert2';
 
 const OlvideMiContraseña = () => {
 
+    const GICE_API = process.env.REACT_APP_URL_API;
+
+
     const [datos, setDatos] = useState({
         correoElectronico:''
     })
@@ -20,7 +23,7 @@ const OlvideMiContraseña = () => {
 
     const enviarCorreo = (e) => {
         e.preventDefault();
-        const URL = 'http://localhost:8080/recuperar-cuenta';
+        const URL = `${GICE_API}/recuperar-cuenta`;
     
         // Fetch options
         const requestOptions = {

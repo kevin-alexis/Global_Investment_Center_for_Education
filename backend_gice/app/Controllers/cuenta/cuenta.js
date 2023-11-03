@@ -62,17 +62,51 @@ export const iniciarSesion = (req, res) => {
                     res.status(500).send('Error interno del servidor');
                 }
             } else {
-                res.status(400).send('Usuario no existente');
+                res.status(400).send({"error": "Usuario no existente"});
             }
         }
     });
 };
 
 
-// export const iniciarSesionGoogle = (req, res) => {
-//     const { nombre, correoElectronico, token } = req.body;
-    
-// }
+export const iniciarSesionGoogle = (req, res) => {
+    const { correoElectronico, token } = req.body;
+    pool.query(
+        `SELECT usuariosGoogle.idUsuario, usuariosGoogle.nombre, usuariosGoogle.correoElectronico, usuariosGoogle.token, tipoUsuarios.rol
+        FROM usuariosGoogle
+        INNER JOIN tipoUsuarios ON usuariosGoogle.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
+        WHERE usuariosGoogle.correoElectronico = ? AND usuariosGoogle.token = ?`,
+        [correoElectronico, token],
+        async (err, result) => {
+            if (err) {
+                // Manejar errores de consulta SQL y enviar una respuesta detallada
+                res.status(500).send('Error interno del servidor: ' + err.message);
+            } else {
+                if (result.length > 0) {
+                    try {
+                        // Generar un token JWT
+                        const token = jwt.sign({
+                            id: result[0].idUsuario,
+                            correoElectronico: result[0].correoElectronico,
+                            rol: result[0].rol
+                        }, secretKey);
+
+                        // Devolver el token y la información del usuario en la respuesta
+                        res.status(200).json({ token, user: result[0] });
+                    } catch (error) {
+                        console.error("Error al generar el token:", error);
+                        // Manejar errores durante la generación del token y enviar una respuesta detallada
+                        res.status(500).send('Error interno del servidor: ' + error.message);
+                    }
+                } else {
+                    // Si no se encuentra un usuario con el correo y el token proporcionados
+                    res.status(400).send('Usuario no existente');
+                }
+            }
+        }
+    );
+};
+
 
 
 // ! RECUPERAR CONTRASEÑA - SE LE  ENVIA POR CORREO UN LINK CON UN TOKEN PARA CAMBIAR SU CONTRA

@@ -7,6 +7,8 @@ import { Link } from 'react-router-dom';
 
 const Login = () => {
 
+    const GICE_API = process.env.REACT_APP_URL_API;
+
     const [datos, setDatos] = useState({
         correoElectronico:'',
         contraseña: ''
@@ -14,7 +16,7 @@ const Login = () => {
 
     const iniciarSesion = (e) => {
         e.preventDefault();
-        const URL = 'http://localhost:8080/iniciar-sesion';
+        const URL = `${GICE_API}/iniciar-sesion`;
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -45,11 +47,54 @@ const Login = () => {
             })
     };
 
+    const [googleData, setGoogleData] = useState({
+        correoElectronico:'',
+        token: '',
+    })
+
+    const iniciarSesionGoogle = () => {
+        const URL = `${GICE_API}/iniciar-sesion-google`;
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(googleData)
+        };
+
+        const userNotFound = document.getElementById('userNotFound');
+    
+        // Fetch request
+        fetch(URL, requestOptions)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data);
+                localStorage.setItem('auth', "yes")
+                localStorage.setItem('sesion_token', data.token)
+                localStorage.setItem('user_token', data.token)
+                if(data.rol=='user'){ // USUARIO
+                    window.location.href = '/';
+                }else if(data.rol=='admin'){ //ADMIN
+                    window.location.href = '/dashboard';
+                }
+            })
+            .catch((error)=>{
+                console.log(error)
+                userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
+            })
+
+    }
+
     // Google Login 
     function handleCallbackResponse(response) {
         console.log('Encoded JWT ID token: ' + response.credential)
         var userObject = jwt_decode(response.credential)
         console.log(jwt_decode(response.credential))
+        setGoogleData({ 
+            ...googleData,
+            correoElectronico: userObject.email,
+            token: userObject.sub
+        })
     }
 
     useEffect(() => {
@@ -65,7 +110,11 @@ const Login = () => {
             { size: 'large', shape:'pill' }
         )
 
-    }, [])
+        if (googleData.correoElectronico && googleData.token) {
+            iniciarSesionGoogle();
+        }
+
+    }, [googleData])
 
     const [show, setShow] = useState(false);
     return (

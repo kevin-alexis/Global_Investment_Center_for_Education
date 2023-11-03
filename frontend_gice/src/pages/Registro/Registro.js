@@ -8,6 +8,8 @@ import Swal from 'sweetalert2';
 
 const Registro = () => {
 
+    const GICE_API = process.env.REACT_APP_URL_API;
+
     const [googleData, setGoogleData] = useState({
         nombre: '',
         correoElectronico:'',
@@ -16,53 +18,51 @@ const Registro = () => {
     })
 
     function handleCallbackResponse(response) {
-        console.log('Encoded JWT ID token: ' + response.credential)
+        // console.log('Encoded JWT ID token: ' + response.credential)
         let userObject = jwt_decode(response.credential)
-        console.log(jwt_decode(response.credential))
-        setGoogleData({ 
+        // console.log(jwt_decode(response.credential))
+        setGoogleData({...googleData,
             nombre: userObject.name,
             correoElectronico: userObject.email,
             token: userObject.sub
         })
+    }
 
-        console.log(googleData);
+    const googleRegister = () => {
+        const URL = `${GICE_API}/usuarios-google`;
 
+        // Fetch options
+        const requestOptions = {
+            method: 'POST',
+            headers: {
+                "Content-Type": "application/json"
+            },
+            body: JSON.stringify(googleData)
+        };
 
-        // const URL = 'http://localhost:8080/usuarios-google';
-
-        // // Fetch options
-        // const requestOptions = {
-        //     method: 'POST',
-        //     headers: {
-        //         "Content-Type": "application/json"
-        //     },
-        //     body: JSON.stringify(googleData)
-        // };
-
-        // // Fetch request
-        // fetch(URL, requestOptions)
-        // .then(response => {
-        //     if (response.ok) {
-        //         // Mostrar SweetAlert2 de éxito
-        //         Swal.fire({
-        //             title: 'Registro Exitoso',
-        //             text: '¡Bienvenido! Tu cuenta ha sido creada exitosamente.',
-        //             icon: 'success',
-        //             confirmButtonText: 'OK'
-        //         }).then(() => {
-        //             window.location.href = '/login';
-        //         });
-        //     } else {
-        //         // Si la respuesta no es exitosa, muestra una alerta de error
-        //         Swal.fire({
-        //             title: 'Error',
-        //             text: 'Ya hay una cuenta con ese correo.',
-        //             icon: 'error',
-        //             confirmButtonText: 'OK'
-        //         });
-        //     }
-        // })
-        
+        // Fetch request
+        fetch(URL, requestOptions)
+        .then(response => {
+            if (response.ok) {
+                // Mostrar SweetAlert2 de éxito
+                Swal.fire({
+                    title: 'Registro Exitoso',
+                    text: '¡Bienvenido! Tu cuenta ha sido creada exitosamente.',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.href = '/login';
+                });
+            } else {
+                // Si la respuesta no es exitosa, muestra una alerta de error
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ya hay una cuenta con ese correo.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        })
     }
 
 
@@ -78,7 +78,11 @@ const Registro = () => {
             { size: 'large', shape: 'pill' }
         )
 
-    }, [])
+        if (googleData.nombre && googleData.correoElectronico && googleData.token) {
+            googleRegister();
+        }
+
+    }, [googleData])
 
     const [show, setShow] = useState(false);
     const [datos, setDatos] = useState({
@@ -94,7 +98,7 @@ const Registro = () => {
     const register = (event) => {
         event.preventDefault();
         if (datos.contraseña === datos.confirmarContraseña) {
-            const URL = 'http://localhost:8080/usuarios';
+            const URL = `${GICE_API}/usuarios`;
     
             // Fetch options
             const requestOptions = {

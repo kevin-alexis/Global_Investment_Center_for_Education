@@ -1,4 +1,38 @@
-.NotFound{
-    color: white;
-    font-size: 40px;
-}
+/* NotFound.css */
+.NotFound {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+  }
+  
+  .title {
+    font-size: 4rem;
+    font-weight: bold;
+    color: #753eff;
+    margin-bottom: 1rem;
+  }
+  
+  .description {
+    font-size: 1.5rem;
+    color: #fff;
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .button {
+    padding: 0.75rem 2rem;
+    background-color: #6366f1;
+    color: #fff;
+    font-size: 1.25rem;
+    border: none;
+    border-radius: 0.25rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  
+    &:hover {
+      background-color: #4338ca;
+    }
+  }
+  

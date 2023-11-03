@@ -7,6 +7,8 @@ import Swal from 'sweetalert2';
 
 const CambiarPassword  = () => {
 
+    const GICE_API = process.env.REACT_APP_URL_API;
+
     const [datos, setDatos] = useState({
         contraseña:'',
         confirmarContraseña:'',
@@ -29,7 +31,7 @@ const CambiarPassword  = () => {
         e.preventDefault();
         
         if(datos.contraseña === datos.confirmarContraseña){
-            const URL = `http://localhost:8080/cambiar-password?token=${token}&&idUsuario=${idUsuario}`;
+            const URL = `${GICE_API}/cambiar-password?token=${token}&&idUsuario=${idUsuario}`;
 
         // Fetch options
         const requestOptions = {
