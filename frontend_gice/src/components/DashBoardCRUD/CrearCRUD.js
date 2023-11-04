@@ -53,34 +53,48 @@ function CrearCRUD({ titulo }) {
                     console.log(error);
                 });
         } else if (titulo === 'Cursos') {
-            const URL = `${GICE_API}/cursos`;
+            
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('titulo', curso.titulo);
+            formData.append('descripcion', curso.descripcion);
+            formData.append('rutaImagen', e.target.imagen.files[0]);
+            formData.append('rutaDocumento', e.target.documento.files[0]);
+
             const requestOptionsAgregar = {
                 method: 'POST',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                file: file,
-                body: JSON.stringify(curso)
+                body: formData,
             };
-    
-            await fetch(URL, requestOptionsAgregar)
-                .then(response => response.json())
-                .then(data => {
+            console.log(formData);
+
+            try {
+                const URL = `${GICE_API}/cursos`;
+                const response = await fetch(URL, requestOptionsAgregar);
+                const data = await response.json();
+
+                if (response.ok) {
                     Swal.fire({
                         title: 'Curso creado',
                         icon: 'success',
                         timer: 2000,
                         showConfirmButton: false
                     }).then(() => window.location.reload());
-                })
-                .catch((error) => {
+                } else {
                     Swal.fire({
                         title: 'Error',
                         text: 'Ha ocurrido un error al crear el curso',
                         icon: 'error'
                     });
-                    console.log(error);
+                }
+            } catch (error) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Ha ocurrido un error al crear el curso',
+                    icon: 'error'
                 });
+                console.error(error);
+            }
         }
     };
 
@@ -98,42 +112,41 @@ function CrearCRUD({ titulo }) {
                         {
                             titulo == 'Cursos' ?
                                 <form onSubmit={crearUsuario}>
-                                    <label htmlFor="titulo" className="labelInputCrud">
+                                    <label htmlFor="titulo">
                                         Titulo
                                     </label>
                                     <input
-                                    required
-                                        onChange={(e) => setCurso({...curso, titulo: e.target.value})} value={curso.titulo} id="titulo">
+                                        onChange={(e) => setCurso({...curso, titulo:e.target.value})} value={curso.titulo} id="titulo">
                                     </input>
 
-                                    <label htmlFor="descripcion" className="labelInputCrud">
+                                    <label htmlFor="descripcion">
                                         Descripcion
                                     </label>
                                     <input
-                                    required
-                                        onChange={(e) => setCurso({...curso, descripcion: e.target.value})} value={curso.descripcion} id="descripcion">
+                                        onChange={(e) => setCurso({...curso, descripcion:e.target.value})} value={curso.descripcion} id="descripcion">
                                     </input>
 
-                                    <label htmlFor="imagen" className="labelInputCrud">
+                                    <label htmlFor="imagen">
                                         Imagen
                                     </label>
                                     <input
-                                    type="file"
-                                    required
-                                        onChange={(e) => setCurso({...curso, rutaImagen: e.target.value})} value={curso.rutaDocumento} id="imagen">
+                                    accept=".png, .jpg"
+                                        type="file" onChange={(e) => setCurso({...curso, rutaImagen:e.target.value})} value={curso.rutaImagen} id="imagen">
                                     </input>
 
-                                    <label htmlFor="documento" className="labelInputCrud">
+                                    <label htmlFor="documento">
                                         Documento
                                     </label>
-                                    <input required accept=".pdf" type="file" onChange={(e) => setCurso({...curso, rutaDocumento: e.target.value})} value={curso.rutaDocumento} id="documento">
+                                    <input 
+                                        accept=".pdf" type="file" onChange={(e) => {
+                                            setCurso({...curso, rutaDocumento:e.target.value})
+                                        }} value={curso.rutaDocumento} id="documento">
                                     </input>
 
                                     <div className="EditCrearBotones">
-                                        <button type="submit" className="crear">Agregar</button>
-                                        <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
-                                    </div>
-
+                                            <button type="submit" className="crear">Agregar</button>
+                                            <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
+                                    </div>                                    
                                 </form>
                                 :
                                 <form onSubmit={crearUsuario}>

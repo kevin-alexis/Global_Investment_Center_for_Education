@@ -6,11 +6,12 @@ import Navbar from "../../components/Navbar/Navbar"
 
 const Curso = () => {
 
-    const urlBackend = "http://localhost:8080/uploads/"
     const [cursos, setCursos] = useState([]);
+    const GICE_API = process.env.REACT_APP_URL_API;
+
 
     function obtenerCursos(){
-        fetch("http://localhost:8080/cursos", {
+        fetch(`${GICE_API}/cursos`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
@@ -30,7 +31,7 @@ const Curso = () => {
             body: JSON.stringify({ rutaDocumento: rutaDocumento })
         };
     
-        fetch('http://localhost:8080/cursos/descargar', requestOptions)
+        fetch(`${GICE_API}/cursos/descargar`, requestOptions)
             .then(response => {
                 if (!response.ok) {
                     throw new Error(`HTTP error! status: ${response.status}`);
@@ -80,7 +81,7 @@ const Curso = () => {
                             return(
                                 <div key={curso.idCurso} className='cardCurso'>
                                     <div className='cardCursoImageContainer'>
-                                        <img className='cardCursoImage' src={`${urlBackend}${curso.rutaImagen}`} alt="curso1"/>
+                                        <img className='cardCursoImage' src={`${GICE_API}/${curso.rutaImagen}`} alt="curso1"/>
                                     </div>
                                     <div className='cardCursoContent'>
                                         <div>

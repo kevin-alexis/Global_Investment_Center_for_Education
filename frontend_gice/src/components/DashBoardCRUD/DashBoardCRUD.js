@@ -193,7 +193,7 @@ function DashBoardCRUD({ titulo }) {
                                                 
                                                 return (
                                                     <tr key={curso.idCurso} className='DashBoardCRUDTable'>
-                                                        <td>{index}</td>  
+                                                        <td>{index+1}</td>  
                                                         <td>{curso.titulo}</td>
                                                         <td>{curso.descripcion}</td>
                                                         <th>{curso.rutaDocumento}</th>

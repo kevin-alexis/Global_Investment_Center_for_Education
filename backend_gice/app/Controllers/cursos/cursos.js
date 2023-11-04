@@ -23,7 +23,7 @@ const upload = multer({ storage: storage }).fields([
     { name: 'rutaImagen', maxCount: 1 }
 ]);
 
-export const agregarCurso = async (req,file, res) => {
+export const agregarCurso = async (req, res) => {
     try {
         upload(req, res, async function(err) {
             if (err) {
@@ -33,11 +33,8 @@ export const agregarCurso = async (req,file, res) => {
             }
 
             const { titulo, descripcion } = req.body;
-            console.log("ALGO  AQUI->",file);
             const rutaDocumento = req.files['rutaDocumento'][0].path;
             const rutaImagen = req.files['rutaImagen'][0].path;
-            //const rutaDocumento =  req.body.rutaDocumento;
-            //const rutaImagen =  req.body.rutaImagen;
             const numDescargas = 0;
 
             try {
@@ -45,21 +42,27 @@ export const agregarCurso = async (req,file, res) => {
                     [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas]);
 
                 console.log(result);
-                res.send("Curso agregado correctamente");
+                res.send({
+                    "Agregado": "Curso agregado correctamente"
+                });
             } catch (error) {
                 console.log(error);
-                res.status(500).send("Error al añadir curso a la base de datos");
+                return res.status(500).send({
+                    "Error": "Error al añadir curso a la base de datos"
+                });
             }
         });
     } catch (error) {
         console.log(error);
-        res.status(500).send("Error interno del servidor");
+        return res.status(500).send({
+            "Error": "Error interno del servidor"
+        });
     }
 };
 
 export const descargarCurso = (req, res) => {
     const filename = req.body.rutaDocumento;
-    const filePath = path.join('uploads', filename);
+    const filePath = path.join(filename);
     const readstream = fs.createReadStream(filePath);
     readstream.pipe(res);
 }
@@ -80,9 +83,10 @@ export const obtenerCursos = (req, res) => {
 
 export const actualizarCurso = (req, res) => {
     upload(req, res, async function(err) {
-        const rutaDocumentoNueva = req.files['rutaDocumento'][0].filename;
-        const rutaImagenNueva = req.files['rutaImagen'][0].filename;
         const { idCurso, titulo, descripcion } = req.body;
+        const rutaDocumentoNueva = req.files['rutaDocumento'] ? req.files['rutaDocumento'][0].filename : null;
+        const rutaImagenNueva = req.files['rutaImagen'] ? req.files['rutaImagen'][0].filename : null;
+
         // Obtener rutas de documentos e imágenes actuales del curso
         pool.query('SELECT rutaDocumento, rutaImagen FROM cursos WHERE idCurso = ?', [idCurso], (err, result) => {
             if (err) {
@@ -91,40 +95,67 @@ export const actualizarCurso = (req, res) => {
                 const rutaDocumentoAntigua = result[0].rutaDocumento;
                 const rutaImagenAntigua = result[0].rutaImagen;
 
-                // Eliminar archivos antiguos del servidor
-                fs.unlink(`uploads/${rutaDocumentoAntigua}`, (err) => {
-                    if (err) {
-                        console.error("Error al eliminar archivo de documento antiguo:", err);
-                    } else {
-                        console.log("Archivo de documento antiguo eliminado con éxito");
-                    }
-                });
-
-                fs.unlink(`uploads/${rutaImagenAntigua}`, (err) => {
-                    if (err) {
-                        console.error("Error al eliminar archivo de imagen antiguo:", err);
-                    } else {
-                        console.log("Archivo de imagen antiguo eliminado con éxito");
-                    }
-                });
-
-                // Actualizar la base de datos con las nuevas rutas de archivos
-                pool.query('UPDATE cursos SET titulo=?, descripcion=?, rutaDocumento=?, rutaImagen=? WHERE idCurso=?',
-                    [titulo, descripcion, rutaDocumentoNueva, rutaImagenNueva, idCurso],
-                    (err, result) => {
+                // Eliminar archivos antiguos del servidor solo si se proporcionan nuevos archivos
+                if (rutaDocumentoNueva && rutaDocumentoAntigua !== rutaDocumentoNueva) {
+                    fs.unlink(`uploads/${rutaDocumentoAntigua}`, (err) => {
                         if (err) {
-                            res.status(500).send(err);
+                            console.error("Error al eliminar archivo de documento antiguo:", err);
                         } else {
-                            if (result.affectedRows > 0) {
-                                res.status(200).send("Curso modificado correctamente");
-                            } else {
-                                res.status(400).send('Curso no existente');
-                            }
+                            console.log("Archivo de documento antiguo eliminado con éxito");
                         }
                     });
+                }
+
+                if (rutaImagenNueva && rutaImagenAntigua !== rutaImagenNueva) {
+                    fs.unlink(`uploads/${rutaImagenAntigua}`, (err) => {
+                        if (err) {
+                            console.error("Error al eliminar archivo de imagen antiguo:", err);
+                        } else {
+                            console.log("Archivo de imagen antiguo eliminado con éxito");
+                        }
+                    });
+                }
+
+                // Actualizar la base de datos con las nuevas rutas de archivos solo si se proporcionan nuevos archivos
+                const queryParameters = [];
+                let updateQuery = 'UPDATE cursos SET ';
+                if (rutaDocumentoNueva) {
+                    updateQuery += 'rutaDocumento=?, ';
+                    queryParameters.push('uploads/' + rutaDocumentoNueva);
+                } else {
+                    updateQuery += 'rutaDocumento=?, ';
+                    queryParameters.push(rutaDocumentoAntigua);
+                }
+
+                if (rutaImagenNueva) {
+                    updateQuery += 'rutaImagen=?, ';
+                    queryParameters.push('uploads/' + rutaImagenNueva);
+                } else {
+                    updateQuery += 'rutaImagen=?, ';
+                    queryParameters.push(rutaImagenAntigua);
+                }
+
+                updateQuery += 'titulo=?, descripcion=? WHERE idCurso=?';
+                queryParameters.push(titulo, descripcion, idCurso);
+
+                pool.query(updateQuery, queryParameters, (err, result) => {
+                    if (err) {
+                        res.status(500).send(err);
+                    } else {
+                        if (result.affectedRows > 0) {
+                            res.status(200).send({
+                                "Actualizado": "Curso actualizado correctamente"
+                            });
+                        } else {
+                            res.status(400).send({
+                                "Error": "Curso no existente"
+                            });
+                        }
+                    }
+                });
             }
         });
-    })
+    });
 };
 
 export const eliminarCurso = (req, res) => {

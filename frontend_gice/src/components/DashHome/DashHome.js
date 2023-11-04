@@ -40,8 +40,6 @@ function DashHome() {
     }
 
 
-
-
     useEffect(()=>{
         cantidadUsuario();
         cantidadUsuarioGoogle();    

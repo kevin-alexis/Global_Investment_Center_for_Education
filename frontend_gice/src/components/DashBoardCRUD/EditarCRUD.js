@@ -14,10 +14,13 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
     })
 
     const [curso, setCurso] = useState({
+        idCurso: usersOrCurso?.idCurso,
         titulo: usersOrCurso?.titulo,
         descripcion: usersOrCurso?.descripcion,
-        rutaImagen: '',
-        rutaDocumento: '',
+        // rutaImagen: usersOrCurso?.rutaImagen,
+        // rutaDocumento: usersOrCurso?.rutaDocumento
+        rutaImagen: null,
+        rutaDocumento: null
     })
 
     const editarUsuario = async (e) => {
@@ -53,36 +56,56 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
                     console.log(error);
                 });
         } else if (titulo === 'Cursos') {
-            const URL = `${GICE_API}/cursos`;
-            const requestOptionsAgregar = {
-                method: 'PUT',
-                headers: {
-                    "Content-Type": "application/json"
-                },
-                file: file,
-                body: JSON.stringify(curso)
+        
+            e.preventDefault();
+
+            const formData = new FormData();
+            formData.append('idCurso', curso.idCurso);
+            formData.append('titulo', curso.titulo);
+            formData.append('descripcion', curso.descripcion);
+            if (curso.rutaImagen) {
+            formData.append('rutaImagen', curso.rutaImagen);
+            }
+            if (curso.rutaDocumento) {
+            formData.append('rutaDocumento', curso.rutaDocumento);
+            }
+
+            const requestOptionsActualizar = {
+            method: 'PUT',
+            body: formData,
             };
-    
-            await fetch(URL, requestOptionsAgregar)
-                .then(response => response.json())
-                .then(data => {
-                    Swal.fire({
-                        title: 'Curso editado exitosamente',
-                        icon: 'success',
-                        timer: 2000,
-                        showConfirmButton: false
-                    }).then(() => window.location.reload());
-                })
-                .catch((error) => {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Error al editar el curso, verifica los datos y vuelve a intentarlo',
-                        icon: 'error'
-                    });
-                    console.log(error);
+
+            fetch(`${GICE_API}/cursos`, requestOptionsActualizar)
+            .then((response) => response.json())
+            .then(data => {
+                Swal.fire({
+                    title: 'Curso Actualizado',
+                    text: 'El curso fue actualizado exitosamente',
+                    icon: 'success',
+                    confirmButtonText: 'OK'
+                }).then(() => {
+                    window.location.reload()
                 });
-        }
-    };
+            })
+            .catch((error) => {
+            Swal.fire({
+                title: 'Error',
+                text: 'Ha ocurrido un error al actualizar el curso',
+                icon: 'error',
+            });
+            console.error(error);
+            });
+        };
+}
+
+const handleFileChange = (e) => {
+    const name = e.target.name;
+    const file = e.target.files[0];
+    setCurso((prevCurso) => ({
+      ...prevCurso,
+      [name]: file,
+    }));
+  };
 
 
     const CancelarAccion = () => {
@@ -122,14 +145,18 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
                                 </label>
                                 <input
                                 type="file"
-                                required
-                                    onChange={(e) => setCurso({...curso, rutaImagen: e.target.value})} value={curso.rutaDocumento} id="imagen">
+                                accept=".png, .jpg"
+                                name="rutaImagen"
+                                onChange={handleFileChange} id="imagen">
                                 </input>
 
                                 <label htmlFor="documento" className="labelInputCrud">
                                     Documento
                                 </label>
-                                <input required accept=".pdf" type="file" onChange={(e) => setCurso({...curso, rutaDocumento: e.target.value})} value={curso.rutaDocumento} id="documento">
+                                <input 
+                                name="rutaDocumento"
+                                onChange={handleFileChange}
+                                 accept=".pdf" type="file" id="documento">
                                 </input>
 
                                 <div className="EditCrearBotones">
