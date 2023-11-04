@@ -2,6 +2,7 @@ import SimboloDescarga from '../../assets/SimboloDescarga.png';
 import CirculoMasAmarillo from '../../assets/CirculoMasAmarillo.png';
 import CirculoMasRojo from '../../assets/CirculoMasRojo.png';
 import Game from '../../assets/Game.png';
+import CrearCRUD from '../DashBoardCRUD/CrearCRUD'
 
 
 import BloqueDashHome from './BloqueDashHome';
@@ -11,9 +12,13 @@ import { useEffect, useState } from 'react';
 function DashHome() {
 
     const GICE_API = process.env.REACT_APP_URL_API;
-
+    const [abrirNuevo, setAbrirNuevo] = useState(false)
+    const [titulo, setTitulo] = useState('Users');
     const [usuario, setUsuarios] = useState();
     const [usuarioGoogle, setUsuariosGoogle] = useState();
+    const [mostarFormEditar, setMostarFormEditar] = useState(false)
+    const [usersOrCurso, setUsersOrCurso] = useState({})
+
 
 
     const cantidadUsuario = () =>{
@@ -56,23 +61,41 @@ function DashHome() {
         return fechaFormateada;
     }
     
-    const fechaActualFormateada = obtenerFechaActual();    
+    const fechaActualFormateada = obtenerFechaActual();   
+    
+    const FuncCrearUsuario = () => {
+        setAbrirNuevo(true)
+        setTitulo('Users')
+    }
+
+    const FuncCrearCurso = () => {
+        setAbrirNuevo(true)
+        setTitulo('Cursos')
+
+    }
+
 
     return (
         <>
-            <div className="DashboardContent">
-            <div className="DashboardDate">
-                {fechaActualFormateada}
-            </div>
-                <h2 className="DashboardNombreUsuario">Bienvenido</h2>
-                <div className="DashboardOptions">
-                    <BloqueDashHome imagen ={SimboloDescarga} tittle={'178+'} text={'Downloads'} color={'180,180,180'} />
-                    <BloqueDashHome imagen ={Game} tittle={usuario+usuarioGoogle} text={'Usuarios registrados'} color={'47,229,167'} />
-                    <BloqueDashHome imagen ={CirculoMasRojo} tittle={'Añadir Usuario'} text={''} color={'255,105,176'} />
-                    <BloqueDashHome imagen ={CirculoMasAmarillo} tittle={'Añadir Documento'} text={''} color={'228,232,49'} />                    
+            {abrirNuevo
+                ?
+                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso}/>
+                :
+                <div className="DashboardContent">
+                <div className="DashboardDate">
+                    {fechaActualFormateada}
                 </div>
+                    <h2 className="DashboardNombreUsuario">Bienvenido</h2>
+                    <div className="DashboardOptions">
+                        <BloqueDashHome imagen ={SimboloDescarga} tittle={'178+'} text={'Downloads'} color={'180,180,180'} />
+                        <BloqueDashHome imagen ={Game} tittle={usuario+usuarioGoogle} text={'Usuarios registrados'} color={'47,229,167'} />
+                        <BloqueDashHome imagen ={CirculoMasRojo} tittle={'Añadir Usuario'} text={''} color={'255,105,176'} onClick={FuncCrearUsuario} titulo={'Users'} setAbrirNuevo={setAbrirNuevo}/>
+                        <BloqueDashHome imagen ={CirculoMasAmarillo} tittle={'Añadir Documento'} text={''} color={'228,232,49'} onClick={FuncCrearCurso} titulo={'Cursos'} setAbrirNuevo={setAbrirNuevo}/>                    
+                    </div>
+    
+                </div>
+            }
 
-            </div>
         </> 
     )
 }
