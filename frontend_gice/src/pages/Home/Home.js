@@ -37,7 +37,7 @@ const Home = () => {
                     </div>
                 </div>
                 <div className='containerHome2'>
-                    <h2 className='subtitle'>Comenzemos.</h2>
+                    <h2 className='subtitle'>Comencemos.</h2>
                     <p className='text'>La educación financiera es un aspecto fundamental de la vida moderna que todos deberíamos abordar con seriedad. Implica aprender cómo gestionar nuestro dinero de manera efectiva, tomar decisiones financieras informadas y planificar nuestro futuro financiero.</p>
                 </div>
                 <div className='banner1Container'>

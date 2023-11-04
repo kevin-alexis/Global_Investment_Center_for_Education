@@ -75,7 +75,7 @@ const Registro = () => {
 
         google.accounts.id.renderButton(
             document.getElementById('signInDiv'),
-            { size: 'large', shape: 'pill' }
+            { size: 'large', shape: 'pill', width:'300px' }
         )
 
         if (googleData.nombre && googleData.correoElectronico && googleData.token) {
@@ -165,10 +165,10 @@ const Registro = () => {
                             <input required type='email' placeholder='CORREO' className='inputLogin' onChange={e => (setDatos({ ...datos, correoElectronico: e.target.value }))} />
                             <input required type='password' placeholder='CONTRASEÑA' className='inputLogin' onChange={e => (setDatos({ ...datos, contraseña: e.target.value }))} />
                             <input required type='password' placeholder='REPETIR CONTRASEÑA' className='inputLogin' onChange={e => (setDatos({ ...datos, confirmarContraseña: e.target.value }))} />
+                            <button type='submit' className='buttonLogin'>Registrarse</button>
                             <div style={{ display: 'flex', height: 70 + 'px', alignItems: 'center', justifyContent: 'center' }}>
                                 <div id='signInDiv'></div>
                             </div>
-                            <button type='submit' className='buttonLogin'>Registrarse</button>
                         </form>
 
                     </div>

@@ -20,7 +20,7 @@ function Noticias() {
                 null:
                 <>
                     <div >
-                    <h1 className='NoticiasTitulo'> Noticias</h1>
+                        <h1 className='NoticiasTitulo'> Noticias</h1>
                     </div>
 
                     <News loading={loading} setLoading={setLoading}/>

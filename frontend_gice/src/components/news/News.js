@@ -3,9 +3,9 @@ import UniNew from '../UniNew/UniNew.js'
 import { useEffect, useState } from 'react'
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
+import { BeatLoader } from 'react-spinners';
 
 function News({ loading, setLoading }) {
-
     const [noticia, setNoticia] = useState([])
     const [primero, setPrimero] = useState(0)
     const [segundo, setSegundo] = useState(6)
@@ -58,7 +58,11 @@ function News({ loading, setLoading }) {
 
     return (
         loading ? (
-            <h2 className='avisoCargando'>Cargando datos...</h2> // Muestra un mensaje de carga mientras los datos se están cargando
+            <div className='loaderContainer'>
+                <BeatLoader color="purple" className='avisoCargando'/>
+                <h2 style={{color:'purple', marginBottom:'100vh'}}>Cargando</h2>
+            </div>
+
         ) : (<>
 
             <div className='NewsMargen'>

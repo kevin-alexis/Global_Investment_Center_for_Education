@@ -36,6 +36,10 @@
     -webkit-text-fill-color: transparent;
 }
 
+.loaderContainer{
+    display: contents;
+}
+
 .avisoCargando{
     height: 100vh;
     width: 100%;

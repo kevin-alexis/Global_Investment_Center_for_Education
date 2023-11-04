@@ -102,8 +102,7 @@
     font-weight: bold;
 }
 
-.buttonCambiarContraseña,
-.buttonRegister {
+.buttonCambiarContraseña{
     cursor: pointer;
     border-radius: 36px;
     padding: 15px;
@@ -125,7 +124,9 @@
 
 .buttonRegister {
     background-color: transparent;
-    border: 1px solid var(--S-button, linear-gradient(99deg, #8C01FA -2.99%, #000 102.28%));
+    border: 1px solid purple;
+    padding: 10px;
+
 }
 
 @media screen and (max-width: 768px) {

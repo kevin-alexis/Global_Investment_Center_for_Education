@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import "./Divisas.css"
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
+import { BeatLoader } from 'react-spinners';
 
 const Divisas = () => {
 
@@ -66,7 +67,12 @@ const Divisas = () => {
                         <p className='white-text'>¿Y si me arriesgo y pierdo...? ¿Y si te arriesgas y ganas?</p>
                     </div>
                 </div>
-                {loading ? <h2 className='avisoCargando'>Cargando datos...</h2> :
+                {loading ? 
+                <div className='loaderContainer'>
+                    <BeatLoader color="purple" className='avisoCargando'/>
+                    <h2 style={{color:'purple', marginBottom:'100vh'}}>Cargando</h2>
+                </div> 
+                :
                     <div className='divisasContentContainer'>
                         <div className='selectDivisasContainer'>
                             <h1 className='secondaryTitle'>Basado en:</h1>

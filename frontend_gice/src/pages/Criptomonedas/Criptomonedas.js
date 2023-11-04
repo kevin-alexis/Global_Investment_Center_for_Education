@@ -4,6 +4,7 @@ import Footer from '../../components/Footer/Footer';
 import './Criptomonedas.css'
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
+import { BeatLoader } from 'react-spinners';
 
 const Criptomonedas = () => {
 
@@ -58,7 +59,10 @@ const Criptomonedas = () => {
                     {loading ? null : <h1 className='secondaryTitleCriptos'>Basado en: USD</h1>}
                 </div>
                 {loading ? (
-                <h2 className='avisoCargando'>Cargando datos...</h2> // Muestra un mensaje de carga mientras los datos se están cargando
+                <div className='loaderContainer'>
+                    <BeatLoader color="purple" className='avisoCargando'/>
+                    <h2 style={{color:'purple', marginBottom:'100vh'}}>Cargando</h2>
+                </div>  // Muestra un mensaje de carga mientras los datos se están cargando
                 ) : (
                     <div className='cardsContainerCriptomonedas'>
                         {/* <h1>Card</h1> */}

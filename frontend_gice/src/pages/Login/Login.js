@@ -109,7 +109,7 @@ const Login = () => {
 
         google.accounts.id.renderButton(
             document.getElementById('signInDiv'),
-            { size: 'large', shape:'pill' }
+            { size: 'large', shape:'pill', width:'300px' }
         )
 
         if (googleData.correoElectronico && googleData.token) {

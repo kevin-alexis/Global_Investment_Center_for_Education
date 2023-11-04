@@ -103,8 +103,7 @@
 
 .buttonRegister{
     border-radius: 36px;
-    padding: 15px;
-    /* border: 1px solid var(--S-button, linear-gradient(99deg, #8C01FA -2.99%, #000 102.28%)); */
+    padding: 10px;
     background-color: transparent;
     color: #FFF;
     text-align: center;
@@ -115,4 +114,5 @@
     line-height: 20px; /* 133.333% */
     text-transform: uppercase;
     margin-bottom: 10px;    
+    border: 1px solid purple;
 }
