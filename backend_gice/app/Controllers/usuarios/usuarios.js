@@ -61,20 +61,38 @@ export const agregarUsuario = async (req, res) => {
 };
 
 export const agregarUsuarioGoogle = async (req, res) => {
-  try {
+  try{
     const { nombre, correoElectronico, token, idTipoUsuarioId } = req.body;
-    const result = await pool.query(
-      "INSERT INTO usuariosGoogle(nombre, correoElectronico, token, idTipoUsuarioId) VALUES (?, ?, ?, ?)",
-      [nombre, correoElectronico, token, idTipoUsuarioId]
-    );
-    console.log(result);
-    res.send("Usuario creado");
+
+    pool.query("SELECT * FROM usuariosGoogle WHERE correoElectronico = ?",[correoElectronico], async (err, result) => {
+      console.log(result);
+      if(result.length > 0) {
+        return res.status(400).send({
+          "usuario": "El correo electrónico ya está registrado",
+        })
+      }else{
+        // Si el usuario no existe, agregarlo a la base de datos
+        const result = await pool.query(
+          "INSERT INTO usuariosGoogle(nombre, correoElectronico, token, idTipoUsuarioId) VALUES (?, ?, ?, ?)",
+          [nombre, correoElectronico, token, idTipoUsuarioId]
+        );
+
+        console.log(result);
+        res.send({
+          "usuario": "Usuario creado"
+        });
+        console.log(result);
+        
+      } 
+
+    });
+
   } catch (error) {
     console.log(error);
-    res.status(500).send("Error al crear usuario");
+    res.satus(500).send("Error al crear usuario");
   }
-
 }
+
 
 
 export const obtenerUsuarios = (req, res) => {

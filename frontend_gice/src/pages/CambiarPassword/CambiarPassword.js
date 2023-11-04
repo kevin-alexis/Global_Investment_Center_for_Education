@@ -57,8 +57,8 @@ const CambiarPassword  = () => {
                 } else {
                     // Si la respuesta no es exitosa, muestra una alerta de error
                     Swal.fire({
-                        title: 'Error',
-                        text: 'Ocurrio un error',
+                        title: '¡Oops!',
+                        text: 'Lo sentimos, parece que hubo un problema y el token ha expirado. Por favor, solicita otro token para continuar.',
                         icon: 'error',
                         confirmButtonText: 'OK'
                     });
@@ -66,7 +66,6 @@ const CambiarPassword  = () => {
             })
             .catch((error) => {
                 // Si hay un error de red, muestra una alerta de error
-                console.error('Error de red:', error);
                 Swal.fire({
                     title: 'Error de red',
                     text: 'Ocurrió un problema de red, por favor intenta de nuevo más tarde',
@@ -98,8 +97,8 @@ const CambiarPassword  = () => {
                     <div className='CambiarContraseñaFormContainer'>
 
                         <form className='CambiarContraseñaForm' onSubmit={enviarCorreo}>
-                            <input required type='text' placeholder='NUEVA CONTRASEÑA' className='inputCambiarContraseña' onChange={(e)=>{setDatos({...datos, contraseña:e.target.value})}}/>
-                            <input required type='text' placeholder='CONFIRMAR CONTRASEÑA' className='inputCambiarContraseña2' onChange={(e)=>{setDatos({...datos, confirmarContraseña:e.target.value})}}/>
+                            <input required type='password' placeholder='NUEVA CONTRASEÑA' className='inputCambiarContraseña' onChange={(e)=>{setDatos({...datos, contraseña:e.target.value})}}/>
+                            <input required type='password' placeholder='CONFIRMAR CONTRASEÑA' className='inputCambiarContraseña2' onChange={(e)=>{setDatos({...datos, confirmarContraseña:e.target.value})}}/>
                             
                             <button type='submit' className='buttonCambiarContraseña'>Confirmar</button>
                             <div style={{display:'flex', height:70+ 'px', alignItems:'center', justifyContent:'center'}}>

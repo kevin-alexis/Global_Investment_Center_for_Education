@@ -56,7 +56,10 @@ const Navbar = ({setShow, show}) => {
                         {
                             isLoged?
                             <Link to="/login" className='loginLinK'>
-                                <button className='logOutButton' onClick={()=>localStorage.clear()}>LOG OUT</button>
+                                <button className='logOutButton' onClick={()=>{
+                                    localStorage.clear()
+                                    window.location.reload();
+                                }}>LOG OUT</button>
                             </Link>
                             
                             :
@@ -96,7 +99,10 @@ const Navbar = ({setShow, show}) => {
                             {
                                 isLoged?
                                 <Link to="/login" className='loginLinK'>
-                                    <button className='logOutButton' onClick={()=>localStorage.clear()}>LOG OUT</button>
+                                    <button className='logOutButton' onClick={()=>{
+                                    localStorage.clear()
+                                    window.location.reload();
+                                }}>LOG OUT</button>
                                 </Link>
                                 :
                                 <Link to="/login" className='loginLinK'>

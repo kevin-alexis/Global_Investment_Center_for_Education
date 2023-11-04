@@ -9,7 +9,6 @@ function DashBoardCRUD({ titulo }) {
 
     const GICE_API = process.env.REACT_APP_URL_API;
 
-
     const [cursos, setCursos] = useState([])
     const [abrirNuevo, setAbrirNuevo] = useState(false)
     const [mostarFormEditar, setMostarFormEditar] = useState(false)
@@ -17,18 +16,18 @@ function DashBoardCRUD({ titulo }) {
     const [usersOrCurso, setUsersOrCurso] = useState({})
     
 
-    const FuncEliminar = async (id) => {
+    const FuncEliminar = async (id, rutaDocumento, rutaImagen) => {
         //console.log(idUsuario);
-    
-            const requestOptionsEliminar = {
-                method: 'DELETE',
-                headers: {
-                     "Content-Type": "application/json"
-                },
-                body: titulo == 'Users' ? JSON.stringify({idUsuario: id}) : JSON.stringify({idCurso: id})
-            
+        
+        const requestOptionsEliminar = {
+            method: 'DELETE',
+            headers: {
+                    "Content-Type": "application/json"
+            },
+            body: titulo === 'Users' ? JSON.stringify({idUsuario: id}) : JSON.stringify({idCurso: id, rutaDocumento: rutaDocumento, rutaImagen: rutaImagen})
+        
         };
-        if (titulo == 'Users') {
+        if (titulo === 'Users') {
             const URL = `${GICE_API}/usuarios`;
             
     
@@ -38,7 +37,7 @@ function DashBoardCRUD({ titulo }) {
 
                 if (response.ok) {
                     console.log('Usuario eliminado con éxito');
-                    FuncLlamar();
+                    window.location.reload();
                 } else {
                     console.error('Error al eliminar el usuario');
                 }
@@ -53,7 +52,7 @@ function DashBoardCRUD({ titulo }) {
                 const response = await fetch(URL, requestOptionsEliminar);
                 if (response.ok) {
                     console.log('Curso eliminado con éxito');
-                    FuncLlamar();
+                    window.location.reload();
                 } else {
                     console.error('Error al eliminar el curso');
                 }
@@ -94,10 +93,10 @@ function DashBoardCRUD({ titulo }) {
                 setUsers(listadoUsers)  
                 if (response.ok) {
                 } else {
-                    console.error('Error al eliminar el objeto');
+                    console.error('Error al obtener datos');
                 }
             } catch (error) {
-                console.error('Error al eliminar el objeto', error);
+                console.error('Error al obtener datos');
             }
         }else if(titulo == 'Cursos'){
             try {
@@ -116,10 +115,10 @@ function DashBoardCRUD({ titulo }) {
                 const listadoCursos = await response.json()
                 setCursos(listadoCursos) 
                 } else {
-                    console.error('Error al eliminar el objeto');
+                    console.error('Error al obtener los datos');
                 }
             } catch (error) {
-                console.error('Error al eliminar el objeto', error);
+                console.error('Error al obtener los datos', error);
             }
         }
     }
@@ -157,7 +156,7 @@ function DashBoardCRUD({ titulo }) {
                 ''
             }
 
-            <div className='DashBoardCRUDBody'>
+            <div className={mostarFormEditar || abrirNuevo ? 'DashBoardCRUDBody hiddeDash' : 'DashBoardCRUDBody'}>
             <div className='DateTitleContainer'>
                     <h1 className='DashBoardCRUDTittle'>Dashboard</h1>
                 <div className="DashboardDate">
@@ -193,14 +192,14 @@ function DashBoardCRUD({ titulo }) {
                                                 
                                                 return (
                                                     <tr key={curso.idCurso} className='DashBoardCRUDTable'>
-                                                        <td>{index+1}</td>  
-                                                        <td>{curso.titulo}</td>
-                                                        <td>{curso.descripcion}</td>
-                                                        <th>{curso.rutaDocumento}</th>
-                                                        <th>{curso.rutaImagen}</th>
-                                                        <th>{curso.numDescargas}</th>
-                                                        <th><img onClick={()=>FuncEditar(curso)} style={{cursor:'pointer'}} src={EditButton}></img></th>
-                                                        <th><img onClick={()=>FuncEliminar(curso.idCurso)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
+                                                        <td className='tableCell'>{index+1}</td>  
+                                                        <td className='tableCell'>{curso.titulo}</td>
+                                                        <td className='tableCell'>{curso.descripcion}</td>
+                                                        <th className='tableCell rutaDocumentoEstilos'>{curso.rutaDocumento}</th>
+                                                        <th className='tableCell rutaImagenEstilos'>{curso.rutaImagen}</th>
+                                                        <th className='tableCell'>{curso.numDescargas}</th>
+                                                        <th className='tableCell'><img onClick={()=>FuncEditar(curso)} style={{cursor:'pointer'}} src={EditButton}></img></th>
+                                                        <th className='tableCell'><img onClick={()=>FuncEliminar(curso.idCurso, curso.rutaDocumento, curso.rutaImagen)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
                                             })

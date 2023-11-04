@@ -9,7 +9,6 @@ function CrearCRUD({ titulo }) {
         nombre: '',
         correoElectronico: '',
         contraseña: '',
-        contraseña: '',
         idTipoUsuarioId: ''
     })
 
@@ -56,6 +55,29 @@ function CrearCRUD({ titulo }) {
             
             e.preventDefault();
 
+            const imagenFile = e.target.imagen.files[0];
+            const documentoFile = e.target.documento.files[0];
+        
+            // Validar que la imagen sea JPG o PNG
+            if (imagenFile && !['image/jpeg', 'image/png'].includes(imagenFile.type)) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Por favor, selecciona una imagen JPG o PNG',
+                    icon: 'error'
+                });
+                return;
+            }
+        
+            // Validar que el documento sea PDF
+            if (documentoFile && documentoFile.type !== 'application/pdf') {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Por favor, selecciona un archivo PDF',
+                    icon: 'error'
+                });
+                return;
+            }
+
             const formData = new FormData();
             formData.append('titulo', curso.titulo);
             formData.append('descripcion', curso.descripcion);
@@ -78,7 +100,7 @@ function CrearCRUD({ titulo }) {
                         title: 'Curso creado',
                         icon: 'success',
                         timer: 2000,
-                        showConfirmButton: false
+                        showConfirmButton: 'OK'
                     }).then(() => window.location.reload());
                 } else {
                     Swal.fire({
@@ -116,6 +138,8 @@ function CrearCRUD({ titulo }) {
                                         Titulo
                                     </label>
                                     <input
+                                    type="text"
+                                    required
                                         onChange={(e) => setCurso({...curso, titulo:e.target.value})} value={curso.titulo} id="titulo">
                                     </input>
 
@@ -123,13 +147,16 @@ function CrearCRUD({ titulo }) {
                                         Descripcion
                                     </label>
                                     <input
-                                        onChange={(e) => setCurso({...curso, descripcion:e.target.value})} value={curso.descripcion} id="descripcion">
+                                    type="text"
+                                    required
+                                    onChange={(e) => setCurso({...curso, descripcion:e.target.value})} value={curso.descripcion} id="descripcion">
                                     </input>
 
                                     <label htmlFor="imagen">
                                         Imagen
                                     </label>
                                     <input
+                                    required
                                     accept=".png, .jpg"
                                         type="file" onChange={(e) => setCurso({...curso, rutaImagen:e.target.value})} value={curso.rutaImagen} id="imagen">
                                     </input>
@@ -138,14 +165,15 @@ function CrearCRUD({ titulo }) {
                                         Documento
                                     </label>
                                     <input 
+                                    required
                                         accept=".pdf" type="file" onChange={(e) => {
                                             setCurso({...curso, rutaDocumento:e.target.value})
                                         }} value={curso.rutaDocumento} id="documento">
                                     </input>
 
                                     <div className="EditCrearBotones">
-                                            <button type="submit" className="crear">Agregar</button>
-                                            <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
+                                        <button type="submit" className="crear">Agregar</button>
+                                        <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
                                     </div>                                    
                                 </form>
                                 :

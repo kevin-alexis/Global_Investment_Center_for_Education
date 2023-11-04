@@ -4,6 +4,8 @@ import Footer from '../../components/Footer/Footer';
 import "./Login.css"
 import jwt_decode from 'jwt-decode'
 import { Link } from 'react-router-dom';
+import Swal from 'sweetalert2';
+
 
 const Login = () => {
 
@@ -35,14 +37,19 @@ const Login = () => {
                 localStorage.setItem('auth', "yes")
                 localStorage.setItem('sesion_token', data.token)
                 localStorage.setItem('user_token', data.user[0].token)
-                if(data.user[0].rol=='user'){ // USUARIO
+                if(data.user[0].rol==='user'){ // USUARIO
                     window.location.href = '/';
-                }else if(data.user[0].rol=='admin'){ //ADMIN
+                }else if(data.user[0].rol==='admin'){ //ADMIN
                     window.location.href = '/dashboard';
                 }
             })
             .catch((error)=>{
-                console.log(error)
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Revisa los datos ingresados.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
                 userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
             })
     };
@@ -68,15 +75,10 @@ const Login = () => {
         fetch(URL, requestOptions)
             .then(response => response.json())
             .then(data => {
-                console.log(data);
                 localStorage.setItem('auth', "yes")
                 localStorage.setItem('sesion_token', data.token)
                 localStorage.setItem('user_token', data.token)
-                if(data.rol=='user'){ // USUARIO
-                    window.location.href = '/';
-                }else if(data.rol=='admin'){ //ADMIN
-                    window.location.href = '/dashboard';
-                }
+                window.location.href = '/';
             })
             .catch((error)=>{
                 console.log(error)

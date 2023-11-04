@@ -12,9 +12,7 @@
     display: flex;
     width: 90%;
     align-items: center;
-    right: 20px;
-    position: absolute;
-    top: 20px;
+    margin-bottom: 60px;
 }
 
 .DashBoardCRUDBody {
@@ -24,6 +22,10 @@
     justify-content: space-around;
     margin-top: 20px;
     flex-direction: column;
+}
+
+.hiddeDash{
+    display: none;
 }
 
 .DashBoardCRUDTittle2{
@@ -42,7 +44,6 @@
 
 .DashBoardCRUDTittle{
     text-align: start;
-    margin-top: 20px;
     width: 90%;
     color: var(--dark-version-neutral, #FFF);
     font-family: DM Sans;
@@ -62,6 +63,20 @@
     border-radius: 20px;
     border: 0;
 
+}
+
+.rutaDocumentoEstilos,
+.rutaImagenEstilos{
+    overflow: hidden;
+    width: 10px;
+    text-overflow: ellipsis;
+}
+
+.tableCell{
+    max-width: 200px; /* Ajusta el ancho máximo según tus necesidades */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
 }
 
 .DashBoardComponente {

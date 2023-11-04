@@ -15,16 +15,25 @@ function DashHome() {
     const [abrirNuevo, setAbrirNuevo] = useState(false)
     const [titulo, setTitulo] = useState('Users');
     const [usuario, setUsuarios] = useState();
+    const [numDescargas, setNumDescargas] = useState(0);
     const [usuarioGoogle, setUsuariosGoogle] = useState();
-    const [mostarFormEditar, setMostarFormEditar] = useState(false)
-    const [usersOrCurso, setUsersOrCurso] = useState({})
-
+    // const [usersOrCurso, setUsersOrCurso] = useState({})
+    const usersOrCurso = {}
 
 
     const cantidadUsuario = () =>{
         fetch(`${GICE_API}/cantidad-usuarios`)
         .then(response => response.json())
         .then(data => {setUsuarios(data)})
+        .catch(error => console.log(error))
+
+        
+    }
+
+    const cantidadDescargas = () =>{
+        fetch(`${GICE_API}/cursos/num-descarga`)
+        .then(response => response.json())
+        .then(data => {setNumDescargas(data)})
         .catch(error => console.log(error))
 
         
@@ -42,7 +51,8 @@ function DashHome() {
 
     useEffect(()=>{
         cantidadUsuario();
-        cantidadUsuarioGoogle();    
+        cantidadDescargas();
+        cantidadUsuarioGoogle();  
     },[])
 
     function obtenerFechaActual() {
@@ -85,8 +95,8 @@ function DashHome() {
                 </div>
                     <h2 className="DashboardNombreUsuario">Bienvenido</h2>
                     <div className="DashboardOptions">
-                        <BloqueDashHome imagen ={SimboloDescarga} tittle={'178+'} text={'Downloads'} color={'180,180,180'} />
-                        <BloqueDashHome imagen ={Game} tittle={usuario+usuarioGoogle} text={'Usuarios registrados'} color={'47,229,167'} />
+                        <BloqueDashHome imagen ={SimboloDescarga} tittle={numDescargas[0]?.totalDescargas ?? 0} text={'Downloads'} color={'180,180,180'} />
+                        <BloqueDashHome imagen ={Game} tittle={(usuario ?? 0)+ (usuarioGoogle ?? 0)} text={'Usuarios registrados'} color={'47,229,167'} />
                         <BloqueDashHome imagen ={CirculoMasRojo} tittle={'Añadir Usuario'} text={''} color={'255,105,176'} onClick={FuncCrearUsuario} titulo={'Users'} setAbrirNuevo={setAbrirNuevo}/>
                         <BloqueDashHome imagen ={CirculoMasAmarillo} tittle={'Añadir Documento'} text={''} color={'228,232,49'} onClick={FuncCrearCurso} titulo={'Cursos'} setAbrirNuevo={setAbrirNuevo}/>                    
                     </div>

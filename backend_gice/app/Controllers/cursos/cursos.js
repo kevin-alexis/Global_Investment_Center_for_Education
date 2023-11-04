@@ -161,23 +161,36 @@ export const actualizarCurso = (req, res) => {
 };
 
 export const eliminarCurso = (req, res) => {
-    const {idCurso} = req.body
-    pool.query(`DELETE FROM cursos WHERE idCurso = ?;`, [idCurso],(err, result) =>{
-        if(err){
-            res.status(500).send(err)
-        }else{ 
-            if(result){
+    const { idCurso, rutaDocumento, rutaImagen } = req.body;
+
+    // Eliminar el curso de la base de datos
+    pool.query(`DELETE FROM cursos WHERE idCurso = ?;`, [idCurso], (err, result) => {
+        if (err) {
+            res.status(500).send(err);
+        } else {
+            if (result.affectedRows > 0) {
+                // Eliminar el archivo del documento (PDF)
+                if (fs.existsSync(rutaDocumento)) {
+                    fs.unlinkSync(rutaDocumento);
+                }
+
+                // Eliminar el archivo de la imagen
+                if (fs.existsSync(rutaImagen)) {
+                    fs.unlinkSync(rutaImagen);
+                }
+
                 res.status(200).send({
                     "Eliminado": "Curso eliminado correctamente"
-                })
-            }else{
+                });
+            } else {
                 res.status(400).send({
                     "Error": "Curso no existente"
-                })
+                });
             }
         }
-    })
+    });
 };
+
 
 export const obtenerImagen = (req, res) => {
     const nombreImagen = req.params.nombreImagen;
@@ -215,4 +228,15 @@ export const actualizarCursoDescarga = (req, res) => {
             }
         }
     })
+};
+
+
+export const obtenerNumDescargar = (req, res) => {
+    pool.query(`SELECT SUM(numDescargas) AS totalDescargas FROM cursos`, (err, result) => {
+        if (err) {
+        res.status(500).send(err);
+        } else {
+        res.status(200).send(result);
+        }
+    });
 };

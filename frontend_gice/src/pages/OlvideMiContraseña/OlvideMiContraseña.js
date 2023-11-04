@@ -1,8 +1,7 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import Navbar from '../../components/Navbar/Navbar';
 import Footer from '../../components/Footer/Footer';
 import "./OlvideMiContraseña.css"
-import jwt_decode from 'jwt-decode'
 import Swal from 'sweetalert2';
 
 const OlvideMiContraseña = () => {
@@ -14,12 +13,6 @@ const OlvideMiContraseña = () => {
         correoElectronico:''
     })
     
-
-    function handleCallbackResponse(response) {
-        console.log('Encoded JWT ID token: ' + response.credential)
-        var userObject = jwt_decode(response.credential)
-        console.log(jwt_decode(response.credential))
-    }
 
     const enviarCorreo = (e) => {
         e.preventDefault();
@@ -34,7 +27,7 @@ const OlvideMiContraseña = () => {
             body: JSON.stringify(datos)
         };
     
-        const userNotFound = document.getElementById('userNotFound');
+        // const userNotFound = document.getElementById('userNotFound');
     
         // Fetch request
         fetch(URL, requestOptions)

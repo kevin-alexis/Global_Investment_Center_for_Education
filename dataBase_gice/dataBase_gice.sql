@@ -19,6 +19,15 @@ CREATE TABLE usuarios(
     FOREIGN KEY (idTipoUsuarioId) REFERENCES tipoUsuarios(idTipoUsuario)
 );
 
+CREATE TABLE usuariosGoogle(
+	idUsuario INT PRIMARY KEY AUTO_INCREMENT,
+    nombre VARCHAR(100),
+    correoElectronico VARCHAR(100),
+    token VARCHAR(100),
+    idTipoUsuarioId INT,
+    FOREIGN KEY (idTipoUsuarioId) REFERENCES tipoUsuarios(idTipoUsuario)
+);
+
 CREATE TABLE cursos(
 	idCurso INT PRIMARY KEY AUTO_INCREMENT,
     titulo VARCHAR(100),
@@ -30,16 +39,14 @@ CREATE TABLE cursos(
 
 SELECT * FROM cursos;
 SELECT * FROM usuarios;
+SELECT * FROM usuariosGoogle;
 SELECT * FROM tipoUsuarios;
 
-SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.nombre
-FROM usuarios
-INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
-WHERE usuarios.correoElectronico = 'kevinbello7u7@gmail.com';
 
-TRUNCATE TABLE usuarios;
+-- TRUNCATE TABLE usuariosGoogle;
 
 SELECT * FROM usuarios WHERE idUsuario = 2;
+
 
 SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.rol
 FROM usuarios

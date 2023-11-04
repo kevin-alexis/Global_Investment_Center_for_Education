@@ -93,6 +93,7 @@ const Curso = () => {
                 </div>
                 <div className='cardCursoContainer'>
                     {
+                        cursos.length > 0 ?
                         cursos.map(curso => {
                             return(
                                 <div key={curso.idCurso} className='cardCurso'>
@@ -109,6 +110,8 @@ const Curso = () => {
                                 </div>
                             )
                         })
+                        :
+                        null
                     }
                     
                 </div>

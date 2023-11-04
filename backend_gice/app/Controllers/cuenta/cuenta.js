@@ -55,11 +55,15 @@ export const iniciarSesion = (req, res) => {
                     // Devolver el token y la información del usuario en la respuesta
                     res.status(200).json({ token, user: result });
                     } else {
-                        res.status(400).send('Contraseña incorrecta');
+                        res.status(400).send({
+                            message: "Contraseña incorrecta"
+                        });
                     }
                 } catch (error) {
                     console.error("Error al verificar la contraseña:", error);
-                    res.status(500).send('Error interno del servidor');
+                    res.status(500).send({
+                        message: "Error interno del servidor: " + error.message
+                    });
                 }
             } else {
                 res.status(400).send({"error": "Usuario no existente"});
@@ -155,10 +159,14 @@ export const cambiarContraseña = async (req, res) => {
             res.status(500).send(err)
         }else{
             if(result.affectedRows > 0){
-                res.status(200).send("Contraseña cambiada exitosamente");
+                res.status(200).send({
+                    message: "Contraseña cambiada exitosamente",
+                });
             }else{
                 console.log(token, idUsuario, contraseña);
-                res.status(400).send('Usuario no existente')
+                res.status(400).send({
+                    message: "Error al cambiar la contraseña",
+                })
             }
         }
     })
