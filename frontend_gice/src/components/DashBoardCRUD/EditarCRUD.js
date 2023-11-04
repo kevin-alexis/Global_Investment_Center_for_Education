@@ -177,6 +177,7 @@ const handleFileChange = (e) => {
                                     Documento
                                 </label>
                                 <input 
+                                
                                 name="rutaDocumento"
                                 onChange={handleFileChange}
                                  accept=".pdf" type="file" id="documento">

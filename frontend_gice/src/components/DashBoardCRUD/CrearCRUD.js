@@ -134,7 +134,7 @@ function CrearCRUD({ titulo }) {
                         {
                             titulo == 'Cursos' ?
                                 <form onSubmit={crearUsuario}>
-                                    <label htmlFor="titulo">
+                                    <label htmlFor="titulo" className="labelInputCrud">
                                         Titulo
                                     </label>
                                     <input
@@ -143,7 +143,7 @@ function CrearCRUD({ titulo }) {
                                         onChange={(e) => setCurso({...curso, titulo:e.target.value})} value={curso.titulo} id="titulo">
                                     </input>
 
-                                    <label htmlFor="descripcion">
+                                    <label htmlFor="descripcion" className="labelInputCrud">
                                         Descripcion
                                     </label>
                                     <input
@@ -152,7 +152,7 @@ function CrearCRUD({ titulo }) {
                                     onChange={(e) => setCurso({...curso, descripcion:e.target.value})} value={curso.descripcion} id="descripcion">
                                     </input>
 
-                                    <label htmlFor="imagen">
+                                    <label htmlFor="imagen" className="labelInputCrud">
                                         Imagen
                                     </label>
                                     <input
@@ -161,7 +161,7 @@ function CrearCRUD({ titulo }) {
                                         type="file" onChange={(e) => setCurso({...curso, rutaImagen:e.target.value})} value={curso.rutaImagen} id="imagen">
                                     </input>
 
-                                    <label htmlFor="documento">
+                                    <label htmlFor="documento" className="labelInputCrud">
                                         Documento
                                     </label>
                                     <input 
@@ -199,9 +199,9 @@ function CrearCRUD({ titulo }) {
                                         Tipo de Usuario
                                     </label>
                                     <select required onChange={(e) => setUser({...user, idTipoUsuarioId: e.target.value})} value={user.idTipoUsuarioId} id="contraseña">
-                                        <option value='' disabled >Seleccionar un tipo de usuario</option>
-                                        <option value={1}>Administrador</option>
-                                        <option value={2}>Usuario Regular</option>
+                                        <option value='' disabled className="optionSelect">Seleccionar un tipo de usuario</option>
+                                        <option value={1} className="optionSelect">Administrador</option>
+                                        <option value={2} className="optionSelect">Usuario Regular</option>
                                     </select>
                                     <div className="EditCrearBotones">
                                         <button type="submit" className="crear">Agregar</button>

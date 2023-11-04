@@ -55,6 +55,10 @@
     
 }
 
+.isHover:hover{
+    color: white;
+}
+
 .DashHomeObjetoColor{
     width: 60px;
     height: 60px;

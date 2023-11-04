@@ -158,7 +158,7 @@ function DashBoardCRUD({ titulo }) {
 
             <div className={mostarFormEditar || abrirNuevo ? 'DashBoardCRUDBody hiddeDash' : 'DashBoardCRUDBody'}>
             <div className='DateTitleContainer'>
-                    <h1 className='DashBoardCRUDTittle'>Dashboard</h1>
+                    <h1 className='DashBoardCRUDTittleWhite'>Dashboard</h1>
                 <div className="DashboardDate">
                         {fechaActualFormateada}
                     </div>
@@ -172,18 +172,18 @@ function DashBoardCRUD({ titulo }) {
                         <div className='TableDashboard'>
 
                             {(titulo == 'Cursos') ?
-                                <table style={{ width: 100 + '%' }}>
+                                <table style={{ width: 100 + '%' }} className='tableCrud'>
                                     <thead style={{ border: 0 }}>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>titulo</th>
-                                            <th>descripción</th>
-                                            <th>rutaDocumento</th>
-                                            <th>rutaImagen</th>
-                                            <th>numDescargas</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
-                                        </tr>
+                                            <tr className='theadRow'>
+                                                <th className='textCrud'>id</th>
+                                                <th className='textCrud'>titulo</th>
+                                                <th className='textCrud'>descripción</th>
+                                                <th className='textCrud'>rutaDocumento</th>
+                                                <th className='textCrud'>rutaImagen</th>
+                                                <th className='textCrud'>numDescargas</th>
+                                                <th className='textCrud'>Editar</th>
+                                                <th className='textCrud'>Eliminar</th>
+                                            </tr>
                                     </thead>
                                     <tbody>
 
@@ -191,15 +191,15 @@ function DashBoardCRUD({ titulo }) {
                                             cursos?.map((curso, index) => {
                                                 
                                                 return (
-                                                    <tr key={curso.idCurso} className='DashBoardCRUDTable'>
-                                                        <td className='tableCell'>{index+1}</td>  
-                                                        <td className='tableCell'>{curso.titulo}</td>
-                                                        <td className='tableCell'>{curso.descripcion}</td>
-                                                        <th className='tableCell rutaDocumentoEstilos'>{curso.rutaDocumento}</th>
-                                                        <th className='tableCell rutaImagenEstilos'>{curso.rutaImagen}</th>
-                                                        <th className='tableCell'>{curso.numDescargas}</th>
-                                                        <th className='tableCell'><img onClick={()=>FuncEditar(curso)} style={{cursor:'pointer'}} src={EditButton}></img></th>
-                                                        <th className='tableCell'><img onClick={()=>FuncEliminar(curso.idCurso, curso.rutaDocumento, curso.rutaImagen)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
+                                                    <tr key={curso.idCurso} className='DashBoardCRUDTable' style={{backgroundColor: index % 2 !== 0 ? '#1A202C' : null }}>
+                                                        <td className='tableCell textCrud'>{index+1}</td>  
+                                                        <td className='tableCell textCrud'>{curso.titulo}</td>
+                                                        <td className='tableCell textCrud'>{curso.descripcion}</td>
+                                                        <th className='tableCell rutaDocumentoEstilos textCrud'>{curso.rutaDocumento}</th>
+                                                        <th className='tableCell rutaImagenEstilos textCrud'>{curso.rutaImagen}</th>
+                                                        <th className='tableCell textCrud'>{curso.numDescargas}</th>
+                                                        <th className='tableCell textCrud'><img onClick={()=>FuncEditar(curso)} style={{cursor:'pointer'}} src={EditButton}></img></th>
+                                                        <th className='tableCell textCrud'><img onClick={()=>FuncEliminar(curso.idCurso, curso.rutaDocumento, curso.rutaImagen)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
                                                     </tr>
                                                 )
                                             })
@@ -207,15 +207,15 @@ function DashBoardCRUD({ titulo }) {
                                     </tbody>
                                 </table>
                                 :
-                                <table style={{ width: 100 + '%' }}>
+                                <table style={{ width: 100 + '%' }} className='tableCrud'>
                                     <thead style={{ border: 0 }}>
-                                        <tr>
-                                            <th>id</th>
-                                            <th>nombre</th>
-                                            <th>correo_electronico</th>
-                                            <th>contraseña</th>
-                                            <th>Editar</th>
-                                            <th>Eliminar</th>
+                                        <tr className='theadRow'>
+                                            <th className='textCrud'>id</th>
+                                            <th className='textCrud'>nombre</th>
+                                            <th className='textCrud'>correo_electronico</th>
+                                            <th className='textCrud'>contraseña</th>
+                                            <th className='textCrud'>Editar</th>
+                                            <th className='textCrud'>Eliminar</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -223,13 +223,13 @@ function DashBoardCRUD({ titulo }) {
                                         {
                                             users?.map((user, index) => {    //el ? significa que solo muestre datos si users tiene algo
                                                 return (
-                                                    <tr key={user.idUsuario}className='DashBoardCRUDTable'>
-                                                        <td>{index+1}</td>
-                                                        <td>{user.nombre}</td>
-                                                        <td>{user.correoElectronico}</td>
-                                                        <th>*****</th>
-                                                        <th><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></th>
-                                                        <th><img onClick={()=>FuncEliminar(user.idUsuario)} style={{cursor:'pointer'}} src={DeleteButton}></img></th>
+                                                    <tr key={user.idUsuario}className='DashBoardCRUDTable' style={{backgroundColor: index % 2 !== 0 ? '#1A202C' : null }}>
+                                                        <td className='textCrud'>{index+1}</td>
+                                                        <td className='textCrud'>{user.nombre}</td>
+                                                        <td className='textCrud'>{user.correoElectronico}</td>
+                                                        <td className='textCrud'>*****</td>
+                                                        <td className='textCrud'><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></td>
+                                                        <td className='textCrud'><img onClick={()=>FuncEliminar(user.idUsuario)} style={{cursor:'pointer'}} src={DeleteButton}></img></td>
                                                     </tr>
                                                 )
                                             })

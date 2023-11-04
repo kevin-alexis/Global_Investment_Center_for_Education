@@ -41,16 +41,23 @@
     visibility: hidden;
 }
 
-
+.DashBoardCRUDTittleWhite,
 .DashBoardCRUDTittle{
     text-align: start;
     width: 90%;
-    color: var(--dark-version-neutral, #FFF);
     font-family: DM Sans;
     font-size: 40px;
     font-style: normal;
     font-weight: 500;
     line-height: normal;
+}
+
+.DashBoardCRUDTittleWhite{
+    color: var(--dark-version-neutral, #FFFFFF);
+} 
+
+.DashBoardCRUDTittle{
+    color: var(--dark-version-neutral, #FFFFFF70);
 }
 
 .DashBoardCRUDBorder {
@@ -65,11 +72,25 @@
 
 }
 
+.textCrud{
+    font-weight: 400;
+}
+
+.theadRow{
+    border-bottom: 1px solid #ffffff05;
+    height: 80px;
+}
+
+
 .rutaDocumentoEstilos,
 .rutaImagenEstilos{
     overflow: hidden;
     width: 10px;
     text-overflow: ellipsis;
+}
+
+.tableCrud{
+    border-collapse: collapse;
 }
 
 .tableCell{
@@ -89,7 +110,7 @@
 }
 
 .DashBoardEditCrear {
-    width: 60%;
+    width: 50%;
     height: 70vh;
     background-color: #364153;
     margin: 40px;
@@ -132,6 +153,8 @@
 
 .labelInputCrud{
     padding: 5px;
+    font-weight: 100;
+    font-size: 16px
 }
 
 #titulo,
@@ -150,6 +173,11 @@
     width: 95%;
     font-family: 'DM Sans', sans-serif;
     font-weight: 300;
+    margin-bottom: 5px;
+}
+
+.optionSelect{
+    background-color: #64748B;
 }
 
 .EditCrearBotones{
@@ -157,7 +185,7 @@
     display: flex;
     align-self: center;
     justify-content: space-between;
-    margin-top: 90px;
+    margin-top: 80px;
 }
 
 .crear {
