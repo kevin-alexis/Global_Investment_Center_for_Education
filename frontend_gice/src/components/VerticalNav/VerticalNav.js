@@ -21,7 +21,7 @@ function VerticalNav() {
     return (
         <div className='verticalNavBarContainer'>
             <div className='VerticalNavBar VerticalNavBar2'>
-                <Link to='/' className='TextoVerticalNav'>
+                <Link to='/dashboard' className='TextoVerticalNav'>
                     GICE
                 </Link>
                 <div>

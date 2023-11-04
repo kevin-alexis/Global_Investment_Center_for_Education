@@ -75,7 +75,9 @@ export const obtenerCursos = (req, res) => {
             if(result.length > 0){
                 res.status(200).send(result);
             }else{
-                res.status(400).send('Cursos no existentes')
+                res.status(400).send({
+                    "Error": "No se encontraron cursos"
+                })
             }
         }
     })
@@ -165,9 +167,13 @@ export const eliminarCurso = (req, res) => {
             res.status(500).send(err)
         }else{ 
             if(result){
-                res.status(200).send('Curso eliminado con exito')
+                res.status(200).send({
+                    "Eliminado": "Curso eliminado correctamente"
+                })
             }else{
-                res.status(400).send('Curso no existente')
+                res.status(400).send({
+                    "Error": "Curso no existente"
+                })
             }
         }
     })
@@ -186,7 +192,9 @@ export const obtenerImagen = (req, res) => {
         });
         res.end(imagen);
     } catch (error) {
-        res.status(404).send('Imagen no encontrada');
+        res.status(404).send({
+            "Error": "Imagen no encontrada"
+        });
     }
 };
 
@@ -197,9 +205,13 @@ export const actualizarCursoDescarga = (req, res) => {
             res.status(500).send(err)
         }else{ 
             if(result){
-                res.status(200).send('Descarga agregada')
+                res.status(200).send({
+                    "Actualizado": "Curso actualizado correctamente"
+                })
             }else{
-                res.status(400).send('Curso no existente')
+                res.status(400).send({
+                    "Error": "Curso no existente"
+                })
             }
         }
     })

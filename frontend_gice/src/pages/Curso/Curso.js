@@ -22,7 +22,7 @@ const Curso = () => {
         .catch((error) => console.error(error));
     }
 
-    function descargarCurso(rutaDocumento) {
+    function descargarCurso(rutaDocumento,idCurso) {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -49,10 +49,26 @@ const Curso = () => {
                 document.body.appendChild(a);
                 a.click();
                 window.URL.revokeObjectURL(url);
+                addDownload(idCurso);
             })
             .catch(error => {
                 console.error('Error:', error);
             });
+    }
+
+    function addDownload(id){
+        const url=`${GICE_API}/cursos/actualizar-descarga`;
+        const options={
+            method:"POST",
+            headers:{
+                "Content-type":"application/json"
+            },
+            body: JSON.stringify({ idCurso: id })
+        }
+        fetch(url, options)
+        .then(response => response.json())
+        .then(data => console.log(data))
+        .catch(error => console.error(error));
     }
 
     useEffect(()=>{
@@ -88,7 +104,7 @@ const Curso = () => {
                                             <h2 className='titleCardCurso'>{curso.titulo}</h2>
                                             <p className='textCardCurso'>{curso.descripcion}</p>
                                         </div>
-                                        <button onClick={()=>descargarCurso(curso.rutaDocumento)} className='buttonDownloadCurso'>Descargar PDF</button>
+                                        <button onClick={()=>descargarCurso(curso.rutaDocumento, curso.idCurso)} className='buttonDownloadCurso'>Descargar PDF</button>
                                     </div>
                                 </div>
                             )
