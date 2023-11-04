@@ -1,38 +1,92 @@
 import { useState } from "react"
-//import bcrypt from "bcrypt";
+import Swal from 'sweetalert2';
 
-function EditarCRUD() {
-//Crear funciones en las que se guardara la informacion recopilada del formulario
-//Estas funciones seran declaradas con UseState
-//Es una funcion por cada apartado
-//Funciones a crear para Cursos: titulo, descripcion, imagen, documento
-    const [tituloCurs, setTituloCurs] = useState('');
-    const [desCurs, setDesCurs] = useState('');
-    const [imgCurs, setImgCurs] = useState('');
-    const [docuCurs, setDocuCurs] = useState('');
-//Funciones a crear para Usuarios : nombre, correo, contraseña
-    const [nomUsua, setNomUsua] = useState('');
-    const [correoUsua, setCorreoUsua] = useState('');
-    const [contraUsua, setContraUsua] = useState('');
+function EditarCRUD({titulo, usersOrCurso, setOpen}) {
 
-    //Las funciones necesitaran de argumentos
-    const [info, setInfo] = useState(data)
-    const data = ''
-    const titulo = ''
+    const GICE_API = process.env.REACT_APP_URL_API;
+
+    const [user, setUser] = useState({
+        idUsuario: usersOrCurso?.idUsuario,
+        nombre: usersOrCurso?.nombre,
+        correoElectronico: usersOrCurso?.correoElectronico,
+        contraseña: usersOrCurso?.contraseña,
+        idTipoUsuarioId: usersOrCurso?.idTipoUsuarioId
+    })
+
+    const [curso, setCurso] = useState({
+        titulo: usersOrCurso?.titulo,
+        descripcion: usersOrCurso?.descripcion,
+        rutaImagen: '',
+        rutaDocumento: '',
+    })
+
+    const editarUsuario = async (e) => {
+        e.preventDefault();
+        if (titulo === 'Users') {
+            const URL = `${GICE_API}/usuarios`;
+            const requestOptionsAgregar = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(user)
+            };
+    
+            await fetch(URL, requestOptionsAgregar)
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire({
+                        title: 'Usuario Editado',
+                        text: 'El usuario fue editado exitosamente',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload()
+                    });
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al editar el usuario, verifica los datos y vuelve a intentarlo',
+                        icon: 'error'
+                    });
+                    console.log(error);
+                });
+        } else if (titulo === 'Cursos') {
+            const URL = `${GICE_API}/cursos`;
+            const requestOptionsAgregar = {
+                method: 'PUT',
+                headers: {
+                    "Content-Type": "application/json"
+                },
+                file: file,
+                body: JSON.stringify(curso)
+            };
+    
+            await fetch(URL, requestOptionsAgregar)
+                .then(response => response.json())
+                .then(data => {
+                    Swal.fire({
+                        title: 'Curso editado exitosamente',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => window.location.reload());
+                })
+                .catch((error) => {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Error al editar el curso, verifica los datos y vuelve a intentarlo',
+                        icon: 'error'
+                    });
+                    console.log(error);
+                });
+        }
+    };
 
 
     const CancelarAccion = () => {
-        window.location.reload()
-    }
-
-    if (titulo == 'Usuarios') {
-        //Llamado al back de usarios
-        //contraseña vacia al momento de editar (hasheada)
-
-
-    } else if (titulo == 'Cursos') {
-        //Peticion get para los cursos
-        console.log(info)
+        setOpen(false)
     }
 
 
@@ -41,67 +95,82 @@ function EditarCRUD() {
         <>
             <div className="DashBoardComponente">
                 <div className='DashBoardCRUDBody'>
-                    <h1 className='DashBoardCRUDTittle'>Dashboard</h1>
+                    <h1 className='DashBoardCRUDTittle2'>Dashboard</h1>
                     <div className="DashBoardEditCrear">
                         <h2>Editar {titulo}</h2>
                         {
                             titulo == 'Cursos' ?
-                                <form>
-                                    <label htmlFor="titulo">
-                                        Titulo {/* El nombre que se le va a dar a la variable de abajo es titulo */}
-                                    </label>
-                                    <input
-                                    onChange={(e)=>({...info, titulo: e.target.value})} value={info.titulo} id="titulo"> {/*La sintaxis de onChange es la misma en todas lo unico que cambia es el nombre de la variable, al igual que la de value*/}
-                                    </input>
+                            <form onSubmit={editarUsuario}>
+                                <label htmlFor="titulo" className="labelInputCrud">
+                                    Titulo
+                                </label>
+                                <input
+                                required
+                                    onChange={(e) => setCurso({...curso, titulo: e.target.value})} value={curso.titulo} id="titulo">
+                                </input>
 
-                                    <label htmlFor="descripcion">
-                                        Descripcion
-                                    </label>
-                                    <input
-                                    onChange={(e)=>({...info, descripcion: e.target.value})} value={info.descripcion} id="descripcion">
-                                    </input>
+                                <label htmlFor="descripcion" className="labelInputCrud">
+                                    Descripcion
+                                </label>
+                                <input
+                                required
+                                    onChange={(e) => setCurso({...curso, descripcion: e.target.value})} value={curso.descripcion} id="descripcion">
+                                </input>
 
-                                    <label htmlFor="imagen">
-                                        Imagen
-                                    </label>
-                                    <input
-                                    onChange={(e)=>({...info, imagen: e.target.value})} value={info.info} id="imagen">
-                                    </input>
+                                <label htmlFor="imagen" className="labelInputCrud">
+                                    Imagen
+                                </label>
+                                <input
+                                type="file"
+                                required
+                                    onChange={(e) => setCurso({...curso, rutaImagen: e.target.value})} value={curso.rutaDocumento} id="imagen">
+                                </input>
 
-                                    <label htmlFor="documento">
-                                        Documento
-                                    </label>
-                                    <input
-                                    onChange={(e)=>({...info, documento: e.target.value})} value={info.documento} id="documento">
-                                    </input>
+                                <label htmlFor="documento" className="labelInputCrud">
+                                    Documento
+                                </label>
+                                <input required accept=".pdf" type="file" onChange={(e) => setCurso({...curso, rutaDocumento: e.target.value})} value={curso.rutaDocumento} id="documento">
+                                </input>
 
-                                </form>
-                                :
-                                <form>
-                                    <label htmlFor="nombre">
+                                <div className="EditCrearBotones">
+                                    <button type="submit" className="crear">Agregar</button>
+                                    <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
+                                </div>
+
+                            </form>
+                                : 
+                                <form onSubmit={editarUsuario}>
+                                    <label htmlFor="nombre" className="labelInputCrud">
                                         Nombre
                                     </label>
-                                    <input id="nombre">
+                                    <input type="text" required onChange={(e) => setUser({...user, nombre: e.target.value})} value={user.nombre} id="nombre">
                                     </input>
 
-                                    <label htmlFor="correo">
+                                    <label htmlFor="correo" className="labelInputCrud">
                                         Correo Electronico
                                     </label>
-                                    <input id="correo">
+                                    <input type="email" required onChange={(e) => setUser({...user, correoElectronico: e.target.value})} value={user.correoElectronico} id="correo">
                                     </input>
-                                    <label htmlFor="contraseña">
+
+                                    <label htmlFor="contraseña" className="labelInputCrud">
                                         Contraseña
                                     </label>
-                                    <input id="contraseña">
+                                    <input type="password" required onChange={(e) => setUser({...user, contraseña: e.target.value})} value={user.contraseña} id="contraseña">
                                     </input>
-
-
+                                    <label htmlFor="contraseña" className="labelInputCrud">
+                                        Tipo de Usuario
+                                    </label>
+                                    <select required onChange={(e) => setUser({...user, idTipoUsuarioId: e.target.value})} value={user.idTipoUsuarioId} id="contraseña">
+                                        <option value='' disabled >Seleccionar un tipo de usuario</option>
+                                        <option value={1}>Administrador</option>
+                                        <option value={2}>Usuario Regular</option>
+                                    </select>
+                                    <div className="EditCrearBotones">
+                                        <button type="submit" className="crear">Agregar</button>
+                                        <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
+                                    </div>
                                 </form>
                         }
-                        <div className="EditCrearBotones">
-                            <button> Editar</button>
-                            <button onClick={CancelarAccion}>Cancelar</button>
-                        </div>
                     </div>
 
                 </div >

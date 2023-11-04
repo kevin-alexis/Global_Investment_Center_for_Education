@@ -47,7 +47,9 @@ export const agregarUsuario = async (req, res) => {
           [nombre, correoElectronico, hashedPassword, token, idTipoUsuarioId]
         );
         console.log(result);
-        res.send("Usuario creado");
+        res.send({
+          "usuario": "Usuario creado"
+        });
       } 
 
     });

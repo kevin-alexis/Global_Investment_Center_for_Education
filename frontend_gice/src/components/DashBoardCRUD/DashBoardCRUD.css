@@ -8,19 +8,48 @@
     margin-bottom: 40px;
 }
 
+.DateTitleContainer{
+    display: flex;
+    width: 90%;
+    align-items: center;
+    right: 20px;
+    position: absolute;
+    top: 20px;
+}
+
 .DashBoardCRUDBody {
     width: 100%;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     margin-top: 20px;
     flex-direction: column;
 }
 
+.DashBoardCRUDTittle2{
+    text-align: start;
+    margin-top: 20px;
+    width: 90%;
+    color: #1A202C;
+    font-family: DM Sans;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
+    visibility: hidden;
+}
+
+
 .DashBoardCRUDTittle{
     text-align: start;
     margin-top: 20px;
-    margin-bottom: 20px;
     width: 90%;
+    color: var(--dark-version-neutral, #FFF);
+    font-family: DM Sans;
+    font-size: 40px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
 .DashBoardCRUDBorder {
@@ -36,7 +65,7 @@
 }
 
 .DashBoardComponente {
-    width: 95%;
+    width: 93%;
     height: 100%;
     position: fixed;
     background-color: #1A202C;
@@ -51,10 +80,8 @@
     margin: 40px;
     border-radius: 10px;
     color: white;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: space-around;
+    display: grid;
+    grid-template-rows: 1fr 2fr 1fr;
     
 }
 
@@ -74,116 +101,69 @@
 
 .DashBoardEditCrear input {
     width: 95%;
-    margin-bottom: 20px;
-    background-color: #64748B;
+    background-color: #364153;
     border-radius: 10;
 }
 
-#titulo{
-    padding: 5px;
-    border-radius: 20px;
-    background-color: #64748B;
-    border: #64748B;
-    border-radius: 20px;
-    font-size: 16;
-    width: 95%;
+.TituloCrudCrear{
+    color: var(--dark-version-neutral, #ffffff70);
+    text-align: center;
+    font-family: DM Sans;
+    font-size: 36px;
+    font-style: normal;
+    font-weight: 500;
+    line-height: normal;
 }
 
-#descripcion{
+.labelInputCrud{
     padding: 5px;
-    border-radius: 20px;
-    background-color: #64748B;
-    border: #64748B;
-    border-radius: 20px;
-    font-size: 16;
-    width: 95%;
 }
 
-#imagen{
-    padding: 5px;
-    border-radius: 20px;
-    background-color: #64748B;
-    border: #64748B;
-    border-radius: 20px;
+#titulo,
+#descripcion,
+#imagen,
+#documento,
+#nombre,
+#correo,
+#contraseña{
+    color: white;
+    padding: 6px;
+    background-color: #64748B50;
+    border: none;
+    border-radius: 5px; 
     font-size: 16px;
     width: 95%;
+    font-family: 'DM Sans', sans-serif;
+    font-weight: 300;
 }
-
-#imagen input[type="file"] {
-    float: right;
-    margin-left: 10px;
-  }
-
-  input[type="file"] {
-    color: transparent;
-    float: right !important;
-    margin-left: 10px !important;
-  }
-
-#documento{
-    padding: 5px;
-    border-radius: 20px;
-    background-color: #64748B;
-    border: #64748B;
-    border-radius: 20px;
-    font-size: 16px;
-    width: 95%;
-}
-
-
-#nombre {
-    padding: 5px; 
-    background-color: #64748B; 
-    border: #64748B; 
-    border-radius: 20px; 
-    font-size: 16px; 
-    width: 95%; 
-  }
-
-#correo{
-    padding: 5px;
-    background-color: #64748B;
-    border: #64748B;
-    border-radius: 20px;
-    font-size: 16px;
-    width: 95%;
-}
-
-#password{
-    padding: 5px;
-    background-color: #64748B;
-    border: #64748B;
-    border-radius: 20px;
-    font-size: 16px;
-    width: 95%;
-}
-
 
 .EditCrearBotones{
-    width: 40%;   
+    width: 60%;   
     display: flex;
     align-self: center;
-    justify-content: space-around;
-    margin-bottom: 90px;
-
+    justify-content: space-between;
+    margin-top: 90px;
 }
 
 .crear {
     background-color: black; 
     color: #fff; 
-    padding: 10px 20px; 
+    padding: 8px 40px;
     border: none; 
     cursor: pointer; 
     border-radius: 10px; 
     font-size: 16px; 
+    font-weight: bold;
   }
 
-  #cancelar {
-    background-color: #dc3545; 
+.cancelar {
+    background-color: #ff0019; 
     color: #fff; 
-    padding: 10px 20px; 
+    padding: 8px 40px;
     border: none; 
     cursor: pointer; 
     border-radius: 10px; 
     font-size: 16px; 
+    font-weight: bold;
+
   }

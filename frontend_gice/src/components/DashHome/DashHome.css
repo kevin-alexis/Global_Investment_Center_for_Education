@@ -7,12 +7,29 @@
 
 }
 
+.DashboardDate{
+    color: #ffffff70;
+    background-color: #364153;
+    border-radius: 2px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    right: 20px;
+    position: absolute;
+    top: 20px;
+    width: 149.659px;
+    height: 46.049px;
+    flex-shrink: 0;
+    font-size: 20px;
+}
+
 .DashboardNombreUsuario {
-    font-family: Russo One;
+    font-family: 'DM Sans', sans-serif;
     letter-spacing: 2px;
     margin: 30px;
     font-size: 50px;
-    color: #ffff;
+    font-weight: 400;
+    color: #ffffff70;
 }
 
 .DashboardOptionsBloques{

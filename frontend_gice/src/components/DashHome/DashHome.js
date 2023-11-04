@@ -42,10 +42,29 @@ function DashHome() {
         cantidadUsuarioGoogle();    
     },[])
 
+    function obtenerFechaActual() {
+        const fechaActual = new Date();
+    
+        // Obtiene el día, el mes y el año de la fecha actual
+        const dia = fechaActual.getDate().toString().padStart(2, '0'); // Pone el día en formato de dos dígitos
+        const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // Pone el mes en formato de dos dígitos (los meses comienzan desde 0)
+        const anio = fechaActual.getFullYear().toString().slice(-2); // Obtiene los últimos dos dígitos del año
+    
+        // Formatea la fecha como "dd-mm-yy"
+        const fechaFormateada = `${dia}-${mes}-${anio}`;
+    
+        return fechaFormateada;
+    }
+    
+    const fechaActualFormateada = obtenerFechaActual();    
+
     return (
         <>
             <div className="DashboardContent">
-                <h2 className="DashboardNombreUsuario">USUARIO</h2>
+            <div className="DashboardDate">
+                {fechaActualFormateada}
+            </div>
+                <h2 className="DashboardNombreUsuario">Bienvenido</h2>
                 <div className="DashboardOptions">
                     <BloqueDashHome imagen ={SimboloDescarga} tittle={'178+'} text={'Downloads'} color={'180,180,180'} />
                     <BloqueDashHome imagen ={Game} tittle={usuario+usuarioGoogle} text={'Usuarios registrados'} color={'47,229,167'} />

@@ -1,162 +1,174 @@
 import { useState } from "react"
+import Swal from 'sweetalert2';
+
 
 function CrearCRUD({ titulo }) {
-    //Crear funciones en las que se guardara la informacion recopilada del formulario, Estas funciones seran declaradas con UseState
-    //Es una funcion por cada apartado, Funciones a crear para Cursos: titulo, descripcion, imagen, documento y Las funciones necesitaran de un argumento vacio
-    const [tituloCurs, setTituloCurs] = useState('');
-    const [desCurs, setDesCurs] = useState('');
-    const [imgCurs, setImgCurs] = useState(null);   //nulo es igual a que empiece como valor vacio
-    const [docuCurs, setDocuCurs] = useState(null);
-    //Funciones a crear para Usuarios : nombre, correo, contraseña 
-    const [nomUsua, setNomUsua] = useState('');
-    const [correoUsua, setCorreoUsua] = useState('');
-    const [contraUsua, setContraUsua] = useState('');
+    const GICE_API = process.env.REACT_APP_URL_API;
 
-    /*     const agregar = async () => {
-            const formData = new FormData();
-            formData.append(tituloCurs);
-            formData.append(desCurs);
-            formData.append(imgCurs);
-            formData.append(docuCurs);
-        } */
+    const [user, setUser] = useState({
+        nombre: '',
+        correoElectronico: '',
+        contraseña: '',
+        contraseña: '',
+        idTipoUsuarioId: ''
+    })
+
+    const [curso, setCurso] = useState({
+        titulo: '',
+        descripcion: '',
+        rutaImagen: '',
+        rutaDocumento: '',
+    })
 
     const crearUsuario = async (e) => {
-
         e.preventDefault();
-
-        if (titulo == 'Users') {
-            //Llamado al back de usarios //Se realiza peticion de post en la api //Se tienen que guardar los datos antes de mandarlos //contraseña vacia al momento de editar (hasheada)
-            const URL = 'http://localhost:8080/usuarios';
-
-            const object = { nombre: nomUsua, correoElectronico: contraUsua, contraseña: contraUsua, idTipoUsuarioId: 2 }
-            console.log(object)
+        if (titulo === 'Users') {
+            const URL = `${GICE_API}/usuarios`;
             const requestOptionsAgregar = {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
-
-                body: JSON.stringify(object)
+                body: JSON.stringify(user)
             };
-
+    
             await fetch(URL, requestOptionsAgregar)
                 .then(response => response.json())
                 .then(data => {
-                    // console.log(data.user[0].token);
-                    console.log(data)
-                    console.log("agregado")
+                    Swal.fire({
+                        title: 'Usuario Creado',
+                        text: 'El usuario fue creado exitosamente',
+                        icon: 'success',
+                        confirmButtonText: 'OK'
+                    }).then(() => {
+                        window.location.reload()
+                    });
                 })
                 .catch((error) => {
-                    console.log(error)
-                })
-
-
-        } else if (titulo == 'Cursos') {
-            //Peticion get para los cursos
-            const URL = 'http://localhost:8080/cursos';
-            console.log(docuCurs)
-            console.log(imgCurs)
-            const object = { titulo: tituloCurs, descripcion:desCurs}
-            const file = {rutaDocumento: docuCurs, rutaImagen:imgCurs }
-            console.log(object)
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ya hay un usuario vinculado a ese correo',
+                        icon: 'error'
+                    });
+                    console.log(error);
+                });
+        } else if (titulo === 'Cursos') {
+            const URL = `${GICE_API}/cursos`;
             const requestOptionsAgregar = {
                 method: 'POST',
                 headers: {
                     "Content-Type": "application/json"
                 },
-                file: file ,
-                body: JSON.stringify(object)
+                file: file,
+                body: JSON.stringify(curso)
             };
-
+    
             await fetch(URL, requestOptionsAgregar)
                 .then(response => response.json())
                 .then(data => {
-                    // console.log(data.user[0].token);
-                    console.log(data)
-                    console.log("agregado")
+                    Swal.fire({
+                        title: 'Curso creado',
+                        icon: 'success',
+                        timer: 2000,
+                        showConfirmButton: false
+                    }).then(() => window.location.reload());
                 })
                 .catch((error) => {
-                    console.log(error)
-                })
-
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Ha ocurrido un error al crear el curso',
+                        icon: 'error'
+                    });
+                    console.log(error);
+                });
         }
-
-    }
+    };
 
     const CancelarAccion = () => {
         window.location.reload()
     }
-    //agregar una opcion (tipos de usuario con option) para guardar en la base de datos //no enviar un dato vasio de tipo .gmail
-
-
-    //id de un index del map //nombreVar.map ((res, index)=>{ }) //conectar el contador usarios registrados //nombreVar.length
 
     return (
         <>
             <div className="DashBoardComponente">
                 <div className='DashBoardCRUDBody'>
-                    <h1 className='DashBoardCRUDTittle'>Dashboard</h1>
+                    <h1 className='DashBoardCRUDTittle2'>Dashboard</h1>
                     <div className="DashBoardEditCrear">
-                        <h2>Crear {titulo}</h2>
+                        <h2 className="TituloCrudCrear">Crear {titulo}</h2>
                         {
                             titulo == 'Cursos' ?
                                 <form onSubmit={crearUsuario}>
-                                    <label htmlFor="titulo">
+                                    <label htmlFor="titulo" className="labelInputCrud">
                                         Titulo
                                     </label>
                                     <input
-                                        onChange={(e) => setTituloCurs(e.target.value)} value={tituloCurs} id="titulo">
+                                    required
+                                        onChange={(e) => setCurso({...curso, titulo: e.target.value})} value={curso.titulo} id="titulo">
                                     </input>
 
-                                    <label htmlFor="descripcion">
+                                    <label htmlFor="descripcion" className="labelInputCrud">
                                         Descripcion
                                     </label>
                                     <input
-                                        onChange={(e) => setDesCurs(e.target.value)} value={desCurs} id="descripcion">
+                                    required
+                                        onChange={(e) => setCurso({...curso, descripcion: e.target.value})} value={curso.descripcion} id="descripcion">
                                     </input>
 
-                                    <label htmlFor="imagen">
+                                    <label htmlFor="imagen" className="labelInputCrud">
                                         Imagen
                                     </label>
                                     <input
                                     type="file"
-                                        onChange={(e) => setImgCurs(e.target.value)} value={imgCurs} id="imagen">
+                                    required
+                                        onChange={(e) => setCurso({...curso, rutaImagen: e.target.value})} value={curso.rutaDocumento} id="imagen">
                                     </input>
 
-                                    <label htmlFor="documento">
+                                    <label htmlFor="documento" className="labelInputCrud">
                                         Documento
                                     </label>
-                                    <input accept=".pdf" type="file" onChange={(e) => setDocuCurs(e.target.value)} value={docuCurs} id="documento">
+                                    <input required accept=".pdf" type="file" onChange={(e) => setCurso({...curso, rutaDocumento: e.target.value})} value={curso.rutaDocumento} id="documento">
                                     </input>
+
+                                    <div className="EditCrearBotones">
+                                        <button type="submit" className="crear">Agregar</button>
+                                        <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
+                                    </div>
 
                                 </form>
                                 :
                                 <form onSubmit={crearUsuario}>
-                                    <label htmlFor="nombre">
+                                    <label htmlFor="nombre" className="labelInputCrud">
                                         Nombre
                                     </label>
-                                    <input
-                                        onChange={(e) => setNomUsua(e.target.value)} value={nomUsua} id="nombre">
+                                    <input type="text" required onChange={(e) => setUser({...user, nombre: e.target.value})} value={user.nombre} id="nombre">
                                     </input>
 
-                                    <label htmlFor="correo">
+                                    <label htmlFor="correo" className="labelInputCrud">
                                         Correo Electronico
                                     </label>
-                                    <input onChange={(e) => setCorreoUsua(e.target.value)} value={correoUsua} id="correo">
+                                    <input type="email" required onChange={(e) => setUser({...user, correoElectronico: e.target.value})} value={user.correoElectronico} id="correo">
                                     </input>
 
-                                    <label htmlFor="contraseña">
+                                    <label htmlFor="contraseña" className="labelInputCrud">
                                         Contraseña
                                     </label>
-                                    <input onChange={(e) => setContraUsua(e.target.value)} value={contraUsua} id="contraseña">
+                                    <input type="password" required onChange={(e) => setUser({...user, contraseña: e.target.value})} value={user.contraseña} id="contraseña">
                                     </input>
-
+                                    <label htmlFor="contraseña" className="labelInputCrud">
+                                        Tipo de Usuario
+                                    </label>
+                                    <select required onChange={(e) => setUser({...user, idTipoUsuarioId: e.target.value})} value={user.idTipoUsuarioId} id="contraseña">
+                                        <option value='' disabled >Seleccionar un tipo de usuario</option>
+                                        <option value={1}>Administrador</option>
+                                        <option value={2}>Usuario Regular</option>
+                                    </select>
+                                    <div className="EditCrearBotones">
+                                        <button type="submit" className="crear">Agregar</button>
+                                        <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
+                                    </div>
                                 </form>
                         }
-                        <div className="EditCrearBotones">
-                            <button type="submit" onClick={crearUsuario}> Crear</button>
-                            <button onClick={CancelarAccion}>Cancelar</button>
-                        </div>
+                        
                     </div>
                 </div >
 
