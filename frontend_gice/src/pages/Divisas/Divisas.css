@@ -78,7 +78,18 @@
     border: 0;
 }
 
-.cardsContainerDivisas{
+@keyframes fadeIn {
+from {
+    opacity: 0;
+    transform: translateY(-50px);
+}
+to {
+    opacity: 1;
+    transform: translateY(0);
+}
+}
+
+.cardsContainerDivisas {
     width: 100%;
     box-sizing: border-box;
     display: grid;
@@ -87,12 +98,15 @@
     grid-template-columns: 1fr 1fr 1fr;
     gap: 50px;
     padding: 100px;
+    animation: fadeIn 1s ease-in-out;
 }
+
 
 .cardDivisas{
     padding-left: 120px;
     width: 253px;
     height: 205px;
+    animation: fadeIn 1s ease-in-out;
 }
 
 .titleCardDivisas{

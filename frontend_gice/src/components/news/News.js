@@ -51,6 +51,10 @@ function News({ loading, setLoading }) {
 
     useEffect(() => {
         setNum(noticia.slice(primero, segundo))
+        window.scrollTo({
+            top: 0,
+            behavior: 'smooth'
+        })
     }, [primero, segundo])
 
 
@@ -68,7 +72,7 @@ function News({ loading, setLoading }) {
             <div className='NewsMargen'>
                 {num.map((news, index) => {
                     return (
-                        <UniNew key={index} noticia={news} ></UniNew>)
+                        <UniNew key={index} noticia={news}></UniNew>)
                 })
                 }
             </div>

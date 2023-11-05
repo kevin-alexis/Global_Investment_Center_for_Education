@@ -23,6 +23,15 @@
   box-sizing: border-box;
 }
 
+.LearnMore{
+  transition: 0.3s;
+}
+
+.LearnMore:hover{
+  transition: 0.3s;
+  color: rgb(180, 126, 232);
+}
+
 .UniNewsParteDerecha a {
   color: blueviolet;
   position: absolute;
