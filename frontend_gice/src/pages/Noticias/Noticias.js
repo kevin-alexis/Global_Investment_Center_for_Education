@@ -1,4 +1,4 @@
-import React, { useState } from 'react'
+import React, { useEffect, useState } from 'react'
 import News from '../../components/news/News'
 import './Noticias.css'
 import Navbar from '../../components/Navbar/Navbar'
@@ -8,6 +8,10 @@ function Noticias() {
     const [show, setShow] = useState(false);
     const [loading, setLoading] = useState(true);
      
+    useEffect(()=>{
+        window.scrollTo(0,0);
+    },[])
+
     return (
         <>
             <div className='NoticiasFondo'>

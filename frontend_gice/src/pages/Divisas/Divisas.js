@@ -44,6 +44,7 @@ const Divisas = () => {
 
     useEffect(() => {
         fetchExchangeRates("MXN"); // Llamada a la API al cargar el componente
+        window.scrollTo(0,0);
     }, []); // Dependencia vacía para que se ejecute solo una vez al montar el componente
 
 
@@ -75,12 +76,12 @@ const Divisas = () => {
                 :
                     <div className='divisasContentContainer'>
                         <div className='selectDivisasContainer'>
-                            <h1 className='secondaryTitle'>Basado en:</h1>
-                            <select className='selectDivisas secondaryTitle' onChange={changeCurrency} disabled={loading}>
+                            <h1 className='secondaryTitle'>Basado en: MXN</h1>
+                            {/* <select className='selectDivisas secondaryTitle' onChange={changeCurrency} disabled={loading}>
                                 {Object.keys(rates).map(currency => (
                                     <option value={currency} key={`option${currency}`}>{currency}</option>
                                 ))}
-                            </select>
+                            </select> */}
                         </div>
                         <div className='cardsContainerDivisas'>
                             {Object.keys(rates).slice(contador,contador+6).map((currency, index) => {

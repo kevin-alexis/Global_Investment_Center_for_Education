@@ -73,6 +73,7 @@ const Curso = () => {
 
     useEffect(()=>{
         obtenerCursos();
+        window.scrollTo(0,0);
     },[])
 
     const [show, setShow] = useState(false);
