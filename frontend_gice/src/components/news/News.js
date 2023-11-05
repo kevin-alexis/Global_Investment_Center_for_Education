@@ -76,6 +76,14 @@ function News({ loading, setLoading }) {
                 })
                 }
             </div>
+            {/* <div className='NewsMargen'>
+            {
+            num
+                .filter(noticia => noticia.title && noticia.description && noticia.urlToImage && noticia.title.length < 100)
+                .map((news, index) => {
+                    return <UniNew key={index} noticia={news}></UniNew>;
+                })}
+        </div> */}
 
             {(pagina > 1)
                 ? <img src={Izquierdo} className='NewsSiSirve' onClick={restandoMostrar} />

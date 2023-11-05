@@ -41,7 +41,7 @@ const Home = () => {
                     <p className='text'>La educación financiera es un aspecto fundamental de la vida moderna que todos deberíamos abordar con seriedad. Implica aprender cómo gestionar nuestro dinero de manera efectiva, tomar decisiones financieras informadas y planificar nuestro futuro financiero.</p>
                 </div>
                 <div className='banner1Container'>
-                    <h2 className='subtitle'>¿Para que es util saber sobre finanzas?</h2>
+                    <h2 className='subtitle'>¿Para qué es útil saber sobre finanzas?</h2>
                     <p className='text'>Saber sobre finanzas es útil porque te permite tomar decisiones inteligentes con tu dinero, asegurar tu estabilidad financiera, planificar tu futuro, reducir deudas, invertir con sensatez y, en última instancia, mejorar tu calidad de vida.</p>
                 </div>
                 <div className='bannersContainer'>
