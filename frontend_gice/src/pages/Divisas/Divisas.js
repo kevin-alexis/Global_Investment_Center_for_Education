@@ -48,10 +48,10 @@ const Divisas = () => {
     }, []); // Dependencia vacía para que se ejecute solo una vez al montar el componente
 
 
-    function changeCurrency(event){
-        const divisa = event.target.value;
-        fetchExchangeRates(divisa);
-    }
+    // function changeCurrency(event){
+    //     const divisa = event.target.value;
+    //     fetchExchangeRates(divisa);
+    // }
 
     return (
         <div className='Divisas'>
@@ -100,14 +100,14 @@ const Divisas = () => {
                         </div>
                         <div className='contadorDivisas'>
                                 {(contador > 1)
-                                ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} />
-                                : <img className='NewsNoSirve' src={Izquierdo} />
+                                ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} alt='boton izquierdo'/>
+                                : <img className='NewsNoSirve' src={Izquierdo} alt='boton izquierdo sin click'/>
                                 }
 
 
                                 {(contador <= 150)
-                                    ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
-                                    : <img className='NewsNoSirve' src={Derecho} />
+                                    ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} alt='boton derecho'/>
+                                    : <img className='NewsNoSirve' src={Derecho} alt='boton derecho sin click'/>
                                 }
                         </div>
                         

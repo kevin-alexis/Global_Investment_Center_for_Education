@@ -62,11 +62,11 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
             const imagenFile = e.target.imagen.files[0];
             const documentoFile = e.target.documento.files[0];
         
-            // Validar que la imagen sea JPG o PNG
-            if (imagenFile && !['image/jpeg', 'image/png'].includes(imagenFile.type)) {
+            // Validar que la imagen sea JPG, PNG o WEBP
+            if (imagenFile && !['image/jpeg', 'image/png', 'image/webp'].includes(imagenFile.type)) {
                 Swal.fire({
                     title: 'Error',
-                    text: 'Por favor, selecciona una imagen JPG o PNG',
+                    text: 'Por favor, selecciona una imagen JPG, PNG o WEBP',
                     icon: 'error'
                 });
                 return;
@@ -168,7 +168,7 @@ const handleFileChange = (e) => {
                                 </label>
                                 <input
                                 type="file"
-                                accept=".png, .jpg"
+                                accept=".png, .jpg, .webp"
                                 name="rutaImagen"
                                 onChange={handleFileChange} id="imagen">
                                 </input>

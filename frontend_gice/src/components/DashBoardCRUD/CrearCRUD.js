@@ -59,10 +59,10 @@ function CrearCRUD({ titulo }) {
             const documentoFile = e.target.documento.files[0];
         
             // Validar que la imagen sea JPG o PNG
-            if (imagenFile && !['image/jpeg', 'image/png'].includes(imagenFile.type)) {
+            if (imagenFile && !['image/jpeg', 'image/png', 'image/webp'].includes(imagenFile.type)) {
                 Swal.fire({
                     title: 'Error',
-                    text: 'Por favor, selecciona una imagen JPG o PNG',
+                    text: 'Por favor, selecciona una imagen JPG, PNG o WEBP',
                     icon: 'error'
                 });
                 return;
@@ -157,7 +157,7 @@ function CrearCRUD({ titulo }) {
                                     </label>
                                     <input
                                     required
-                                    accept=".png, .jpg"
+                                    accept=".png, .jpg, .webp"
                                         type="file" onChange={(e) => setCurso({...curso, rutaImagen:e.target.value})} value={curso.rutaImagen} id="imagen">
                                     </input>
 
