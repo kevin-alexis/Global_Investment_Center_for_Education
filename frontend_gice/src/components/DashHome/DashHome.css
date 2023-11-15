@@ -94,3 +94,18 @@
 .SimboloDashHome{
     width: 50%;
 }
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 768px) {
+    .DashboardOptions{
+        width: 100%;
+    }
+
+    .DashboardOptionsBloques{
+        flex-direction: column;
+    }
+
+    .DashHomeTexto{
+        width: 100%;
+    }
+}

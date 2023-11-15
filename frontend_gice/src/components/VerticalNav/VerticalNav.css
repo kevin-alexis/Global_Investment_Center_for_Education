@@ -55,3 +55,88 @@
 
 }
 
+.iconDashboardNavbar{
+    width: 30%;
+}
+
+@media screen and (max-width: 1300px) {
+    .TextoVerticalNav{
+        font-size: 20px;
+    }
+}
+
+@media screen and (max-width: 1000px) {
+    .TextoVerticalNav{
+        font-size: 15px;
+    }
+}
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 900px) {
+    .verticalNavBarContainer {
+        height: 8vh; /* Reduzco la altura del contenedor del navbar */
+        margin: 10px;
+    }
+
+    .VerticalNavBar2 {
+        width: 100%;
+        position: relative; /* Fija el navbar en la parte superior */
+        top: 0; /* Lo posiciona en la parte superior */
+        z-index: 1000; /* Asegura que esté por encima de otros elementos */
+    }
+
+    .VerticalNavBar {
+        display: grid;
+        grid-template-columns: 1fr 3fr 1fr;
+        background-color: #364153;
+        border-radius: 5px;
+        margin: 0;
+        box-sizing: border-box;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        width: 100%;
+    }
+
+    .iconDashboardNavbar{
+        width: 20% !important;
+    }
+
+    .TextoVerticalNav {
+        margin: 0; /* Reduzco el espacio superior e inferior */
+        font-size: 20px; /* Disminuyo el tamaño del texto */
+    }
+    
+    .VerticalNavBarBotones {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: space-around;
+        margin: 0;
+        height: 100%;
+    }
+    
+    .NavbarButton {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        padding: 0; /* Reduzco el espacio superior e inferior */
+    }
+    
+    .Selected {
+        background-color: #ffffff20;
+        height: 60px;
+    }
+
+    .linkLogOutDash{
+        padding-top: 5%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+    }
+
+    .BotonLogOut{
+        width: 30%;
+    }
+}
+

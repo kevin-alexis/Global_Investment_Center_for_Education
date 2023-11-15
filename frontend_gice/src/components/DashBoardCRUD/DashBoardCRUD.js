@@ -4,6 +4,8 @@ import EditButton from '../../assets/EditButton.png'
 import DeleteButton from '../../assets/DeleteButton.png'
 import EditarCRUD from './EditarCRUD'
 import CrearCRUD from './CrearCRUD'
+import Swal from 'sweetalert2';
+
 
 function DashBoardCRUD({ titulo }) {
 
@@ -18,48 +20,63 @@ function DashBoardCRUD({ titulo }) {
 
     const FuncEliminar = async (id, rutaDocumento, rutaImagen) => {
         //console.log(idUsuario);
-        
-        const requestOptionsEliminar = {
-            method: 'DELETE',
-            headers: {
-                    "Content-Type": "application/json"
-            },
-            body: titulo === 'Users' ? JSON.stringify({idUsuario: id}) : JSON.stringify({idCurso: id, rutaDocumento: rutaDocumento, rutaImagen: rutaImagen})
-        
-        };
-        if (titulo === 'Users') {
-            const URL = `${GICE_API}/usuarios`;
-            
-    
-            try {
-                const response = await fetch(URL, requestOptionsEliminar);
-                console.log("mensaje",response)
 
-                if (response.ok) {
-                    console.log('Usuario eliminado con éxito');
-                    window.location.reload();
-                } else {
-                    console.error('Error al eliminar el usuario');
-                }
-            } catch (error) {
-                console.error('Error al eliminar', error);
-            }
-        } else if (titulo == 'Cursos') {
+        const confirmarEliminacion = await Swal.fire({
+            title: '¿Estás seguro?',
+            text: 'Esta acción no se puede deshacer',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#d33',
+            cancelButtonColor: '#3085d6',
+            confirmButtonText: 'Sí, eliminarlo',
+            cancelButtonText: 'Cancelar'
+        });
+
+        if (confirmarEliminacion.isConfirmed) {
+            const requestOptionsEliminar = {
+                method: 'DELETE',
+                headers: {
+                        "Content-Type": "application/json"
+                },
+                body: titulo === 'Users' ? JSON.stringify({idUsuario: id}) : JSON.stringify({idCurso: id, rutaDocumento: rutaDocumento, rutaImagen: rutaImagen})
+            
+            };
+            if (titulo === 'Users') {
+                const URL = `${GICE_API}/usuarios`;
+                
+        
+                try {
+                    const response = await fetch(URL, requestOptionsEliminar);
+                    console.log("mensaje",response)
     
-            const URL = `${GICE_API}/cursos`;
-    
-            try {
-                const response = await fetch(URL, requestOptionsEliminar);
-                if (response.ok) {
-                    console.log('Curso eliminado con éxito');
-                    window.location.reload();
-                } else {
-                    console.error('Error al eliminar el curso');
+                    if (response.ok) {
+                        console.log('Usuario eliminado con éxito');
+                        window.location.reload();
+                    } else {
+                        console.error('Error al eliminar el usuario');
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar', error);
                 }
-            } catch (error) {
-                console.error('Error al eliminar el curso', error);
+            } else if (titulo == 'Cursos') {
+        
+                const URL = `${GICE_API}/cursos`;
+        
+                try {
+                    const response = await fetch(URL, requestOptionsEliminar);
+                    if (response.ok) {
+                        console.log('Curso eliminado con éxito');
+                        window.location.reload();
+                    } else {
+                        console.error('Error al eliminar el curso');
+                    }
+                } catch (error) {
+                    console.error('Error al eliminar el curso', error);
+                }
             }
         }
+        
+        
     };
 
     const FuncEditar = (element) => {

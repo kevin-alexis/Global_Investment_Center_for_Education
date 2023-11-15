@@ -33,24 +33,34 @@ const Login = () => {
         fetch(URL, requestOptions)
             .then(response => response.json())
             .then(data => {
-                // console.log(data.user[0].token);
-                localStorage.setItem('auth', "yes")
-                localStorage.setItem('sesion_token', data.token)
-                localStorage.setItem('user_token', data.user[0].token)
-                if(data.user[0].rol==='user'){ // USUARIO
-                    window.location.href = '/';
-                }else if(data.user[0].rol==='admin'){ //ADMIN
-                    window.location.href = '/dashboard';
+                if (data && data.token && data.user && data.user[0] && data.user[0].token) {
+                    localStorage.setItem('auth', "yes");
+                    localStorage.setItem('sesion_token', data.token);
+                    localStorage.setItem('user_token', data.user[0].token);
+                    
+                    if (data.user[0].rol === 'user') {
+                        window.location.href = '/';
+                    } else if (data.user[0].rol === 'admin') {
+                        window.location.href = '/dashboard';
+                    }
+                } else {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'Revisa los datos ingresados.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
                 }
             })
+            
             .catch((error)=>{
                 Swal.fire({
                     title: 'Error',
-                    text: 'Revisa los datos ingresados.',
+                    text: 'El usuario no existe',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
-                userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
+                // userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
             })
     };
 

@@ -197,7 +197,7 @@
     border-radius: 10px; 
     font-size: 16px; 
     font-weight: bold;
-  }
+}
 
 .cancelar {
     background-color: #ff0019; 
@@ -209,4 +209,117 @@
     font-size: 16px; 
     font-weight: bold;
 
-  }
+}
+
+@media screen and (max-width: 1200px) {
+    .DashBoardCRUDDiv {
+        overflow-x: scroll;
+    }
+}
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 900px) {
+
+    .DashBoardComponente{
+        margin-top: 100px;
+    }
+
+    .DashBoardCRUDDiv {
+        overflow-x: scroll;
+        width: 90%;
+        min-height: 50vh; /* Reduzco la altura mínima */
+        background-color: #364153;
+        border-radius: 5px;
+        color: white;
+        margin-bottom: 20px; /* Reduzco el margen inferior */
+    }
+
+    .DateTitleContainer {
+        display: flex;
+        width: 90%;
+        align-items: center;
+        margin-bottom: 40px; /* Reduzco el margen inferior */
+    }
+
+    .DashBoardCRUDBody {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: space-around;
+        margin-top: 10px; /* Reduzco el margen superior */
+        flex-direction: column;
+    }
+
+    .DashBoardCRUDTittle2 {
+        margin-top: 10px; /* Reduzco el espacio superior */
+        width: 90%;
+        font-size: 30px; /* Disminuyo el tamaño del título */
+        visibility: hidden;
+    }
+
+    .DashBoardCRUDTittleWhite,
+    .DashBoardCRUDTittle {
+        width: 90%;
+        font-size: 30px; /* Disminuyo el tamaño del título */
+    }
+
+    .DashBoardCRUDBorder {
+        margin: 10px; /* Reduzco el margen */
+    }
+
+    .DashBoardCRUDTable {
+        height: 60px; /* Reduzco la altura de la tabla */
+    }
+
+    .textCrud {
+        font-weight: 400;
+    }
+
+    .theadRow {
+        border-bottom: 1px solid #ffffff05;
+        height: 60px; /* Reduzco la altura de la fila */
+    }
+
+    .rutaDocumentoEstilos,
+    .rutaImagenEstilos {
+        width: 5px; /* Reduzco el ancho para que se trunque más rápido */
+    }
+
+    .tableCell {
+        max-width: 150px; /* Ajusto el ancho máximo */
+    }
+
+    .DashBoardComponente {
+        width: 100%;
+        height: 100vh;
+        position: fixed;
+        background-color: #1A202C;
+        top: 0;
+        right: 0;
+    }
+
+    .DashBoardEditCrear {
+        width: 90%;
+        background-color: #364153;
+        margin: 20px;
+        border-radius: 10px;
+        color: white;
+        display: grid;
+        grid-template-rows: 1fr 2fr 1fr;
+    }
+
+    .EditCrearBotones {
+        width: 90%; /* Reduzco el ancho para ocupar más espacio en pantallas pequeñas */
+        display: flex;
+        align-self: center;
+        justify-content: space-between;
+        margin-top: 40px; /* Reduzco el espacio superior */
+        flex-wrap: wrap; /* Permito que los botones se coloquen en filas adicionales si no caben en una sola línea */
+    }
+
+    .crear,
+    .cancelar {
+        width: 100%; /* Ajusto el ancho de los botones para distribuirlos mejor */
+        margin-bottom: 10px; /* Añado espacio entre los botones */
+    }
+}

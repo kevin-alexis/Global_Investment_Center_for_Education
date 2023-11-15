@@ -32,7 +32,7 @@ function VerticalNav() {
                             className={`NavbarButton ${selectedLink === 'dashboard' ? 'Selected' : ''}`}
                             onClick={() => handleLinkClick('dashboard')}
                         >
-                            <img style={{ width: 30 + '%' }} src={BotonDashInicio} alt='Inicio' />
+                            <img className='iconDashboardNavbar' style={{ width: 30 + '%' }} src={BotonDashInicio} alt='Inicio' />
                         </Link>
                         <Link
                             style={{ width: 100 + '%' }}
@@ -40,7 +40,7 @@ function VerticalNav() {
                             className={`NavbarButton ${selectedLink === 'cursos' ? 'Selected' : ''}`}
                             onClick={() => handleLinkClick('cursos')}
                         >
-                            <img style={{ width: 30 + '%' }} src={BotonDashCursos} alt='Cursos' />
+                            <img className='iconDashboardNavbar' style={{ width: 30 + '%' }} src={BotonDashCursos} alt='Cursos' />
                         </Link>
                         <Link
                             style={{ width: 100 + '%' }}
@@ -48,11 +48,11 @@ function VerticalNav() {
                             className={`NavbarButton ${selectedLink === 'users' ? 'Selected' : ''}`}
                             onClick={() => handleLinkClick('users')}
                         >
-                            <img style={{ width: 30 + '%' }} src={BotonDashUsers} alt='Usuarios' />
+                            <img className='iconDashboardNavbar' style={{ width: 30 + '%' }} src={BotonDashUsers} alt='Usuarios' />
                         </Link>
                     </div>
                 </div>
-                <Link to='/' onClick={() => localStorage.clear()}>
+                <Link to='/' onClick={() => localStorage.clear()} className='linkLogOutDash'>
                     <img src={BotonLogOut} alt='Cerrar sesión' className='BotonLogOut' />
                 </Link>
             </div>

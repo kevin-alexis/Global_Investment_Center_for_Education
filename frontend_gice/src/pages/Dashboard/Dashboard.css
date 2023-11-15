@@ -18,3 +18,11 @@
     z-index: -99;
     background-color:#1A202C;
 }
+
+/* Media Query para pantallas más pequeñas */
+@media screen and (max-width: 900px) {
+    .DashboardBody {
+        display: flex;
+        flex-direction: column;    
+    }
+}
