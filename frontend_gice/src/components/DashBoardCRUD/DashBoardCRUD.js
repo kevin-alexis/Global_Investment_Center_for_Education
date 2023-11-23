@@ -42,6 +42,17 @@ function DashBoardCRUD({ titulo }) {
             
             };
             if (titulo === 'Users') {
+
+                if (id === 1) {
+                    Swal.fire({
+                        title: 'Error',
+                        text: 'No puedes eliminar al administrador. Debes mantener al menos un usuario como administrador.',
+                        icon: 'error',
+                        confirmButtonText: 'OK'
+                    });
+                    return;
+                }
+
                 const URL = `${GICE_API}/usuarios`;
                 
         

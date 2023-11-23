@@ -29,6 +29,16 @@ const CambiarPassword  = () => {
 
     const enviarCorreo = (e) => {
         e.preventDefault();
+
+        if(!datos.contraseña.trim() || !datos.confirmarContraseña.trim()){
+            Swal.fire({
+                title: 'Error',
+                text: 'Datos invalidos. Por favor, inténtalo de nuevo.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return
+        }
         
         if(datos.contraseña === datos.confirmarContraseña){
             const URL = `${GICE_API}/cambiar-password?token=${token}&&idUsuario=${idUsuario}`;

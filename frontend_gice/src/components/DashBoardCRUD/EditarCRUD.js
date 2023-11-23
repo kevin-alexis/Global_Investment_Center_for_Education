@@ -25,7 +25,19 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
 
     const editarUsuario = async (e) => {
         e.preventDefault();
+
         if (titulo === 'Users') {
+
+            if(!user.nombre.trim() || !user.correoElectronico.trim() || !user.contraseña.trim()){
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Datos invalidos. Por favor, inténtalo de nuevo.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return
+            }
+
             const URL = `${GICE_API}/usuarios`;
             const requestOptionsAgregar = {
                 method: 'PUT',
@@ -58,6 +70,16 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
         } else if (titulo === 'Cursos') {
         
             e.preventDefault();
+
+            if(!curso.titulo.trim() || !curso.descripcion.trim()){
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Datos invalidos. Por favor, inténtalo de nuevo.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return
+            }
 
             const imagenFile = e.target.imagen.files[0];
             const documentoFile = e.target.documento.files[0];
