@@ -2,7 +2,7 @@ import { useState } from "react"
 import Swal from 'sweetalert2';
 
 
-function CrearCRUD({ titulo }) {
+function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar }) {
     const GICE_API = process.env.REACT_APP_URL_API;
 
     const [user, setUser] = useState({
@@ -55,13 +55,15 @@ function CrearCRUD({ titulo }) {
             await fetch(URL, requestOptionsAgregar)
                 .then(response => response.json())
                 .then(data => {
+                    setAbrirNuevo(false);
                     Swal.fire({
                         title: 'Usuario Creado',
                         text: 'El usuario fue creado exitosamente',
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.reload()
+                        setAbrirNuevo(false);
+                        FuncLlamar();
                     });
                 })
                 .catch((error) => {
@@ -127,12 +129,16 @@ function CrearCRUD({ titulo }) {
                 const data = await response.json();
 
                 if (response.ok) {
+                    setAbrirNuevo(false);
                     Swal.fire({
                         title: 'Curso creado',
                         icon: 'success',
                         timer: 2000,
                         showConfirmButton: 'OK'
-                    }).then(() => window.location.reload());
+                    }).then(() => {
+                        setAbrirNuevo(false);
+                        FuncLlamar();
+                    });
                 } else {
                     Swal.fire({
                         title: 'Error',
@@ -152,7 +158,7 @@ function CrearCRUD({ titulo }) {
     };
 
     const CancelarAccion = () => {
-        window.location.reload()
+        setAbrirNuevo(false)
     }
 
     return (

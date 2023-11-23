@@ -19,7 +19,6 @@ function DashBoardCRUD({ titulo }) {
     
 
     const FuncEliminar = async (id, rutaDocumento, rutaImagen) => {
-        //console.log(idUsuario);
 
         const confirmarEliminacion = await Swal.fire({
             title: '¿Estás seguro?',
@@ -62,7 +61,8 @@ function DashBoardCRUD({ titulo }) {
     
                     if (response.ok) {
                         console.log('Usuario eliminado con éxito');
-                        window.location.reload();
+                        setAbrirNuevo(false)
+                        FuncLlamar()
                     } else {
                         console.error('Error al eliminar el usuario');
                     }
@@ -77,7 +77,8 @@ function DashBoardCRUD({ titulo }) {
                     const response = await fetch(URL, requestOptionsEliminar);
                     if (response.ok) {
                         console.log('Curso eliminado con éxito');
-                        window.location.reload();
+                        setAbrirNuevo(false)
+                        FuncLlamar()
                     } else {
                         console.error('Error al eliminar el curso');
                     }
@@ -171,7 +172,7 @@ function DashBoardCRUD({ titulo }) {
         <>
             {mostarFormEditar
                 ?
-                <EditarCRUD titulo = {titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar}/>
+                <EditarCRUD titulo = {titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar} FuncLlamar={FuncLlamar}/>
                 :
                 ''
 
@@ -179,7 +180,7 @@ function DashBoardCRUD({ titulo }) {
             
             {abrirNuevo
                 ?
-                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar}/>
+                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar} setAbrirNuevo={setAbrirNuevo} FuncLlamar={FuncLlamar}/>
                 :
                 ''
             }

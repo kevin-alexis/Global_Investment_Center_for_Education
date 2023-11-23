@@ -82,12 +82,16 @@ function DashHome() {
 
     }
 
+    function FuncLlamar(){
+        
+    }
+
 
     return (
         <>
             {abrirNuevo
                 ?
-                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso}/>
+                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso} setAbrirNuevo={setAbrirNuevo} FuncLlamar={FuncLlamar}/>
                 :
                 <div className="DashboardContent">
                 <div className="DashboardDate">
@@ -98,7 +102,7 @@ function DashHome() {
                         <BloqueDashHome imagen ={SimboloDescarga} tittle={numDescargas[0]?.totalDescargas ?? 0} text={'Downloads'} color={'180,180,180'} />
                         <BloqueDashHome imagen ={Game} tittle={(usuario ?? 0)+ (usuarioGoogle ?? 0)} text={'Usuarios registrados'} color={'47,229,167'} />
                         <BloqueDashHome imagen ={CirculoMasRojo} tittle={'Añadir Usuario'} text={''} color={'255,105,176'} onClick={FuncCrearUsuario} titulo={'Users'} setAbrirNuevo={setAbrirNuevo}/>
-                        <BloqueDashHome imagen ={CirculoMasAmarillo} tittle={'Añadir Documento'} text={''} color={'228,232,49'} onClick={FuncCrearCurso} titulo={'Cursos'} setAbrirNuevo={setAbrirNuevo}/>                    
+                        <BloqueDashHome imagen ={CirculoMasAmarillo} tittle={'Añadir Curso'} text={''} color={'228,232,49'} onClick={FuncCrearCurso} titulo={'Cursos'} setAbrirNuevo={setAbrirNuevo}/>                    
                     </div>
     
                 </div>

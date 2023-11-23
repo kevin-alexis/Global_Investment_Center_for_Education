@@ -1,7 +1,7 @@
 import { useState } from "react"
 import Swal from 'sweetalert2';
 
-function EditarCRUD({titulo, usersOrCurso, setOpen}) {
+function EditarCRUD({titulo, usersOrCurso, setOpen, FuncLlamar}) {
 
     const GICE_API = process.env.REACT_APP_URL_API;
 
@@ -64,7 +64,8 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
                         icon: 'success',
                         confirmButtonText: 'OK'
                     }).then(() => {
-                        window.location.reload()
+                        setOpen(false);
+                        FuncLlamar();
                     });
                 })
                 .catch((error) => {
@@ -137,7 +138,8 @@ function EditarCRUD({titulo, usersOrCurso, setOpen}) {
                     icon: 'success',
                     confirmButtonText: 'OK'
                 }).then(() => {
-                    window.location.reload()
+                    setOpen(false);
+                    FuncLlamar();
                 });
             })
             .catch((error) => {
