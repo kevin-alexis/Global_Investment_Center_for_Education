@@ -108,6 +108,17 @@ const Registro = () => {
             return
         }
 
+        if (datos.contraseña.length < 8 || !/[0-9]/.test(datos.contraseña) || !/[A-Z]/.test(datos.contraseña) || !/[!@#$%^&*_-]/.test(datos.contraseña)) {
+            Swal.fire({
+                title: 'Error',
+                text: 'La contraseña debe tener al menos 8 caracteres y contener al menos un número, una letra mayúscula y un carácter especial.',
+                icon: 'error',
+                confirmButtonText: 'OK'
+            });
+            return;
+        }
+        
+
 
         if (datos.contraseña === datos.confirmarContraseña) {
             const URL = `${GICE_API}/usuarios`;

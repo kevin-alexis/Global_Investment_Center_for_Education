@@ -33,6 +33,16 @@ function CrearCRUD({ titulo }) {
                 return
             }
 
+            if (user.contraseña.length < 8 || !/[0-9]/.test(user.contraseña) || !/[A-Z]/.test(user.contraseña) || !/[!@#$%^&*_-]/.test(user.contraseña)) {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'La contraseña debe tener al menos 8 caracteres y contener al menos un número, una letra mayúscula y un carácter especial.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+                return;
+            }
+
             const URL = `${GICE_API}/usuarios`;
             const requestOptionsAgregar = {
                 method: 'POST',
