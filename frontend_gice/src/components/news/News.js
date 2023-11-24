@@ -56,7 +56,7 @@ function News({ loading, setLoading }) {
                     if (filteredArticles.length > 0) {
                         setNoticia(filteredArticles);
                         setNum(filteredArticles.slice(primero, segundo));
-                        // console.log(filteredArticles);
+                        console.log(filteredArticles);
                         setLoading(false);
                     } else {
                         console.log('No se encontraron noticias con descripciones textuales.');

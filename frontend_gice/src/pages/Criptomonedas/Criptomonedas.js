@@ -113,8 +113,8 @@ const Criptomonedas = () => {
                                 </p>
                                 <br></br>
                                 <p className='textIntro' style={{ marginTop: 0, paddingTop: 0}}>
-                                A continuación, encontrarás la lista completa de todas las divisas disponibles. Además, te recomendamos revisar el siguiente PDF para obtener más información acerca de los acrónimos utilizados.
-                                </p>
+                                A continuación, se presenta la lista completa de todas las criptomonedas disponibles, acompañadas de su valor en dólares. Además, te recomendamos revisar el siguiente PDF para obtener más información sobre los términos y conceptos utilizados en el mundo de las criptomonedas.                                </p>
+                                
                                 <div className='buttonContainerDivisas'>
                                     <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton'>Visualizar PDF</button>
                                 </div>

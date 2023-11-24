@@ -324,7 +324,7 @@ function DashBoardCRUD({ titulo }) {
                                                         <td className='textCrud'>{user.correoElectronico}</td>
                                                         
                                                         {
-                                                            user.idPlataformaId != '1'?
+                                                            user.idUsuario == '1' || user.idPlataformaId != '1'?
                                                             <td></td>:
                                                             <td className='textCrud'><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></td>
                                                         }

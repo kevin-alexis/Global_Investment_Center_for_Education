@@ -15,6 +15,7 @@ import jwt_decode from 'jwt-decode';
 import DashboardUsers from './pages/DashBoardUsers/DashBoardUsers.js';
 import OlvideMiContraseña from './pages/OlvideMiContraseña/OlvideMiContraseña.js';
 import CambiarPassword from './pages/CambiarPassword/CambiarPassword.js';
+import MoreDetails from './pages/MoreDetails/MoreDetails.js';
 
 
 function AppRouter() {
@@ -35,6 +36,7 @@ function AppRouter() {
         {/* RUTAS PUBLICAS */}
         <Route path="/" element={<Home />} />
         <Route path="/noticias" element={<Noticias />} />
+        <Route path="/noticias/more" element={<MoreDetails />} />
         <Route path="/divisas" element={<Divisas />} />
         <Route path="/criptomonedas" element={<Criptomonedas />} />
 
