@@ -10,7 +10,9 @@ function EditarCRUD({titulo, usersOrCurso, setOpen, FuncLlamar}) {
         nombre: usersOrCurso?.nombre,
         correoElectronico: usersOrCurso?.correoElectronico,
         contraseña: usersOrCurso?.contraseña,
-        idTipoUsuarioId: usersOrCurso?.idTipoUsuarioId
+        idTipoUsuarioId: usersOrCurso?.idTipoUsuarioId,
+        token:usersOrCurso?.token,
+        idPlataformaId: usersOrCurso?.idPlataformaId,
     })
 
     const [curso, setCurso] = useState({

@@ -8,28 +8,35 @@ import Swal from 'sweetalert2';
 
 const Registro = () => {
 
-    const GICE_API = process.env.REACT_APP_URL_API;
-
-    const [googleData, setGoogleData] = useState({
+    const [show, setShow] = useState(false);
+    const [datos, setDatos] = useState({
         nombre: '',
-        correoElectronico:'',
-        token: '',
-        idTipoUsuarioId: 2
-    })
+        correoElectronico: '',
+        contraseña: '',
+        confirmarContraseña: '',
+        token:'',
+        idTipoUsuarioId: 2,
+        idPlataformaId: 1
+    });
+
+    const GICE_API = process.env.REACT_APP_URL_API;
 
     function handleCallbackResponse(response) {
         // console.log('Encoded JWT ID token: ' + response.credential)
         let userObject = jwt_decode(response.credential)
         // console.log(jwt_decode(response.credential))
-        setGoogleData({...googleData,
+        setDatos({...datos,
             nombre: userObject.name,
             correoElectronico: userObject.email,
-            token: userObject.sub
+            token: userObject.sub,
+            contraseña: userObject.sub,
+            confirmarContraseña: userObject.sub,
+            idPlataformaId: 2
         })
     }
 
     const googleRegister = () => {
-        const URL = `${GICE_API}/usuarios-google`;
+        const URL = `${GICE_API}/usuarios`;
 
         // Fetch options
         const requestOptions = {
@@ -37,7 +44,7 @@ const Registro = () => {
             headers: {
                 "Content-Type": "application/json"
             },
-            body: JSON.stringify(googleData)
+            body: JSON.stringify(datos)
         };
 
         // Fetch request
@@ -78,22 +85,12 @@ const Registro = () => {
             { size: 'large', shape: 'pill', width:'300px' }
         )
 
-        if (googleData.nombre && googleData.correoElectronico && googleData.token) {
+        if (datos.nombre && datos.correoElectronico && datos.token && datos.contraseña) {
             googleRegister();
         }
 
-    }, [googleData])
+    }, [datos.idPlataformaId])
 
-    const [show, setShow] = useState(false);
-    const [datos, setDatos] = useState({
-        nombre: '',
-        correoElectronico: '',
-        contraseña: '',
-        confirmarContraseña: '',
-        idTipoUsuarioId: 2
-    });
-
-    
 
     const register = (event) => {
         event.preventDefault();
@@ -117,8 +114,6 @@ const Registro = () => {
             });
             return;
         }
-        
-
 
         if (datos.contraseña === datos.confirmarContraseña) {
             const URL = `${GICE_API}/usuarios`;

@@ -170,6 +170,9 @@ function DashBoardCRUD({ titulo }) {
 
     const fechaActualFormateada = obtenerFechaActual();    
 
+    function cantidadUsuario(){
+    };
+
 
 
     return (
@@ -184,7 +187,7 @@ function DashBoardCRUD({ titulo }) {
             
             {abrirNuevo
                 ?
-                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar} setAbrirNuevo={setAbrirNuevo} FuncLlamar={FuncLlamar}/>
+                <CrearCRUD titulo ={titulo} usersOrCurso = {usersOrCurso} setOpen = {setMostarFormEditar} setAbrirNuevo={setAbrirNuevo} FuncLlamar={FuncLlamar} cantidadUsuario={cantidadUsuario}/>
                 :
                 ''
             }
@@ -259,7 +262,12 @@ function DashBoardCRUD({ titulo }) {
                                                         <td className='textCrud'>{index+1}</td>
                                                         <td className='textCrud'>{user.nombre}</td>
                                                         <td className='textCrud'>{user.correoElectronico}</td>
-                                                        <td className='textCrud'><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></td>
+                                                        
+                                                        {
+                                                            user.idPlataformaId != '1'?
+                                                            <td></td>:
+                                                            <td className='textCrud'><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></td>
+                                                        }
                                                         {
                                                             user.idTipoUsuarioId == '1'?
                                                             <td></td>:

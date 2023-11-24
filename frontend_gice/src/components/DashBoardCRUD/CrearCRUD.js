@@ -2,14 +2,16 @@ import { useState } from "react"
 import Swal from 'sweetalert2';
 
 
-function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar }) {
+function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
     const GICE_API = process.env.REACT_APP_URL_API;
 
     const [user, setUser] = useState({
         nombre: '',
         correoElectronico: '',
         contraseña: '',
-        idTipoUsuarioId: ''
+        idTipoUsuarioId: '',
+        token:'',
+        idPlataformaId: 1
     })
 
     const [curso, setCurso] = useState({
@@ -64,6 +66,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar }) {
                     }).then(() => {
                         setAbrirNuevo(false);
                         FuncLlamar();
+                        cantidadUsuario();
                     });
                 })
                 .catch((error) => {
@@ -121,7 +124,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar }) {
                 method: 'POST',
                 body: formData,
             };
-            console.log(formData);
+            // console.log(formData);
 
             try {
                 const URL = `${GICE_API}/cursos`;

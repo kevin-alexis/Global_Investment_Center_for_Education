@@ -38,35 +38,29 @@ const secretKey = 'your-secret-key'; // Reemplázalo con tu clave secreta segura
 export const iniciarSesion = (req, res) => {  
     const { correoElectronico, contraseña } = req.body;
     const plainPassword = contraseña;
-    pool.query(`SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, tipoUsuarios.rol
+    pool.query(`SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.contraseña, usuarios.token, usuarios.idPlataformaId, tipoUsuarios.rol
     FROM usuarios
     INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
     WHERE usuarios.correoElectronico = ?`, [correoElectronico], async (err, result) => {
         if (err) {
-            res.status(500).send(err);
+            res.status(500).send({ "message": "Error interno del servidor" });
+        } else if (result.length === 0) {
+            res.status(400).send({ "message": "El usuario no existe" });
+        } else if (result[0].idPlataformaId !== 1) {
+            res.status(401).send({ "message": "Este correo está vinculado a una cuenta de Google" });
         } else {
-            if (result.length > 0) {
-                const hashedPassword = result[0].contraseña;
-                try {
-                    const match = await checkPassword(plainPassword, hashedPassword);
-                    if (match) {
-                    // Generar un token JWT
+            const hashedPassword = result[0].contraseña;
+            try {
+                const match = await checkPassword(plainPassword, hashedPassword);
+                if (match) {
                     const token = jwt.sign({ id: result[0].idUsuario, correoElectronico: result[0].correoElectronico, rol: result[0].rol }, secretKey); 
-                    // Devolver el token y la información del usuario en la respuesta
                     res.status(200).json({ token, user: result });
-                    } else {
-                        res.status(400).send({
-                            message: "Contraseña incorrecta"
-                        });
-                    }
-                } catch (error) {
-                    console.error("Error al verificar la contraseña:", error);
-                    res.status(500).send({
-                        message: "Error interno del servidor: " + error.message
-                    });
+                } else {
+                    res.status(400).send({ "message": "Contraseña incorrecta" });
                 }
-            } else {
-                res.status(400).send({"error": "Usuario no existente"});
+            } catch (error) {
+                console.error("Error al verificar la contraseña:", error);
+                res.status(500).send({ "message": "Error interno del servidor: " + error.message });
             }
         }
     });
@@ -76,10 +70,10 @@ export const iniciarSesion = (req, res) => {
 export const iniciarSesionGoogle = (req, res) => {
     const { correoElectronico, token } = req.body;
     pool.query(
-        `SELECT usuariosGoogle.idUsuario, usuariosGoogle.nombre, usuariosGoogle.correoElectronico, usuariosGoogle.token, tipoUsuarios.rol
-        FROM usuariosGoogle
-        INNER JOIN tipoUsuarios ON usuariosGoogle.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
-        WHERE usuariosGoogle.correoElectronico = ? AND usuariosGoogle.token = ?`,
+        `SELECT usuarios.idUsuario, usuarios.nombre, usuarios.correoElectronico, usuarios.token, tipoUsuarios.rol
+        FROM usuarios
+        INNER JOIN tipoUsuarios ON usuarios.idTipoUsuarioId = tipoUsuarios.idTipoUsuario
+        WHERE usuarios.correoElectronico = ? AND usuarios.token = ?`,
         [correoElectronico, token],
         async (err, result) => {
             if (err) {
@@ -111,39 +105,44 @@ export const iniciarSesionGoogle = (req, res) => {
     );
 };
 
-
-
 // ! RECUPERAR CONTRASEÑA - SE LE  ENVIA POR CORREO UN LINK CON UN TOKEN PARA CAMBIAR SU CONTRA
-
 export const recuperarCuenta = (req, res) => {
     const correoElectronico = req.body.correoElectronico;
-    const url = 'http://localhost:3000/cambiar-password?token='
-    pool.query(`SELECT * FROM usuarios WHERE correoElectronico = ?`,[correoElectronico], (err, result) =>{
-        if(err){
-            res.status(500).send(err)
-        }else{
-            if(result.length > 0){
-                const token = result[0].token;
-                const idUsuario = result[0].idUsuario;
-                const nuevoToken = generateToken();
-                pool.query(`UPDATE usuarios SET token = ? WHERE idUsuario = ? AND token = ?`,[nuevoToken, idUsuario, token])
-                transporter.sendMail({
-                    from: '"Olvide mi contraseña" <globainvestmentcentereducation@gmail.com>', // sender address
-                    to: correoElectronico, // list of receivers
-                    subject: "Olvide mi contraseña", // Subject line
-                  //   text: "Hello world?", // plain text body
-                    html: `
-                    <b>Por favor da click en el siguiente link, o pegalo en tu navegador para completar el proceso</b>
-                    <a href="${url+nuevoToken+'&&idUsuario='+idUsuario}">${url+nuevoToken+'&&idUsuario='+idUsuario}</a>
-                    `, // html body
-              })
-              res.status(200).send("Correo enviado");
-            }else{
-                res.status(400).send('Correo no existente')
-            }
+    const url = 'http://localhost:3000/cambiar-password?token=';
+
+    pool.query(`SELECT * FROM usuarios WHERE correoElectronico = ?`, [correoElectronico], (err, result) => {
+        if (err) {
+            res.status(500).send({ "error": "Error interno del servidor" });
+        } else if (result.length === 0) {
+            res.status(400).send({ "message": 'El correo proporcionado no existe' });
+        } else if (result[0].idPlataformaId !== 1) {
+            res.status(401).send({ "message": "El correo está vinculado a una cuenta de Google" });
+        } else {
+            const token = result[0].token;
+            const idUsuario = result[0].idUsuario;
+            const nuevoToken = generateToken();
+
+            pool.query(`UPDATE usuarios SET token = ? WHERE idUsuario = ? AND token = ?`, [nuevoToken, idUsuario, token], (updateErr, updateResult) => {
+                if (updateErr) {
+                    res.status(500).send({ "error": "Error interno al actualizar el token" });
+                } else {
+                    transporter.sendMail({
+                        from: '"Olvidé mi contraseña" <globainvestmentcentereducation@gmail.com>',
+                        to: correoElectronico,
+                        subject: "Olvidé mi contraseña",
+                        html: `
+                            <b>Por favor haz clic en el siguiente enlace, o cópialo y pégalo en tu navegador para completar el proceso</b>
+                            <a href="${url + nuevoToken + '&&idUsuario=' + idUsuario}">${url + nuevoToken + '&&idUsuario=' + idUsuario}</a>
+                        `
+                    });
+
+                    res.status(200).send({ "message": "Correo enviado" });
+                }
+            });
         }
-    })
-}
+    });
+};
+
 
 // * CAMBIAR CONTRASEÑA
 
