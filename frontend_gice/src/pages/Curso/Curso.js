@@ -1,4 +1,4 @@
-import React, {useEffect, useState} from 'react';
+import React, { useEffect, useState } from 'react';
 import "./Curso.css"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
@@ -16,22 +16,27 @@ const Curso = () => {
     const GICE_API = process.env.REACT_APP_URL_API;
 
 
-    function obtenerCursos(){
+    function obtenerCursos() {
         fetch(`${GICE_API}/cursos`, {
             method: "GET",
             headers: {
                 "Content-type": "application/json",
             }
         })
-        .then((response) => response.json())
-        .then((data) => {
-            setCursos(data)
-            setLoading(false); 
-        })
-        .catch((error) => console.error(error));
+            .then((response) => response.json())
+            .then((data) => {
+                setCursos(data)
+                setLoading(false);
+            })
+            .catch((error) => console.error(error));
     }
 
-    function descargarCurso(rutaDocumento,idCurso) {
+    function abrirCurso(rutaDocumento, idCurso) {
+        window.open(`${GICE_API}/${rutaDocumento}`, '_blank');
+        addDownload(idCurso);
+    }
+
+    function descargarCurso(rutaDocumento, idCurso) {
         const requestOptions = {
             method: 'POST',
             headers: {
@@ -39,7 +44,7 @@ const Curso = () => {
             },
             body: JSON.stringify({ rutaDocumento: rutaDocumento })
         };
-    
+
         fetch(`${GICE_API}/cursos/descargar`, requestOptions)
             .then(response => {
                 if (!response.ok) {
@@ -65,35 +70,35 @@ const Curso = () => {
             });
     }
 
-    function addDownload(id){
-        const url=`${GICE_API}/cursos/actualizar-descarga`;
-        const options={
-            method:"POST",
-            headers:{
-                "Content-type":"application/json"
+    function addDownload(id) {
+        const url = `${GICE_API}/cursos/actualizar-descarga`;
+        const options = {
+            method: "POST",
+            headers: {
+                "Content-type": "application/json"
             },
             body: JSON.stringify({ idCurso: id })
         }
         fetch(url, options)
-        .then(response => response.json())
-        .then(data => console.log(data))
-        .catch(error => console.error(error));
+            .then(response => response.json())
+            .then(data => console.log(data))
+            .catch(error => console.error(error));
     }
 
-    function aumentarContador(){
+    function aumentarContador() {
         setContador(contador + 5);
         scrollToTop()
     }
 
-    function decrementarContador(){
+    function decrementarContador() {
         setContador(contador - 5);
         scrollToTop()
     }
 
-    useEffect(()=>{
+    useEffect(() => {
         obtenerCursos();
-        window.scrollTo(0,0);
-    },[])
+        window.scrollTo(0, 0);
+    }, [])
 
     function scrollToTop() {
         window.scrollTo({

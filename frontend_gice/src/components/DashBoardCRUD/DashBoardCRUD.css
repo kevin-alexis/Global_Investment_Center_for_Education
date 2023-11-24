@@ -212,7 +212,6 @@
 .editar {
     background-color: #605cff; 
     color: #fff; 
-    padding: 8px 40px;
     border: none; 
     cursor: pointer; 
     border-radius: 10px; 
@@ -224,7 +223,6 @@
     background-color: #ffffff20; 
     color: #fff; 
     width: 100%;
-    padding: 8px 40px;
     border: none; 
     cursor: pointer; 
     border-radius: 10px; 
