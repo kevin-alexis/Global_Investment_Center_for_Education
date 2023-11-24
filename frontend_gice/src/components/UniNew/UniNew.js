@@ -16,7 +16,7 @@ function UniNew({noticia}) {
                 <div className="UniNewsParteDerecha">
                     <h3>{title}</h3>
                     <p style={{textAlign:'start'}}>{description}</p>
-                    <a href={url} className='LearnMore'>Learn more about</a>
+                    <a target='_blank' href={url} className='LearnMore'>Learn more about</a>
                 </div>
 
             </div>
