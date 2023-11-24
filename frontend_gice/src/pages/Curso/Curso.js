@@ -166,6 +166,11 @@ const Curso = () => {
                                 <div>
                                     <p className='textCurso'>“La inversión no se trata de predecir el futuro, sino de estar preparado para él.”</p>
                                 </div>
+                                <div>
+                                    <p className='textCurso'>
+                                    Bienvenido al curso de finanzas. Aquí nos sumergiremos en el mundo de las inversiones. Aprenderás los conceptos básicos para que puedas comenzar a invertir. Te llevaremos de la mano para entender cómo funciona este universo financiero. Exploraremos conceptos, entenderemos el riesgo y aprenderemos cómo sacarles provecho. ¡Prepárate para descubrir cómo convertir el dinero en tu aliado para alcanzar tus metas!                                   
+                                    </p>
+                                </div>
                             </div>
                             <div className='cardCursoContainer'>
                             {

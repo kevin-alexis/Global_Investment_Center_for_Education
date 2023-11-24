@@ -5,6 +5,7 @@ import "./Divisas.css"
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
 import { BeatLoader } from 'react-spinners';
+import { FaTimes } from 'react-icons/fa'; 
 
 const Divisas = () => {
 
@@ -13,6 +14,7 @@ const Divisas = () => {
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
     const [contador, setContador] = useState(0);
+    const divisasAcronimos = `http://omawww.sat.gob.mx/fichas_tematicas/buzon_tributario/Documents/catalogo_monedas.pdf`
 
     const fetchExchangeRates = async (divisa) => {
         const valorMonedaBase = divisa;
@@ -53,7 +55,46 @@ const Divisas = () => {
         fetchExchangeRates(divisa);
     }
 
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [pdfUrl, setPdfUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [abrirImgPdf, setAbrirImgPdf] = useState(false)
+
+
+    function PDFModal({ rutaPdf, closeModal }) {
+        return (
+            <div className="modal-overlay" onClick={closeModal}>
+                <div className="modal">
+                    <div className="modal-close">
+                        <FaTimes onClick={closeModal} color='black' fontSize="30px"/>
+                    </div>
+                    <iframe src={rutaPdf} className="pdf-modal-content" title="PDF Modal"/>
+                </div>
+            </div>
+        );
+    }
+
+    function closeModal() {
+        setShowPdfModal(false);
+        setShowImageModal(false);
+        setAbrirImgPdf(false);
+    }
+
+    function FuncVerPDF() {
+        setPdfUrl(divisasAcronimos);
+        setShowPdfModal(true);
+        setAbrirImgPdf(true);
+    }
+
+
     return (
+        abrirImgPdf?
+                <>
+                    {showPdfModal && <PDFModal rutaPdf={pdfUrl} closeModal={closeModal} />}
+                </>
+            :
+    
         <div className='Divisas'>
             <Navbar show={show} setShow={setShow} />
             {show ?
@@ -78,15 +119,25 @@ const Divisas = () => {
                         </div>
                         :
                         <div className='divisasContentContainer'>
-                            <div>
+                            <div className='bannerDivisasIntro'>
                                 <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
-                                    ¿Para que nos sirve saber sobre la moneda?
+                                    ¿Qué son las divisas?
                                 </h1>
-                                <p className='white-text' style={{ marginBottom: 0, paddingBottom: 0 }}>Saber el precio de una moneda es fundamental para aquellos interesados en invertir,
-                                    ya sea en criptomonedas o monedas fiat.  </p>
-                                <p className='white-text' style={{ marginTop: 0, paddingTop: 0 }}>Este conocimiento permite tomar decisiones informadas sobre el momento adecuado para
-                                    comprar o vender, considerando factores como la oferta y la demanda, eventos económicos y noticias geopolíticas. Además, seguir los
-                                    precios ayuda a identificar tendencias del mercado y a evaluar el rendimiento de la cartera de inversiones.</p>
+                                <p className='textIntro' style={{ marginBottom: 0, paddingBottom: 0 }}>
+                                Las divisas son monedas extranjeras que se utilizan en un país diferente al de su origen. Se intercambian en el mercado monetario mundial para realizar transacciones comerciales, inversiones y pagos de deudas. El precio de las divisas fluctúa respecto a otras divisas, estableciendo distintos tipos de cambio. El tipo de cambio es la cantidad de dinero de una moneda que equivale a una unidad de otra divisa. 
+                                </p>
+                                <br></br>
+
+                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0 }}>
+                                Las divisas son emitidas y reguladas por los gobiernos de cada país. Cada país tiene su propia divisa, que se reconoce por su acrónimo de tres letras. Las dos primeras letras corresponden al nombre del país y la tercera a la divisa. Por ejemplo, AUD se refiere al dólar australiano. 
+                                </p>
+                                <br></br>
+                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0}}>
+                                A continuación, se presenta la lista completa de todas las criptomonedas disponibles, acompañadas de su valor en dólares. Además, te recomendamos revisar el siguiente PDF para obtener más información sobre los términos y conceptos utilizados en el mundo de las criptomonedas.                                </p>
+                                <div className='buttonContainerDivisas'>
+                                    <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton'>Visualizar PDF</button>
+                                </div>
+
                             </div>
                             <div className='selectDivisasContainer'>
                                 <h1 className='secondaryTitle'>Basado en: </h1>

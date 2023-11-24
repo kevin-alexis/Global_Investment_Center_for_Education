@@ -161,7 +161,7 @@ const Login = () => {
                 <div className='loginContainer'>
                     <div className='titleContainer'>
                         <h1 className='titleLogin'>Iniciar Sesión</h1>
-                        <p className='white-text' style={{padding:0, margin:0, fontSize:20 + 'px'}}>Si es su primera vez favor de registrarse para acceder a los cursos</p>
+                        {/* <p className='white-text' style={{padding:0, margin:0, fontSize:20 + 'px'}}>Si es su primera vez favor de registrarse para acceder a los cursos</p> */}
                     </div>
                     <div className='loginFormContainer'>
 

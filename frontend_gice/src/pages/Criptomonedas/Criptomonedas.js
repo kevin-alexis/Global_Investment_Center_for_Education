@@ -5,6 +5,7 @@ import './Criptomonedas.css'
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
 import { BeatLoader } from 'react-spinners';
+import { FaTimes } from 'react-icons/fa'; 
 
 const Criptomonedas = () => {
 
@@ -13,6 +14,7 @@ const Criptomonedas = () => {
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
     const [contador, setContador] = useState(0);
+    const documento = "http://localhost:3000/Glosario-cripto.pdf    "
 
     const getCriptomonedas = () => {
         const url = "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0"
@@ -47,7 +49,46 @@ const Criptomonedas = () => {
         window.scrollTo(0, 0);
     }, [])
 
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [pdfUrl, setPdfUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [abrirImgPdf, setAbrirImgPdf] = useState(false)
+
+
+    function PDFModal({ rutaPdf, closeModal }) {
+        return (
+            <div className="modal-overlay" onClick={closeModal}>
+                <div className="modal">
+                    <div className="modal-close">
+                        <FaTimes onClick={closeModal} color='black' fontSize="30px"/>
+                    </div>
+                    <iframe src={rutaPdf} className="pdf-modal-content" title="PDF Modal"/>
+                </div>
+            </div>
+        );
+    }
+
+    function closeModal() {
+        setShowPdfModal(false);
+        setShowImageModal(false);
+        setAbrirImgPdf(false);
+    }
+
+    function FuncVerPDF() {
+        setPdfUrl(documento);
+        setShowPdfModal(true);
+        setAbrirImgPdf(true);
+    }
+
+
     return (
+        abrirImgPdf?
+        <>
+            {showPdfModal && <PDFModal rutaPdf={pdfUrl} closeModal={closeModal} />}
+        </>
+    :
+
         <div className='Criptomonedas'>
             <Navbar show={show} setShow={setShow} />
             {show
@@ -57,16 +98,29 @@ const Criptomonedas = () => {
                 <div className='criptomonedasContainer'>
                     <div className='criptomonedasTitle'>
                         <h1 className='titleCriptomonedas'>Criptomonedas</h1>
-                        <div>
-                            <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
+                        
+                        <div className='bannerCriptomonedasIntro'>
+                                <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
                                 ¿Que son las criptomonedas?
-                            </h1>
-                            <p className='white-text' style={{ marginTop: 0, paddingTop: 0 , paddingBottom:0}}>Las criptomonedas son monedas digitales descentralizadas
-                             que emplean criptografía y blockchain para garantizar transacciones seguras.</p> 
-                            <p className='white-text' style={{ marginBottom: 0, paddingTop: 0 }}>El valor de las criptomonedas varía en función de la oferta, de la demanda, 
-                            y del compromiso de los usuarios. Este valor se  forma  en  ausencia  de mecanismos  eficaces  que  impidan  su  manipulación, esto las hace muy seguras y utiles. </p>
-                            
-                        </div>
+                                </h1>
+                                <p className='textIntro' style={{ marginBottom: 0, paddingBottom: 0 }}>
+                                Las criptomonedas son monedas digitales descentralizadas que emplean criptografía y blockchain para garantizar transacciones seguras, las cuales se utilizan para intercambiar bienes y servicios. Las unidades de criptomonedas se denominan monedas o tokens. 
+                                </p>
+                                <br></br>
+
+                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0 }}>
+                                El valor de las criptomonedas varía en función de la oferta, de la demanda, y del compromiso de los usuarios. Este valor se  forma  en  ausencia  de mecanismos  eficaces  que  impidan  su  manipulación, esto las hace muy seguras y utiles.
+                                </p>
+                                <br></br>
+                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0}}>
+                                A continuación, encontrarás la lista completa de todas las divisas disponibles. Además, te recomendamos revisar el siguiente PDF para obtener más información acerca de los acrónimos utilizados.
+                                </p>
+                                <div className='buttonContainerDivisas'>
+                                    <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton'>Visualizar PDF</button>
+                                </div>
+
+                            </div>
+
                         {loading ? null : <h1 className='secondaryTitleCriptos'>Basado en: USD</h1>}
                     </div>
                     {loading ? (
