@@ -135,7 +135,7 @@ const Curso = () => {
                         GICE
                     </h1>
                     
-                    <p className='white-text' style={{marginBottom:0, paddingTop:0}}>Este curso esta enfocado para aquellas personas
+                    <p className='white-text' style={{marginBottom:0, paddingTop:0, paddingBottom:20+'vh'}}>Este curso esta enfocado para aquellas personas
                      desean invertir, pero carecen de conocimientos financieros. Este curso busca enseñar las bases para poder iniciar y mas adelante ir haciendo tus propias
                      inversiones y hacer que crezca tu dinero.
                     </p>
