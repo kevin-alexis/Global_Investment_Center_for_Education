@@ -129,9 +129,16 @@ const Curso = () => {
 
                         <div>
                     <h1 className='titleDivisas' style={{fontSize:40, padding:10, margin:10}}>
-                        BIENVENIDOS AL CURSO
+                        BIENVENIDOS AL CURSO DE 
                     </h1>
-                    <p className='white-text' style={{marginBottom:0, paddingBottom:0, paddingTop:0}}>Este curso esta enfocado para aquellas personas que quieran adentrarse en el mundo de las inversiones y no saben como</p>
+                    <h1 className='titleDivisas' style={{fontSize:60, padding:0, margin:0}}>
+                        GICE
+                    </h1>
+                    
+                    <p className='white-text' style={{marginBottom:0, paddingBottom:0, paddingTop:0}}>Este curso esta enfocado para aquellas personas
+                     desean invertir, pero carecen de conocimientos financieros. Este curso busca enseñar las bases para poder iniciar y mas adelante ir haciendo tus propias
+                     inversiones y hacer que crezca tu dinero.
+                    </p>
                     
                 </div>
 
