@@ -15,7 +15,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
         correoElectronico: '',
         contraseña: '',
         idTipoUsuarioId: '',
-        token:'',
+        token: '',
         idPlataformaId: 1
     })
 
@@ -31,7 +31,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
         e.preventDefault();
         if (titulo === 'Users') {
 
-            if(!user.nombre.trim() || !user.correoElectronico.trim() || !user.contraseña.trim()){
+            if (!user.nombre.trim() || !user.correoElectronico.trim() || !user.contraseña.trim()) {
                 Swal.fire({
                     title: 'Error',
                     text: 'Datos invalidos. Por favor, inténtalo de nuevo.',
@@ -59,7 +59,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 },
                 body: JSON.stringify(user)
             };
-    
+
             await fetch(URL, requestOptionsAgregar)
                 .then(response => response.json())
                 .then(data => {
@@ -84,13 +84,13 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                     console.log(error);
                 });
         } else if (titulo === 'Cursos') {
-            
+
             e.preventDefault();
             // setCurso({
             //     ...curso,
             //     idUsuarioId:userId
             // })
-            if(!curso.titulo.trim() || !curso.descripcion.trim()){
+            if (!curso.titulo.trim() || !curso.descripcion.trim()) {
                 Swal.fire({
                     title: 'Error',
                     text: 'Datos invalidos. Por favor, inténtalo de nuevo.',
@@ -102,7 +102,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
 
             const imagenFile = e.target.imagen.files[0];
             const documentoFile = e.target.documento.files[0];
-        
+
             // Validar que la imagen sea JPG o PNG
             if (imagenFile && !['image/jpeg', 'image/png', 'image/webp'].includes(imagenFile.type)) {
                 Swal.fire({
@@ -112,7 +112,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 });
                 return;
             }
-        
+
             // Validar que el documento sea PDF
             if (documentoFile && documentoFile.type !== 'application/pdf') {
                 Swal.fire({
@@ -152,6 +152,16 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                         FuncLlamar();
                     });
                 } else {
+
+                    console.log(data)
+                    if (data.message == 'Error el pdf esta Roto') {
+                        return Swal.fire({
+                            title: 'Error',
+                            text: 'El PDF esta dañado',
+                            icon: 'error'
+                        });
+                    }
+
                     Swal.fire({
                         title: 'Error',
                         text: 'Ha ocurrido un error al crear el curso',
@@ -159,12 +169,12 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                     });
                 }
             } catch (error) {
+
                 Swal.fire({
                     title: 'Error',
                     text: 'Ha ocurrido un error al crear el curso',
                     icon: 'error'
                 });
-                console.error(error);
             }
         }
     };
@@ -179,7 +189,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 <div className='DashBoardCRUDBody'>
                     <h1 className='DashBoardCRUDTittle2'>Dashboard</h1>
                     <div className="DashBoardEditCrear">
-                        <h2 className="TituloCrudCrear">Crear {titulo=='Cursos' ? 'Curso' : 'Usuario'}</h2>
+                        <h2 className="TituloCrudCrear">Crear {titulo == 'Cursos' ? 'Curso' : 'Usuario'}</h2>
                         {
                             titulo == 'Cursos' ?
                                 <form onSubmit={crearUsuario}>
@@ -187,67 +197,67 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                                         Titulo
                                     </label>
                                     <input
-                                    type="text"
-                                    required
-                                        onChange={(e) => setCurso({...curso, titulo:e.target.value})} value={curso.titulo} id="titulo">
+                                        type="text"
+                                        required
+                                        onChange={(e) => setCurso({ ...curso, titulo: e.target.value })} value={curso.titulo} id="titulo">
                                     </input>
 
                                     <label htmlFor="descripcion" className="labelInputCrud">
                                         Descripcion
                                     </label>
                                     <input
-                                    type="text"
-                                    required
-                                    onChange={(e) => setCurso({...curso, descripcion:e.target.value})} value={curso.descripcion} id="descripcion">
+                                        type="text"
+                                        required
+                                        onChange={(e) => setCurso({ ...curso, descripcion: e.target.value })} value={curso.descripcion} id="descripcion">
                                     </input>
 
                                     <label htmlFor="imagen" className="labelInputCrud">
                                         Imagen
                                     </label>
                                     <input
-                                    required
-                                    accept=".png, .jpg, .webp"
-                                        type="file" onChange={(e) => setCurso({...curso, rutaImagen:e.target.value})} value={curso.rutaImagen} id="imagen">
+                                        required
+                                        accept=".png, .jpg, .webp"
+                                        type="file" onChange={(e) => setCurso({ ...curso, rutaImagen: e.target.value })} value={curso.rutaImagen} id="imagen">
                                     </input>
 
                                     <label htmlFor="documento" className="labelInputCrud">
                                         Documento
                                     </label>
-                                    <input 
-                                    required
+                                    <input
+                                        required
                                         accept=".pdf" type="file" onChange={(e) => {
-                                            setCurso({...curso, rutaDocumento:e.target.value})
+                                            setCurso({ ...curso, rutaDocumento: e.target.value })
                                         }} value={curso.rutaDocumento} id="documento">
                                     </input>
 
                                     <div className="EditCrearBotones">
                                         <button type="submit" className="crear">Agregar</button>
                                         <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
-                                    </div>                                    
+                                    </div>
                                 </form>
                                 :
                                 <form onSubmit={crearUsuario}>
                                     <label htmlFor="nombre" className="labelInputCrud">
                                         Nombre
                                     </label>
-                                    <input type="text" required onChange={(e) => setUser({...user, nombre: e.target.value})} value={user.nombre} id="nombre">
+                                    <input type="text" required onChange={(e) => setUser({ ...user, nombre: e.target.value })} value={user.nombre} id="nombre">
                                     </input>
 
                                     <label htmlFor="correo" className="labelInputCrud">
                                         Correo Electronico
                                     </label>
-                                    <input type="email" required onChange={(e) => setUser({...user, correoElectronico: e.target.value})} value={user.correoElectronico} id="correo">
+                                    <input type="email" required onChange={(e) => setUser({ ...user, correoElectronico: e.target.value })} value={user.correoElectronico} id="correo">
                                     </input>
 
                                     <label htmlFor="contraseña" className="labelInputCrud">
                                         Contraseña
                                     </label>
-                                    <input type="password" required onChange={(e) => setUser({...user, contraseña: e.target.value})} value={user.contraseña} id="contraseña">
+                                    <input type="password" required onChange={(e) => setUser({ ...user, contraseña: e.target.value })} value={user.contraseña} id="contraseña">
                                     </input>
                                     <label htmlFor="contraseña" className="labelInputCrud">
                                         Tipo de Usuario
                                     </label>
-                                    <select required onChange={(e) => setUser({...user, idTipoUsuarioId: e.target.value})} value={user.idTipoUsuarioId} id="contraseña">
+                                    <select required onChange={(e) => setUser({ ...user, idTipoUsuarioId: e.target.value })} value={user.idTipoUsuarioId} id="contraseña">
                                         <option value='' disabled className="optionSelect">Seleccionar un tipo de usuario</option>
                                         <option value={1} className="optionSelect">Administrador</option>
                                         <option value={2} className="optionSelect">Usuario Regular</option>
@@ -258,7 +268,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                                     </div>
                                 </form>
                         }
-                        
+
                     </div>
                 </div >
 

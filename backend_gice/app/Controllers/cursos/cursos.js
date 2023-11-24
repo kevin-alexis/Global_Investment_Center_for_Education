@@ -1,19 +1,21 @@
+
 import pool from '../../config/MySQL/database.js';
 import multer from 'multer';
-import path, {join} from 'path';
+import path, { join } from 'path';
 import * as fs from 'fs';
 import { fileURLToPath } from 'url';
 import { dirname } from 'path';
+import pdf from 'pdf-parse/lib/pdf-parse.js'
 
 // Obtén la ruta del directorio del archivo actual
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 const storage = multer.diskStorage({
-    destination: function(req, file, cb) {
+    destination: function (req, file, cb) {
         cb(null, 'uploads');
     },
-    filename: function(req, file, cb) {
+    filename: function (req, file, cb) {
         cb(null, `${Date.now()}-${file.originalname}`);
     }
 });
@@ -26,7 +28,7 @@ const upload = multer({ storage: storage }).fields([
 export const agregarCurso = async (req, res) => {
     try {
 
-        upload(req, res, async function(err) {
+        upload(req, res, async function (err) {
             if (err) {
                 // Manejar errores de Multer
                 console.log(err);
@@ -37,6 +39,19 @@ export const agregarCurso = async (req, res) => {
             const rutaDocumento = req.files['rutaDocumento'][0].path;
             const rutaImagen = req.files['rutaImagen'][0].path;
             const numDescargas = 0;
+
+
+            const dataBuffer = fs.readFileSync(req.files['rutaDocumento'][0].path);
+
+            try {
+                await pdf(dataBuffer)
+                console.log("Si es pdf")
+            } catch {
+                console.log("No es pdf")
+                return res.send(JSON.stringify({
+                    message: "Error el pdf esta Roto"
+                }));
+            }
 
             try {
                 const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId) VALUES (?, ?, ?, ?, ?, ?)',
@@ -67,14 +82,14 @@ export const descargarCurso = (req, res) => {
     readstream.pipe(res);
 }
 
-export const obtenerCursos = (req, res) => {  
-    pool.query(`SELECT * FROM cursos`, (err, result) =>{
-        if(err){
+export const obtenerCursos = (req, res) => {
+    pool.query(`SELECT * FROM cursos`, (err, result) => {
+        if (err) {
             res.status(500).send(err)
-        }else{
-            if(result.length > 0){
+        } else {
+            if (result.length > 0) {
                 res.status(200).send(result);
-            }else{
+            } else {
                 res.status(400).send({
                     "Error": "No se encontraron cursos"
                 })
@@ -84,10 +99,26 @@ export const obtenerCursos = (req, res) => {
 };
 
 export const actualizarCurso = (req, res) => {
-    upload(req, res, async function(err) {
+    upload(req, res, async function (err) {
         const { idCurso, titulo, descripcion } = req.body;
         const rutaDocumentoNueva = req.files['rutaDocumento'] ? req.files['rutaDocumento'][0].filename : null;
         const rutaImagenNueva = req.files['rutaImagen'] ? req.files['rutaImagen'][0].filename : null;
+
+        if (req.files['rutaDocumento']) {
+
+
+            const dataBuffer = fs.readFileSync(req.files['rutaDocumento'][0].path);
+            try {
+                await pdf(dataBuffer)
+                console.log("Si es pdf")
+            } catch {
+                console.log("No es pdf")
+                return res.send(JSON.stringify({
+                    message: "Error el pdf esta Roto"
+                }));
+            }
+        }
+
 
         // Obtener rutas de documentos e imágenes actuales del curso
         pool.query('SELECT rutaDocumento, rutaImagen FROM cursos WHERE idCurso = ?', [idCurso], (err, result) => {
@@ -194,7 +225,7 @@ export const eliminarCurso = (req, res) => {
 
 export const obtenerImagen = (req, res) => {
     const nombreImagen = req.params.nombreImagen;
-    
+
     const rutaImagen = join(__dirname, '../../../uploads', nombreImagen);
     console.log(rutaImagen);
     try {
@@ -212,16 +243,16 @@ export const obtenerImagen = (req, res) => {
 };
 
 export const actualizarCursoDescarga = (req, res) => {
-    const {idCurso} = req.body
-    pool.query(`UPDATE cursos SET numDescargas = numDescargas + 1 WHERE idCurso = ?;`, [idCurso],(err, result) =>{
-        if(err){
+    const { idCurso } = req.body
+    pool.query(`UPDATE cursos SET numDescargas = numDescargas + 1 WHERE idCurso = ?;`, [idCurso], (err, result) => {
+        if (err) {
             res.status(500).send(err)
-        }else{ 
-            if(result){
+        } else {
+            if (result) {
                 res.status(200).send({
                     "Actualizado": "Curso actualizado correctamente"
                 })
-            }else{
+            } else {
                 res.status(400).send({
                     "Error": "Curso no existente"
                 })
@@ -234,9 +265,9 @@ export const actualizarCursoDescarga = (req, res) => {
 export const obtenerNumDescargar = (req, res) => {
     pool.query(`SELECT SUM(numDescargas) AS totalDescargas FROM cursos`, (err, result) => {
         if (err) {
-        res.status(500).send(err);
+            res.status(500).send(err);
         } else {
-        res.status(200).send(result);
+            res.status(200).send(result);
         }
     });
 };
