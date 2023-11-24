@@ -42,7 +42,6 @@ export const agregarCurso = async (req, res) => {
                 const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId) VALUES (?, ?, ?, ?, ?, ?)',
                     [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId]);
 
-                // console.log(result);
                 res.send({
                     "Agregado": "Curso agregado correctamente"
                 });
