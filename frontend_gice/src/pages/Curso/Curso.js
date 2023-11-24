@@ -126,6 +126,15 @@ const Curso = () => {
                                 <p className='textCurso'>“La inversión no se trata de predecir el futuro, sino de estar preparado para él.”</p>
                             </div>
                         </div>
+
+                        <div>
+                    <h1 className='titleDivisas' style={{fontSize:40, padding:10, margin:10}}>
+                        BIENVENIDOS AL CURSO
+                    </h1>
+                    <p className='white-text' style={{marginBottom:0, paddingBottom:0, paddingTop:0}}>Este curso esta enfocado para aquellas personas que quieran adentrarse en el mundo de las inversiones y no saben como</p>
+                    
+                </div>
+
                         <div className='cardCursoContainer'>
                         {
                             cursos.length > 0 ?
