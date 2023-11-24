@@ -5,6 +5,7 @@ import Navbar from "../../components/Navbar/Navbar"
 import Izquierdo from '../../assets/Izquierdo.png'
 import Derecho from '../../assets/Derecho.png'
 import { BeatLoader } from 'react-spinners';
+import { FaTimes } from 'react-icons/fa'; 
 
 
 const Curso = () => {
@@ -101,84 +102,127 @@ const Curso = () => {
         });
     }
 
+    const [showPdfModal, setShowPdfModal] = useState(false);
+    const [showImageModal, setShowImageModal] = useState(false);
+    const [pdfUrl, setPdfUrl] = useState('');
+    const [imageUrl, setImageUrl] = useState('');
+    const [abrirImgPdf, setAbrirImgPdf] = useState(false)
+
+
+    function PDFModal({ rutaPdf, closeModal }) {
+        return (
+            <div className="modal-overlay" onClick={closeModal}>
+                <div className="modal">
+                    <div className="modal-close">
+                        <FaTimes onClick={closeModal} color='black' fontSize="30px"/>
+                    </div>
+                    <iframe src={rutaPdf} className="pdf-modal-content" title="PDF Modal"/>
+                </div>
+            </div>
+        );
+    }
+
+    function closeModal() {
+        setShowPdfModal(false);
+        setShowImageModal(false);
+        setAbrirImgPdf(false);
+    }
+
+    function FuncVerPDF(rutaPdf) {
+        setPdfUrl(`${GICE_API}/${rutaPdf}`);
+        setShowPdfModal(true);
+        setAbrirImgPdf(true);
+    }
+
+
     const [show, setShow] = useState(false);
     return (
-        <div className='Curso'>
-            <Navbar show={show} setShow={setShow}/>
-            {show?
-            null
+        
+            abrirImgPdf?
+                <>
+                    {showPdfModal && <PDFModal rutaPdf={pdfUrl} closeModal={closeModal} />}
+                </>
             :
-            <div className='cursoContainer'>
-                {
-                    loading?
-                    <div className='loaderContainer'>
-                        <BeatLoader color="purple" className='avisoCargando'/>
-                        <h2 style={{color:'purple', marginBottom:'100vh'}}>Cargando</h2>
-                    </div>  // Muestra un mensaje de carga mientras los datos se están cargando
-                    :
-                    <div className='cursoContainer'>
-                        <div className='titleCursoContainer'>
-                            <div>
-                                <h1 className='titleCurso'>Curso para principiantes</h1>
-                                <p className='subtitleCurso'>GLOBAL INVESTMENT CENTER FOR EDUCATION</p>
+        
+            <div className='Curso'>
+                <Navbar show={show} setShow={setShow}/>
+                {show?
+                null
+                :
+                <div className='cursoContainer'>
+                    {
+                        loading?
+                        <div className='loaderContainer'>
+                            <BeatLoader color="purple" className='avisoCargando'/>
+                            <h2 style={{color:'purple', marginBottom:'100vh'}}>Cargando</h2>
+                        </div>  // Muestra un mensaje de carga mientras los datos se están cargando
+                        :
+                        <div className='cursoContainer'>
+                            <div className='titleCursoContainer'>
+                                <div>
+                                    <h1 className='titleCurso'>Curso para principiantes</h1>
+                                    <p className='subtitleCurso'>GLOBAL INVESTMENT CENTER FOR EDUCATION</p>
+                                </div>
+                                <div>
+                                    <p className='textCurso'>“La inversión no se trata de predecir el futuro, sino de estar preparado para él.”</p>
+                                </div>
                             </div>
-                            <div>
-                                <p className='textCurso'>“La inversión no se trata de predecir el futuro, sino de estar preparado para él.”</p>
-                            </div>
-                        </div>
-                        <div className='cardCursoContainer'>
-                        {
-                            cursos.length > 0 ?
-                            cursos.slice(contador, contador + 5).map((curso) => {
-                                return (
-                                    <div key={curso.idCurso} className='cardCurso'>
-                                        <div className='cardCursoImageContainer'>
-                                            <img className='cardCursoImage' src={`${GICE_API}/${curso.rutaImagen}`} alt={`curso-${curso.idCurso}`} />
-                                        </div>
-                                        <div className='cardCursoContent'>
-                                            <div>
-                                                <h2 className='titleCardCurso'>{curso.titulo}</h2>
-                                                <p className='textCardCurso'>{curso.descripcion}</p>
+                            <div className='cardCursoContainer'>
+                            {
+                                cursos.length > 0 ?
+                                cursos.slice(contador, contador + 5).map((curso) => {
+                                    return (
+                                        <div key={curso.idCurso} className='cardCurso'>
+                                            <div className='cardCursoImageContainer'>
+                                                <img className='cardCursoImage' src={`${GICE_API}/${curso.rutaImagen}`} alt={`curso-${curso.idCurso}`} />
                                             </div>
-                                            <button onClick={() => descargarCurso(curso.rutaDocumento, curso.idCurso)} className='buttonDownloadCurso'>Descargar PDF</button>
+                                            <div className='cardCursoContent'>
+                                                <div>
+                                                    <h2 className='titleCardCurso'>{curso.titulo}</h2>
+                                                    <p className='textCardCurso'>{curso.descripcion}</p>
+                                                </div>
+                                                <div className='buttonContainer'>
+                                                    <button onClick={()=>FuncVerPDF(curso.rutaDocumento)} className='buttonDownloadCurso'>Vista previa PDF</button>
+                                                    <button onClick={() => descargarCurso(curso.rutaDocumento, curso.idCurso)} className='buttonDownloadCurso resaltButton'>Descargar PDF</button>
+                                                </div>
+                                            </div>
                                         </div>
-                                    </div>
-                                );
-                            })
-                            :
-                            null
-                        }
-                            {loading?
-                            null
-                            :
-                            <div className='contadorCriptomonedas'>
-                                {(contador > 1)
-                                ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} />
-                                : <img className='NewsNoSirve' src={Izquierdo} />
-                                }
-        
-        
-                                {(contador + 5 <= cursos.length)
-                                    ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
-                                    : <img className='NewsNoSirve' src={Derecho} />
-                                }
+                                    );
+                                })
+                                :
+                                null
+                            }
+                                {loading?
+                                null
+                                :
+                                <div className='contadorCriptomonedas'>
+                                    {(contador > 1)
+                                    ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} />
+                                    : <img className='NewsNoSirve' src={Izquierdo} />
+                                    }
+            
+            
+                                    {(contador + 5 <= cursos.length)
+                                        ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
+                                        : <img className='NewsNoSirve' src={Derecho} />
+                                    }
+                                </div>
+            
+                            }
+                                
                             </div>
-        
-                        }
-                            
+            
                         </div>
-        
-                    </div>
+                    }
+                </div>            
                 }
-            </div>            
-            }
-            {show?
-            null:
-            <Footer/>
-            }
-            
-            
-        </div>
+                {show?
+                null:
+                <Footer/>
+                }
+                
+                
+            </div>
     );
 }
 
