@@ -29,39 +29,54 @@ const Login = () => {
 
         const userNotFound = document.getElementById('userNotFound');
     
-        // Fetch request
         fetch(URL, requestOptions)
-            .then(response => response.json())
-            .then(data => {
-                if (data && data.token && data.user && data.user[0] && data.user[0].token) {
-                    localStorage.setItem('auth', "yes");
-                    localStorage.setItem('sesion_token', data.token);
-                    localStorage.setItem('user_token', data.user[0].token);
-                    
-                    if (data.user[0].rol === 'user') {
-                        window.location.href = '/';
-                    } else if (data.user[0].rol === 'admin') {
-                        window.location.href = '/dashboard';
-                    }
-                } else {
-                    Swal.fire({
-                        title: 'Error',
-                        text: 'Revisa los datos ingresados.',
-                        icon: 'error',
-                        confirmButtonText: 'OK'
-                    });
-                }
-            })
+    .then(response => response.json())
+    .then(data => {
+        if (data && data.token && data.user && data.user[0] && data.user[0].token) {
+            localStorage.setItem('auth', "yes");
+            localStorage.setItem('sesion_token', data.token);
+            localStorage.setItem('user_token', data.user[0].token);
             
-            .catch((error)=>{
+            if (data.user[0].rol === 'user') {
+                window.location.href = '/';
+            } else if (data.user[0].rol === 'admin') {
+                window.location.href = '/dashboard';
+            }
+        } else {
+            if (data.message === "Contraseña incorrecta") {
                 Swal.fire({
                     title: 'Error',
-                    text: 'El usuario no existe',
+                    text: 'La contraseña es incorrecta.',
                     icon: 'error',
                     confirmButtonText: 'OK'
                 });
-                // userNotFound.innerHTML = `<p class="userTextNotFound">Usuario no existente</p>`
-            })
+            } else if (data.error === "Usuario no existente") {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'El usuario no existe.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            } else {
+                Swal.fire({
+                    title: 'Error',
+                    text: 'Revisa los datos ingresados.',
+                    icon: 'error',
+                    confirmButtonText: 'OK'
+                });
+            }
+        }
+    })
+    .catch(error => {
+        console.error("Error al iniciar sesión:", error);
+        Swal.fire({
+            title: 'Error',
+            text: 'Ocurrió un error al iniciar sesión. Por favor, intenta de nuevo más tarde.',
+            icon: 'error',
+            confirmButtonText: 'OK'
+        });
+    });
+
     };
 
     const [googleData, setGoogleData] = useState({
