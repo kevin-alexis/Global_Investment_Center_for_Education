@@ -28,24 +28,53 @@ function News({ loading, setLoading }) {
 
 
     useEffect(() => {
+    const getNoticias = async (prim, segu) => {
+        let apiKey = '453fd047213746b9b3ec5f83342dcf7a';
 
-        const getNoticias = async (prim, segu) => {
+        fetch(`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=${apiKey}`)
+            .then(response => response.json())
+            .then(data => {
+                if (data && data.articles && Array.isArray(data.articles)) {
+                    const filteredArticles = data.articles.filter(article => {
+                        // Utiliza una expresión regular para detectar URLs en el campo de descripción
+                        const urlRegex = /(http(s)?:\/\/[^\s]+)/g;
+                        return (
+                            article.source &&
+                            article.description &&
+                            article.source.id &&
+                            article.source.name &&
+                            article.author &&
+                            article.title &&
+                            !urlRegex.test(article.description) && // Verificar si la descripción contiene una URL
+                            article.url &&
+                            article.urlToImage &&
+                            article.publishedAt &&
+                            article.content
+                        );
+                    });
 
-            let apiKey = '453fd047213746b9b3ec5f83342dcf7a'
-
-                fetch(`https://newsapi.org/v2/everything?domains=wsj.com&apiKey=${apiKey}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        setNoticia(data.articles.filter((articles) => !(articles.urlToImage == null)))
-                        setNum(data.articles.filter((articles) => !(articles.urlToImage == null)).slice(primero, segundo))
-                        console.log(noticia)
+                    if (filteredArticles.length > 0) {
+                        setNoticia(filteredArticles);
+                        setNum(filteredArticles.slice(primero, segundo));
+                        // console.log(filteredArticles);
                         setLoading(false);
-                    }).catch(error => console.log(error))
-        }
+                    } else {
+                        console.log('No se encontraron noticias con descripciones textuales.');
+                        setLoading(false);
+                    }
+                } else {
+                    console.log('La respuesta del API no tiene el formato esperado.');
+                    setLoading(false);
+                }
+            })
+            .catch(error => console.log(error));
+    };
 
-        getNoticias()
+    getNoticias();
+}, []);
 
-    }, [])
+    
+    
 
     useEffect(() => {
         setNum(noticia.slice(primero, segundo))
@@ -74,14 +103,6 @@ function News({ loading, setLoading }) {
                 })
                 }
             </div>
-            {/* <div className='NewsMargen'>
-            {
-            num
-                .filter(noticia => noticia.title && noticia.description && noticia.urlToImage && noticia.title.length < 100)
-                .map((news, index) => {
-                    return <UniNew key={index} noticia={news}></UniNew>;
-                })}
-        </div> */}
 
             {(pagina > 1)
                 ? <img src={Izquierdo} className='NewsSiSirve' onClick={restandoMostrar} />
