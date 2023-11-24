@@ -83,9 +83,9 @@ const Divisas = () => {
                                     ¿Para que nos sirve saber sobre la moneda?
                                 </h1>
                                 <div style={{paddingLeft:30, paddingRight:30}}>
-                                <p className='white-text' style={{ marginBottom: 0, paddingBottom: 0, paddingTop:0 ,textSize:10 + 'px'}}>Saber el precio de una moneda es fundamental para aquellos interesados en invertir,
+                                <p className='white-text' style={{ marginBottom: 0, paddingBottom: 0, paddingTop:0}}>Saber el precio de una moneda es fundamental para aquellos interesados en invertir,
                                     ya sea en criptomonedas o monedas fiat.  </p>
-                                <p className='white-text' style={{ marginTop: 0, paddingTop: 0,textSize:10 + 'px' }}>Este conocimiento permite tomar decisiones informadas sobre el momento adecuado para
+                                <p className='white-text' style={{ marginTop: 0, paddingTop: 0}}>Este conocimiento permite tomar decisiones informadas sobre el momento adecuado para
                                     comprar o vender, considerando factores como la oferta y la demanda, eventos económicos y noticias geopolíticas. Además, seguir los
                                     precios ayuda a identificar tendencias del mercado y a evaluar el rendimiento de la cartera de inversiones.</p>
                                     </div>

@@ -61,11 +61,13 @@ const Criptomonedas = () => {
                             <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
                                 ¿Que son las criptomonedas?
                             </h1>
+                            <div style={{paddingLeft:30, paddingRight:30}}>
+                                
                             <p className='white-text' style={{ marginTop: 0, paddingTop: 0 , paddingBottom:0}}>Las criptomonedas son monedas digitales descentralizadas
                              que emplean criptografía y blockchain para garantizar transacciones seguras.</p> 
                             <p className='white-text' style={{ marginBottom: 0, paddingTop: 0 }}>El valor de las criptomonedas varía en función de la oferta, de la demanda, 
                             y del compromiso de los usuarios. Este valor se  forma  en  ausencia  de mecanismos  eficaces  que  impidan  su  manipulación, esto las hace muy seguras y utiles. </p>
-                            
+                            </div>
                         </div>
                         {loading ? null : <h1 className='secondaryTitleCriptos'>Basado en: USD</h1>}
                     </div>
