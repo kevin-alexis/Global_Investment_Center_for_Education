@@ -25,6 +25,7 @@ const upload = multer({ storage: storage }).fields([
 
 export const agregarCurso = async (req, res) => {
     try {
+
         upload(req, res, async function(err) {
             if (err) {
                 // Manejar errores de Multer

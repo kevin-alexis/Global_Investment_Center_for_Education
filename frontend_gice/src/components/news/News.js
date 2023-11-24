@@ -40,7 +40,7 @@ function News({ loading, setLoading }) {
                     .then(data => {
                         setNoticia(data.articles.filter((articles) => !(articles.urlToImage == null)))
                         setNum(data.articles.filter((articles) => !(articles.urlToImage == null)).slice(primero, segundo))
-                        // console.log(noticia)
+                        console.log(noticia)
                         setLoading(false);
                     }).catch(error => console.log(error))
         }

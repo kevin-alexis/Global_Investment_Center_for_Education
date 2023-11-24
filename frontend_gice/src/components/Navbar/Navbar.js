@@ -39,9 +39,14 @@ const Navbar = ({setShow, show}) => {
                                 <li>
                                     <Link to="/criptomonedas" onClick={showHamburger}>Criptomonedas</Link>
                                 </li>
-                                <li>
-                                    <Link to="/curso" onClick={showHamburger}>Curso</Link>
-                                </li>
+                                {
+                                    isLoged?
+                                    <li>
+                                        <Link to="/curso" onClick={showHamburger}>Curso</Link>
+                                    </li>:
+                                null
+                                }
+                                
                             </>
                     </ul>
                 </div> :       
@@ -55,13 +60,14 @@ const Navbar = ({setShow, show}) => {
                         <ul>
                         {
                             isLoged?
+                           <>
                             <Link to="/login" className='loginLinK'>
                                 <button className='logOutButton' onClick={()=>{
                                     localStorage.clear()
                                     window.location.reload();
                                 }}>LOG OUT</button>
                             </Link>
-                            
+                           </>
                             :
                             <Link to="/login" className='loginLinK'>
                                 <img src={loginIcon} className='loginIcon'></img>
@@ -90,27 +96,31 @@ const Navbar = ({setShow, show}) => {
                                 <li>
                                     <Link to="/criptomonedas">Criptomonedas</Link>
                                 </li>
-                                <li>
-                                    <Link to="/curso">Curso</Link>
-                                </li>
                             </>
 
-                        <li>
                             {
                                 isLoged?
-                                <Link to="/login" className='loginLinK'>
-                                    <button className='logOutButton' onClick={()=>{
-                                    localStorage.clear()
-                                    window.location.reload();
-                                }}>LOG OUT</button>
-                                </Link>
+                                <>
+                                    <li>
+                                        <Link to="/curso">Curso</Link>
+                                    </li>
+                                    <li>
+                                        <Link to="/login" className='loginLinK'>
+                                            <button className='logOutButton' onClick={()=>{
+                                            localStorage.clear()
+                                            window.location.reload();
+                                        }}>LOG OUT</button>
+                                        </Link>
+                                    </li>
+                                </>
                                 :
-                                <Link to="/login" className='loginLinK'>
-                                    <img src={loginIcon} className='loginIcon'></img>
-                                </Link>
+                                <li>
+                                    <Link to="/login" className='loginLinK'>
+                                        <img src={loginIcon} className='loginIcon'></img>
+                                    </Link>
+                                </li>
                             }
                             
-                        </li>
                     </ul>
                 </div>
             </div>

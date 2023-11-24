@@ -175,7 +175,7 @@ const handleFileChange = (e) => {
                 <div className='DashBoardCRUDBody'>
                     <h1 className='DashBoardCRUDTittle2'>Dashboard</h1>
                     <div className="DashBoardEditCrear">
-                        <h2>Editar {titulo}</h2>
+                        <h2>Editar {titulo=='Cursos' ? 'Curso' : 'Usuario'}</h2>
                         {
                             titulo == 'Cursos' ?
                             <form onSubmit={editarUsuario}>
@@ -216,7 +216,7 @@ const handleFileChange = (e) => {
                                 </input>
 
                                 <div className="EditCrearBotones">
-                                    <button type="submit" className="crear">Agregar</button>
+                                    <button type="submit" className="editar">Editar</button>
                                     <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
                                 </div>
 
@@ -249,7 +249,7 @@ const handleFileChange = (e) => {
                                         <option value={2}>Usuario Regular</option>
                                     </select>
                                     <div className="EditCrearBotones">
-                                        <button type="submit" className="crear">Agregar</button>
+                                        <button type="submit" className="editar">Editar</button>
                                         <button type="button" onClick={CancelarAccion} className="cancelar">Cancelar</button>
                                     </div>
                                 </form>

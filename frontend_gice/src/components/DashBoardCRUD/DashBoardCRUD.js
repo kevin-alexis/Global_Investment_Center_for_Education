@@ -154,15 +154,19 @@ function DashBoardCRUD({ titulo }) {
 
     function obtenerFechaActual() {
         const fechaActual = new Date();
-
-        const dia = fechaActual.getDate().toString().padStart(2, '0'); 
-        const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); 
-        const anio = fechaActual.getFullYear().toString().slice(-2);
-
-        const fechaFormateada = `${dia}-${mes}-${anio}`;
-
+    
+        const dia = fechaActual.getDate().toString().padStart(2, '0');
+        const meses = [
+            'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+            'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+        ];
+        const mes = meses[fechaActual.getMonth()];
+        const anio = fechaActual.getFullYear();
+    
+        const fechaFormateada = `${dia}/${mes}/${anio}`;
+    
         return fechaFormateada;
-    }
+    }    
 
     const fechaActualFormateada = obtenerFechaActual();    
 
@@ -195,8 +199,8 @@ function DashBoardCRUD({ titulo }) {
                 <div className="DashBoardCRUDDiv">
                     <div className='DashBoardCRUDBorder'>
                         <div style={{display:'flex', alignItems:'center', justifyContent:'space-between'}}>
-                            <h2 className='DashBoardCRUDTittle' style={{ fontSize: 32 + 'px' }}>{titulo}</h2>
-                            <h3 style={{ cursor:'pointer'}} onClick={FuncCrear}>Nuevo {titulo}</h3>
+                            <h2 className='DashBoardCRUDTittle' style={{ fontSize: 32 + 'px' }}>{titulo=='Cursos' ? 'Cursos' : 'Usuarios'}</h2>
+                            <h3 style={{ cursor:'pointer'}} onClick={FuncCrear}>Crear {titulo=='Cursos' ? 'Curso' : 'Usuario'}</h3>
                         </div>
                         <div className='TableDashboard'>
 
@@ -242,7 +246,6 @@ function DashBoardCRUD({ titulo }) {
                                             <th className='textCrud'>id</th>
                                             <th className='textCrud'>nombre</th>
                                             <th className='textCrud'>correo_electronico</th>
-                                            <th className='textCrud'>contraseña</th>
                                             <th className='textCrud'>Editar</th>
                                             <th className='textCrud'>Eliminar</th>
                                         </tr>
@@ -256,9 +259,12 @@ function DashBoardCRUD({ titulo }) {
                                                         <td className='textCrud'>{index+1}</td>
                                                         <td className='textCrud'>{user.nombre}</td>
                                                         <td className='textCrud'>{user.correoElectronico}</td>
-                                                        <td className='textCrud'>*****</td>
                                                         <td className='textCrud'><img onClick={()=>FuncEditar(user)} style={{cursor:'pointer'}} src={EditButton}></img></td>
-                                                        <td className='textCrud'><img onClick={()=>FuncEliminar(user.idUsuario)} style={{cursor:'pointer'}} src={DeleteButton}></img></td>
+                                                        {
+                                                            user.idTipoUsuarioId == '1'?
+                                                            <td></td>:
+                                                            <td className='textCrud'><img onClick={()=>FuncEliminar(user.idUsuario)} style={{cursor:'pointer'}} src={DeleteButton}></img></td>
+                                                        }
                                                     </tr>
                                                 )
                                             })

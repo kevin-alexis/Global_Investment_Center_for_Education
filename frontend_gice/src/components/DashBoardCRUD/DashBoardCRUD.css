@@ -189,7 +189,19 @@
 }
 
 .crear {
-    background-color: black; 
+    background-color: #17ad44; 
+    color: #fff; 
+    padding: 8px 40px;
+    border: none; 
+    cursor: pointer; 
+    border-radius: 10px; 
+    font-size: 16px; 
+    font-weight: bold;
+}
+
+
+.editar {
+    background-color: #605cff; 
     color: #fff; 
     padding: 8px 40px;
     border: none; 
@@ -200,7 +212,7 @@
 }
 
 .cancelar {
-    background-color: #ff0019; 
+    background-color: #ffffff20; 
     color: #fff; 
     padding: 8px 40px;
     border: none; 
@@ -316,6 +328,7 @@
         flex-wrap: wrap; /* Permito que los botones se coloquen en filas adicionales si no caben en una sola línea */
     }
 
+    .editar,
     .crear,
     .cancelar {
         width: 100%; /* Ajusto el ancho de los botones para distribuirlos mejor */

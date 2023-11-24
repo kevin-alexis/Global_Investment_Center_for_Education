@@ -58,16 +58,18 @@ function DashHome() {
     function obtenerFechaActual() {
         const fechaActual = new Date();
     
-        // Obtiene el día, el mes y el año de la fecha actual
-        const dia = fechaActual.getDate().toString().padStart(2, '0'); // Pone el día en formato de dos dígitos
-        const mes = (fechaActual.getMonth() + 1).toString().padStart(2, '0'); // Pone el mes en formato de dos dígitos (los meses comienzan desde 0)
-        const anio = fechaActual.getFullYear().toString().slice(-2); // Obtiene los últimos dos dígitos del año
+        const dia = fechaActual.getDate().toString().padStart(2, '0');
+        const meses = [
+            'ene', 'feb', 'mar', 'abr', 'may', 'jun',
+            'jul', 'ago', 'sep', 'oct', 'nov', 'dic'
+        ];
+        const mes = meses[fechaActual.getMonth()];
+        const anio = fechaActual.getFullYear();
     
-        // Formatea la fecha como "dd-mm-yy"
-        const fechaFormateada = `${dia}-${mes}-${anio}`;
+        const fechaFormateada = `${dia}/${mes}/${anio}`;
     
         return fechaFormateada;
-    }
+    } 
     
     const fechaActualFormateada = obtenerFechaActual();   
     
@@ -99,7 +101,7 @@ function DashHome() {
                 </div>
                     <h2 className="DashboardNombreUsuario">Bienvenido</h2>
                     <div className="DashboardOptions">
-                        <BloqueDashHome imagen ={SimboloDescarga} tittle={numDescargas[0]?.totalDescargas ?? 0} text={'Downloads'} color={'180,180,180'} />
+                        <BloqueDashHome imagen ={SimboloDescarga} tittle={numDescargas[0]?.totalDescargas ?? 0} text={'Descargar'} color={'180,180,180'} />
                         <BloqueDashHome imagen ={Game} tittle={(usuario ?? 0)+ (usuarioGoogle ?? 0)} text={'Usuarios registrados'} color={'47,229,167'} />
                         <BloqueDashHome imagen ={CirculoMasRojo} tittle={'Añadir Usuario'} text={''} color={'255,105,176'} onClick={FuncCrearUsuario} titulo={'Users'} setAbrirNuevo={setAbrirNuevo}/>
                         <BloqueDashHome imagen ={CirculoMasAmarillo} tittle={'Añadir Curso'} text={''} color={'228,232,49'} onClick={FuncCrearCurso} titulo={'Cursos'} setAbrirNuevo={setAbrirNuevo}/>                    

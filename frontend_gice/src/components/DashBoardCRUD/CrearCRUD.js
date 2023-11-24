@@ -167,7 +167,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar }) {
                 <div className='DashBoardCRUDBody'>
                     <h1 className='DashBoardCRUDTittle2'>Dashboard</h1>
                     <div className="DashBoardEditCrear">
-                        <h2 className="TituloCrudCrear">Crear {titulo}</h2>
+                        <h2 className="TituloCrudCrear">Crear {titulo=='Cursos' ? 'Curso' : 'Usuario'}</h2>
                         {
                             titulo == 'Cursos' ?
                                 <form onSubmit={crearUsuario}>
