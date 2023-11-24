@@ -2,11 +2,16 @@ import React, {useEffect, useState} from 'react';
 import "./Curso.css"
 import Footer from "../../components/Footer/Footer"
 import Navbar from "../../components/Navbar/Navbar"
+import Izquierdo from '../../assets/Izquierdo.png'
+import Derecho from '../../assets/Derecho.png'
+import { BeatLoader } from 'react-spinners';
 
 
 const Curso = () => {
 
     const [cursos, setCursos] = useState([]);
+    const [loading, setLoading] = useState(true);
+    const [contador, setContador] = useState(0);
     const GICE_API = process.env.REACT_APP_URL_API;
 
 
@@ -18,7 +23,10 @@ const Curso = () => {
             }
         })
         .then((response) => response.json())
-        .then((data) => setCursos(data))
+        .then((data) => {
+            setCursos(data)
+            setLoading(false); 
+        })
         .catch((error) => console.error(error));
     }
 
@@ -71,53 +79,98 @@ const Curso = () => {
         .catch(error => console.error(error));
     }
 
+    function aumentarContador(){
+        setContador(contador + 5);
+        scrollToTop()
+    }
+
+    function decrementarContador(){
+        setContador(contador - 5);
+        scrollToTop()
+    }
+
     useEffect(()=>{
         obtenerCursos();
         window.scrollTo(0,0);
     },[])
+
+    function scrollToTop() {
+        window.scrollTo({
+            top: 500,
+            behavior: 'smooth'
+        });
+    }
 
     const [show, setShow] = useState(false);
     return (
         <div className='Curso'>
             <Navbar show={show} setShow={setShow}/>
             {show?
-            null:
+            null
+            :
             <div className='cursoContainer'>
-                <div className='titleCursoContainer'>
-                    <div>
-                        <h1 className='titleCurso'>Curso para principiantes</h1>
-                        <p className='subtitleCurso'>GLOBAL INVESTMENT CENTER FOR EDUCATION</p>
-                    </div>
-                    <div>
-                        <p className='textCurso'>“La inversión no se trata de predecir el futuro, sino de estar preparado para él.”</p>
-                    </div>
-                </div>
-                <div className='cardCursoContainer'>
-                    {
-                        cursos.length > 0 ?
-                        cursos.map(curso => {
-                            return(
-                                <div key={curso.idCurso} className='cardCurso'>
-                                    <div className='cardCursoImageContainer'>
-                                        <img className='cardCursoImage' src={`${GICE_API}/${curso.rutaImagen}`} alt="curso1"/>
-                                    </div>
-                                    <div className='cardCursoContent'>
-                                        <div>
-                                            <h2 className='titleCardCurso'>{curso.titulo}</h2>
-                                            <p className='textCardCurso'>{curso.descripcion}</p>
+                {
+                    loading?
+                    <div className='loaderContainer'>
+                        <BeatLoader color="purple" className='avisoCargando'/>
+                        <h2 style={{color:'purple', marginBottom:'100vh'}}>Cargando</h2>
+                    </div>  // Muestra un mensaje de carga mientras los datos se están cargando
+                    :
+                    <div className='cursoContainer'>
+                        <div className='titleCursoContainer'>
+                            <div>
+                                <h1 className='titleCurso'>Curso para principiantes</h1>
+                                <p className='subtitleCurso'>GLOBAL INVESTMENT CENTER FOR EDUCATION</p>
+                            </div>
+                            <div>
+                                <p className='textCurso'>“La inversión no se trata de predecir el futuro, sino de estar preparado para él.”</p>
+                            </div>
+                        </div>
+                        <div className='cardCursoContainer'>
+                        {
+                            cursos.length > 0 ?
+                            cursos.slice(contador, contador + 5).map((curso) => {
+                                return (
+                                    <div key={curso.idCurso} className='cardCurso'>
+                                        <div className='cardCursoImageContainer'>
+                                            <img className='cardCursoImage' src={`${GICE_API}/${curso.rutaImagen}`} alt={`curso-${curso.idCurso}`} />
                                         </div>
-                                        <button onClick={()=>descargarCurso(curso.rutaDocumento, curso.idCurso)} className='buttonDownloadCurso'>Descargar PDF</button>
+                                        <div className='cardCursoContent'>
+                                            <div>
+                                                <h2 className='titleCardCurso'>{curso.titulo}</h2>
+                                                <p className='textCardCurso'>{curso.descripcion}</p>
+                                            </div>
+                                            <button onClick={() => descargarCurso(curso.rutaDocumento, curso.idCurso)} className='buttonDownloadCurso'>Descargar PDF</button>
+                                        </div>
                                     </div>
-                                </div>
-                            )
-                        })
-                        :
-                        null
-                    }
-                    
-                </div>
-
-            </div>
+                                );
+                            })
+                            :
+                            null
+                        }
+                            {loading?
+                            null
+                            :
+                            <div className='contadorCriptomonedas'>
+                                {(contador > 1)
+                                ? <img src={Izquierdo} className='NewsSiSirve' onClick={decrementarContador} />
+                                : <img className='NewsNoSirve' src={Izquierdo} />
+                                }
+        
+        
+                                {(contador + 5 <= cursos.length)
+                                    ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
+                                    : <img className='NewsNoSirve' src={Derecho} />
+                                }
+                            </div>
+        
+                        }
+                            
+                        </div>
+        
+                    </div>
+                }
+            </div>            
             }
             {show?
             null:

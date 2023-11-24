@@ -15,7 +15,6 @@ function News({ loading, setLoading }) {
 
     const sumandoMostrar = () => {
         setPagina(pagina + 1)
-        // console.log(pagina)
         setPrimero(primero + 6)
         setSegundo(segundo + 6)
 
@@ -23,7 +22,6 @@ function News({ loading, setLoading }) {
 
     const restandoMostrar = () => {
         setPagina(pagina - 1)
-        // console.log(pagina)
         setPrimero(primero - 6)
         setSegundo(segundo - 6)
     }

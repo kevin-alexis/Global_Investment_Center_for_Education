@@ -66,7 +66,6 @@ const Criptomonedas = () => {
                 </div>  // Muestra un mensaje de carga mientras los datos se están cargando
                 ) : (
                     <div className='cardsContainerCriptomonedas'>
-                        {/* <h1>Card</h1> */}
                         {rates.slice(contador, contador+6).map((currency, index) => {
                             // Usa el índice para seleccionar una clase del array
                             const clase = clases[index % clases.length];
