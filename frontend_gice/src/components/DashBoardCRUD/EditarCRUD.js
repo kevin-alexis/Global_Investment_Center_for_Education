@@ -134,6 +134,15 @@ function EditarCRUD({titulo, usersOrCurso, setOpen, FuncLlamar}) {
             fetch(`${GICE_API}/cursos`, requestOptionsActualizar)
             .then((response) => response.json())
             .then(data => {
+            
+                if (data.message == 'Error el pdf esta Roto') {
+                    return Swal.fire({
+                        title: 'Error',
+                        text: 'El PDF esta dañado',
+                        icon: 'error'
+                    });
+                }
+
                 Swal.fire({
                     title: 'Curso Actualizado',
                     text: 'El curso fue actualizado exitosamente',
@@ -145,6 +154,8 @@ function EditarCRUD({titulo, usersOrCurso, setOpen, FuncLlamar}) {
                 });
             })
             .catch((error) => {
+
+            
             Swal.fire({
                 title: 'Error',
                 text: 'Ha ocurrido un error al actualizar el curso',
