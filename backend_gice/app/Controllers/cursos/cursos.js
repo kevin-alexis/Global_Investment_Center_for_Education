@@ -33,16 +33,16 @@ export const agregarCurso = async (req, res) => {
                 return res.status(500).send("Error al subir el archivo");
             }
 
-            const { titulo, descripcion } = req.body;
+            const { titulo, descripcion, idUsuarioId } = req.body;
             const rutaDocumento = req.files['rutaDocumento'][0].path;
             const rutaImagen = req.files['rutaImagen'][0].path;
             const numDescargas = 0;
 
             try {
-                const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas) VALUES (?, ?, ?, ?, ?)',
-                    [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas]);
+                const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId) VALUES (?, ?, ?, ?, ?, ?)',
+                    [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId]);
 
-                console.log(result);
+                // console.log(result);
                 res.send({
                     "Agregado": "Curso agregado correctamente"
                 });

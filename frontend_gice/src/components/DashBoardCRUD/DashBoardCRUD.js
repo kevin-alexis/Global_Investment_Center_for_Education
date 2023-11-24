@@ -6,7 +6,6 @@ import EditarCRUD from './EditarCRUD'
 import CrearCRUD from './CrearCRUD'
 import Swal from 'sweetalert2';
 
-
 function DashBoardCRUD({ titulo }) {
 
     const GICE_API = process.env.REACT_APP_URL_API;
@@ -16,7 +15,6 @@ function DashBoardCRUD({ titulo }) {
     const [mostarFormEditar, setMostarFormEditar] = useState(false)
     const [users, setUsers] = useState([])
     const [usersOrCurso, setUsersOrCurso] = useState({})
-    
 
     const FuncEliminar = async (id, rutaDocumento, rutaImagen) => {
 

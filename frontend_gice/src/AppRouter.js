@@ -22,7 +22,7 @@ function AppRouter() {
   const token_jwt = localStorage.getItem('sesion_token'); // Obtén el token del localStorage o del lugar donde lo estás almacenando
   const decodedToken = token_jwt ? jwt_decode(token_jwt) : null;
   const userRoles = decodedToken ? decodedToken.rol : null; // Esto contendrá el rol o los permisos del usuario
-
+  
 
   const [user, setUser] = useState({
     user_token: localStorage.user_token,

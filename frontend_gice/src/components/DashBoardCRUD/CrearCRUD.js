@@ -1,9 +1,14 @@
 import { useState } from "react"
 import Swal from 'sweetalert2';
+import jwt_decode from 'jwt-decode';
 
 
 function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
     const GICE_API = process.env.REACT_APP_URL_API;
+
+    const token_jwt = localStorage.getItem('sesion_token'); // Obtén el token del localStorage o del lugar donde lo estás almacenando
+    const decodedToken = token_jwt ? jwt_decode(token_jwt) : null;
+    const userId = decodedToken ? decodedToken.id : null; // Esto contendrá el rol o los permisos del usuario
 
     const [user, setUser] = useState({
         nombre: '',
@@ -19,6 +24,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
         descripcion: '',
         rutaImagen: '',
         rutaDocumento: '',
+        idUsuarioId: 0
     })
 
     const crearUsuario = async (e) => {
@@ -80,7 +86,10 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
         } else if (titulo === 'Cursos') {
             
             e.preventDefault();
-
+            // setCurso({
+            //     ...curso,
+            //     idUsuarioId:userId
+            // })
             if(!curso.titulo.trim() || !curso.descripcion.trim()){
                 Swal.fire({
                     title: 'Error',
@@ -119,12 +128,12 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
             formData.append('descripcion', curso.descripcion);
             formData.append('rutaImagen', e.target.imagen.files[0]);
             formData.append('rutaDocumento', e.target.documento.files[0]);
+            formData.append('idUsuarioId', userId);
 
             const requestOptionsAgregar = {
                 method: 'POST',
                 body: formData,
             };
-            // console.log(formData);
 
             try {
                 const URL = `${GICE_API}/cursos`;
