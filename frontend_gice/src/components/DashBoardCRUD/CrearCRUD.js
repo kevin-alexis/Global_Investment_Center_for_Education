@@ -139,6 +139,22 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 const URL = `${GICE_API}/cursos`;
                 const response = await fetch(URL, requestOptionsAgregar);
                 const data = await response.json();
+                
+                if (data.message == "Error la imagen está rota") {
+                    return Swal.fire({
+                        title: 'Error',
+                        text: 'La imagen está dañada',
+                        icon: 'error'
+                    });
+                }
+
+                if (data.message == "Error el PDF está roto") {
+                    return Swal.fire({
+                        title: 'Error',
+                        text: 'El PDF está dañado',
+                        icon: 'error'
+                    });
+                }
 
                 if (data.message == 'Error el pdf esta Roto') {
                     return Swal.fire({
@@ -162,7 +178,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 } else {
 
                     console.log(data)
-      
+                    
 
                     Swal.fire({
                         title: 'Error',

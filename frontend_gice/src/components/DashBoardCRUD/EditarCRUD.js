@@ -135,10 +135,18 @@ function EditarCRUD({titulo, usersOrCurso, setOpen, FuncLlamar}) {
             .then((response) => response.json())
             .then(data => {
             
-                if (data.message == 'Error el pdf esta Roto') {
+                if (data.message == "Error la imagen está rota") {
                     return Swal.fire({
                         title: 'Error',
-                        text: 'El PDF esta dañado',
+                        text: 'La imagen está dañada',
+                        icon: 'error'
+                    });
+                }
+
+                if (data.message == "Error el PDF está roto") {
+                    return Swal.fire({
+                        title: 'Error',
+                        text: 'El PDF está dañado',
                         icon: 'error'
                     });
                 }

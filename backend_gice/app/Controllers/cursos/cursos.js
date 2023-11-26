@@ -25,12 +25,24 @@ const upload = multer({ storage: storage }).fields([
     { name: 'rutaImagen', maxCount: 1 }
 ]);
 
+import sizeOf from 'image-size';
+
+// Eliminar pdf e imagen del backend
+function eliminarPdfImagen(rutaDocumento, rutaImagen){
+    if (fs.existsSync(rutaDocumento)) {
+        fs.unlinkSync(rutaDocumento);
+    }
+
+    // Eliminar el archivo de la imagen
+    if (fs.existsSync(rutaImagen)) {
+        fs.unlinkSync(rutaImagen);
+    }
+}
+
 export const agregarCurso = async (req, res) => {
     try {
-
         upload(req, res, async function (err) {
             if (err) {
-                // Manejar errores de Multer
                 console.log(err);
                 return res.status(500).send("Error al subir el archivo");
             }
@@ -40,31 +52,44 @@ export const agregarCurso = async (req, res) => {
             const rutaImagen = req.files['rutaImagen'][0].path;
             const numDescargas = 0;
 
-
             const dataBuffer = fs.readFileSync(req.files['rutaDocumento'][0].path);
 
             try {
-                await pdf(dataBuffer)
-                console.log("Si es pdf")
+                const datosImagen = fs.readFileSync(rutaImagen);
+                const dimensiones = sizeOf(datosImagen);
+                console.log('Dimensiones de la imagen:', dimensiones);
+
+                try {
+                    await pdf(dataBuffer);
+                    console.log("Es un PDF válido");
+
+                    try {
+                        const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId) VALUES (?, ?, ?, ?, ?, ?)',
+                            [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId]);
+
+                        res.send({
+                            "Agregado": "Curso agregado correctamente"
+                        });
+                    } catch (error) {
+                        console.log(error);
+                        eliminarPdfImagen(rutaDocumento, rutaImagen);
+                        return res.status(500).send({
+                            "Error": "Error al añadir curso a la base de datos"
+                        });
+                    }
+                } catch {
+                    console.log("No es pdf");
+                    eliminarPdfImagen(rutaDocumento, rutaImagen);
+                    return res.send(JSON.stringify({
+                        message: "Error el PDF está roto"
+                    }));
+                }
             } catch {
-                console.log("No es pdf")
+                console.log("Error la imagen está rota");
+                eliminarPdfImagen(rutaDocumento, rutaImagen);
                 return res.send(JSON.stringify({
-                    message: "Error el pdf esta Roto"
+                    message: "Error la imagen está rota"
                 }));
-            }
-
-            try {
-                const result = await pool.query('INSERT INTO cursos(titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId) VALUES (?, ?, ?, ?, ?, ?)',
-                    [titulo, descripcion, rutaDocumento, rutaImagen, numDescargas, idUsuarioId]);
-
-                res.send({
-                    "Agregado": "Curso agregado correctamente"
-                });
-            } catch (error) {
-                console.log(error);
-                return res.status(500).send({
-                    "Error": "Error al añadir curso a la base de datos"
-                });
             }
         });
     } catch (error) {
@@ -104,8 +129,21 @@ export const actualizarCurso = (req, res) => {
         const rutaDocumentoNueva = req.files['rutaDocumento'] ? req.files['rutaDocumento'][0].filename : null;
         const rutaImagenNueva = req.files['rutaImagen'] ? req.files['rutaImagen'][0].filename : null;
 
-        if (req.files['rutaDocumento']) {
+        if(req.files['rutaImagen']){
+            try {
+                const datosImagen = fs.readFileSync(req.files['rutaImagen'][0].path);
+                const dimensiones = sizeOf(datosImagen);
+                console.log('Dimensiones de la imagen:', dimensiones);
+            } catch {
+                console.log("Error la imagen está rota");
+                eliminarPdfImagen(`uploads/${rutaDocumentoNueva}`, `uploads/${rutaImagenNueva}`);
+                return res.send(JSON.stringify({
+                    message: "Error la imagen está rota"
+                }));
+            }
+        }
 
+        if (req.files['rutaDocumento']) {
 
             const dataBuffer = fs.readFileSync(req.files['rutaDocumento'][0].path);
             try {
@@ -113,12 +151,14 @@ export const actualizarCurso = (req, res) => {
                 console.log("Si es pdf")
             } catch {
                 console.log("No es pdf")
+                eliminarPdfImagen(`uploads/${rutaDocumentoNueva}`, `uploads/${rutaImagenNueva}`);
                 return res.send(JSON.stringify({
-                    message: "Error el pdf esta Roto"
+                    message: "Error el PDF está roto"
                 }));
             }
         }
 
+        
 
         // Obtener rutas de documentos e imágenes actuales del curso
         pool.query('SELECT rutaDocumento, rutaImagen FROM cursos WHERE idCurso = ?', [idCurso], (err, result) => {
@@ -130,7 +170,7 @@ export const actualizarCurso = (req, res) => {
 
                 // Eliminar archivos antiguos del servidor solo si se proporcionan nuevos archivos
                 if (rutaDocumentoNueva && rutaDocumentoAntigua !== rutaDocumentoNueva) {
-                    fs.unlink(`uploads/${rutaDocumentoAntigua}`, (err) => {
+                    fs.unlink(`${rutaDocumentoAntigua}`, (err) => {
                         if (err) {
                             console.error("Error al eliminar archivo de documento antiguo:", err);
                         } else {
@@ -140,7 +180,7 @@ export const actualizarCurso = (req, res) => {
                 }
 
                 if (rutaImagenNueva && rutaImagenAntigua !== rutaImagenNueva) {
-                    fs.unlink(`uploads/${rutaImagenAntigua}`, (err) => {
+                    fs.unlink(`${rutaImagenAntigua}`, (err) => {
                         if (err) {
                             console.error("Error al eliminar archivo de imagen antiguo:", err);
                         } else {
@@ -200,15 +240,8 @@ export const eliminarCurso = (req, res) => {
             res.status(500).send(err);
         } else {
             if (result.affectedRows > 0) {
-                // Eliminar el archivo del documento (PDF)
-                if (fs.existsSync(rutaDocumento)) {
-                    fs.unlinkSync(rutaDocumento);
-                }
-
-                // Eliminar el archivo de la imagen
-                if (fs.existsSync(rutaImagen)) {
-                    fs.unlinkSync(rutaImagen);
-                }
+                // Eliminar el archivo del documento (PDF) e imagen
+                eliminarPdfImagen(rutaDocumento, rutaImagen);
 
                 res.status(200).send({
                     "Eliminado": "Curso eliminado correctamente"
@@ -221,7 +254,6 @@ export const eliminarCurso = (req, res) => {
         }
     });
 };
-
 
 export const obtenerImagen = (req, res) => {
     const nombreImagen = req.params.nombreImagen;
