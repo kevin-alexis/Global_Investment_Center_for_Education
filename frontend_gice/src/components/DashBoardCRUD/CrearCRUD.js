@@ -140,6 +140,14 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 const response = await fetch(URL, requestOptionsAgregar);
                 const data = await response.json();
 
+                if (data.message == 'Error el pdf esta Roto') {
+                    return Swal.fire({
+                        title: 'Error',
+                        text: 'El PDF esta dañado',
+                        icon: 'error'
+                    });
+                }
+
                 if (response.ok) {
                     setAbrirNuevo(false);
                     Swal.fire({
@@ -154,13 +162,7 @@ function CrearCRUD({ titulo, setAbrirNuevo, FuncLlamar, cantidadUsuario }) {
                 } else {
 
                     console.log(data)
-                    if (data.message == 'Error el pdf esta Roto') {
-                        return Swal.fire({
-                            title: 'Error',
-                            text: 'El PDF esta dañado',
-                            icon: 'error'
-                        });
-                    }
+      
 
                     Swal.fire({
                         title: 'Error',
