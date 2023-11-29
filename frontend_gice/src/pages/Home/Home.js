@@ -65,7 +65,7 @@ const Home = () => {
                         </div>
                     </Link>
 
-                    <Link to="/curso">
+                    <Link to="/divisas">
                         <div className='banner3Container'>
                             <div className='decoration'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="82" height="18" viewBox="0 0 82 18" fill="none">
@@ -73,7 +73,7 @@ const Home = () => {
                                 </svg>
                             </div>
                             <div className='titleCard'>
-                                <p className='text'>Curso para principiantes</p>
+                                <p className='text'>Divisas</p>
                                 <div className='arrowButton'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 27 26" fill="none">
                                     <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>
@@ -85,7 +85,7 @@ const Home = () => {
                         </div>
                     </Link>
 
-                    <Link to="/divisas">
+                    <Link to="/criptomonedas">
                         <div className='banner4Container'>
                             <div className='decoration'>
                                 <svg xmlns="http://www.w3.org/2000/svg" width="82" height="18" viewBox="0 0 82 18" fill="none">
@@ -93,7 +93,7 @@ const Home = () => {
                                 </svg>
                             </div>
                             <div className='titleCard'>
-                                <p className='text'>Divisas</p>
+                                <p className='text'>Criptomonedas</p>
                                 <div className='arrowButton'>
                                     <svg xmlns="http://www.w3.org/2000/svg" width="35" height="35" viewBox="0 0 27 26" fill="none">
                                     <path d="M13.0161 25.5C19.9197 25.5 25.5161 19.9036 25.5161 13C25.5161 6.09644 19.9197 0.5 13.0161 0.5C6.11255 0.5 0.516113 6.09644 0.516113 13C0.516113 19.9036 6.11255 25.5 13.0161 25.5Z" stroke="#848895" strokeLinecap="round" strokeLinejoin="round"/>

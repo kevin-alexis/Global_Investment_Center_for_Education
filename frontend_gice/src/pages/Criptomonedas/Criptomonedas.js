@@ -14,7 +14,7 @@ const Criptomonedas = () => {
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
     const [contador, setContador] = useState(0);
-    const documento = "http://localhost:3000/Glosario-cripto.pdf    "
+    const documento = "http://localhost:3000/Glosario-cripto.pdf"
 
     const getCriptomonedas = () => {
         const url = "https://coinranking1.p.rapidapi.com/coins?referenceCurrencyUuid=yhjMzLPhuIDl&timePeriod=24h&tiers%5B0%5D=1&orderBy=marketCap&orderDirection=desc&limit=50&offset=0"
@@ -101,7 +101,7 @@ const Criptomonedas = () => {
                         
                         <div className='bannerCriptomonedasIntro'>
                                 <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
-                                ¿Que son las criptomonedas?
+                                ¿Qué son las criptomonedas?
                                 </h1>
                                 <p className='textIntro' style={{ marginBottom: 0, paddingBottom: 0 }}>
                                 Las criptomonedas son monedas digitales descentralizadas que emplean criptografía y blockchain para garantizar transacciones seguras, las cuales se utilizan para intercambiar bienes y servicios. Las unidades de criptomonedas se denominan monedas o tokens. 
@@ -116,7 +116,7 @@ const Criptomonedas = () => {
                                 A continuación, se presenta la lista completa de todas las criptomonedas disponibles, acompañadas de su valor en dólares. Además, te recomendamos revisar el siguiente PDF para obtener más información sobre los términos y conceptos utilizados en el mundo de las criptomonedas.                                </p>
                                 
                                 <div className='buttonContainerDivisas'>
-                                    <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton'>Visualizar PDF</button>
+                                    <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton' style={{fontWeight:"bold", fontSize:"30px"}}>Visualizar PDF</button>
                                 </div>
 
                             </div>

@@ -181,6 +181,7 @@ const Curso = () => {
                             {
                                 cursos.length > 0 ?
                                 cursos.slice(contador, contador + 5).map((curso) => {
+                                    const cursoIndex = cursos.indexOf(curso);
                                     return (
                                         <div key={curso.idCurso} className='cardCurso'>
                                             <div className='cardCursoImageContainer'>
@@ -188,7 +189,7 @@ const Curso = () => {
                                             </div>
                                             <div className='cardCursoContent'>
                                                 <div>
-                                                    <h2 className='titleCardCurso'>{curso.titulo}</h2>
+                                                    <h2 className='titleCardCurso'>Curso {cursoIndex + 1}. {curso.titulo}</h2>
                                                     <p className='textCardCurso'>{curso.descripcion}</p>
                                                 </div>
                                                 <div className='buttonContainer'>
@@ -212,7 +213,7 @@ const Curso = () => {
                                     }
             
             
-                                    {(contador + 5 <= cursos.length)
+                                    {(contador + 6 <= cursos.length)
                                         ? <img src={Derecho} className='NewsSiSirve' onClick={aumentarContador} />
                                         : <img className='NewsNoSirve' src={Derecho} />
                                     }

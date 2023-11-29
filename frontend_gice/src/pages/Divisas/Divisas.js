@@ -14,7 +14,7 @@ const Divisas = () => {
     const clases = ['rojo', 'verde', 'amarillo', 'morado', 'naranja', 'azul'];
     const [loading, setLoading] = useState(true);
     const [contador, setContador] = useState(0);
-    const divisasAcronimos = `http://omawww.sat.gob.mx/fichas_tematicas/buzon_tributario/Documents/catalogo_monedas.pdf`
+    const divisasAcronimos = `http://localhost:3000/catalogo_monedas.pdf`
 
     const fetchExchangeRates = async (divisa) => {
         const valorMonedaBase = divisa;
@@ -136,7 +136,7 @@ const Divisas = () => {
                                 A continuación, encontrarás la lista completa de todas las divisas disponibles. Además, te recomendamos revisar el siguiente PDF para obtener más información acerca de los acrónimos utilizados.
                                 </p>
                                 <div className='buttonContainerDivisas'>
-                                    <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton'>Visualizar PDF</button>
+                                    <button onClick={()=>FuncVerPDF()} className='buttonDownloadCurso resaltButton' style={{fontWeight:"bold", fontSize:"30px"}}>Visualizar PDF</button>
                                 </div>
 
                             </div>

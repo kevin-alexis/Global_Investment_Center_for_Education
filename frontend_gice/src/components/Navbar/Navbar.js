@@ -1,17 +1,22 @@
 import React, {useEffect, useState} from 'react';
-import { Link } from 'react-router-dom';
+import { Link, useLocation } from 'react-router-dom';
 import './Navbar.css'
 import loginIcon from "../../assets/loginIcon.png"
 
 const Navbar = ({setShow, show}) => {
-
-    // const [show, setShow] = useState(false)
 
     function showHamburger() {
         setShow(!show)
     }
 
     const [isLoged, setIsLoged] = useState(false)
+
+    const [currentPath, setCurrentPath] = useState('');
+    const location = useLocation();
+
+    useEffect(() => {
+        setCurrentPath(location.pathname);
+    }, [location]);
 
     useEffect(()=>{
         if(localStorage.auth){
@@ -87,13 +92,13 @@ const Navbar = ({setShow, show}) => {
                 <div className='rightNavbar'>
                     <ul>
                             <>
-                                <li>
+                                <li className={currentPath === '/noticias' ? 'active' : ''}>
                                     <Link to="/noticias">Noticias</Link>
                                 </li>
-                                <li>
+                                <li className={currentPath === '/divisas' ? 'active' : ''}>
                                     <Link to="/divisas">Divisas</Link>
                                 </li>
-                                <li>
+                                <li className={currentPath === '/criptomonedas' ? 'active' : ''}>
                                     <Link to="/criptomonedas">Criptomonedas</Link>
                                 </li>
                             </>
@@ -101,7 +106,7 @@ const Navbar = ({setShow, show}) => {
                             {
                                 isLoged?
                                 <>
-                                    <li>
+                                    <li className={currentPath === '/curso' ? 'active' : ''}>
                                         <Link to="/curso">Curso</Link>
                                     </li>
                                     <li>

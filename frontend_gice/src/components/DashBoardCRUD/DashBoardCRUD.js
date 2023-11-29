@@ -316,10 +316,15 @@ function DashBoardCRUD({ titulo }) {
                                     <tbody>
 
                                         {
-                                            users?.map((user, index) => {    //el ? significa que solo muestre datos si users tiene algo
+                                            users?.map((user, index) => {
+
+                                                if(user.idUsuario == '1'){
+                                                    return '';
+                                                }
+
                                                 return (
                                                     <tr key={user.idUsuario}className='DashBoardCRUDTable' style={{backgroundColor: index % 2 !== 0 ? '#1A202C' : null }}>
-                                                        <td className='textCrud'>{index+1}</td>
+                                                        <td className='textCrud'>{index}</td>
                                                         <td className='textCrud'>{user.nombre}</td>
                                                         <td className='textCrud'>{user.correoElectronico}</td>
                                                         

@@ -7,7 +7,6 @@ import { fileURLToPath } from 'url';
 import { dirname } from 'path';
 import pdf from 'pdf-parse/lib/pdf-parse.js'
 
-// Obtén la ruta del directorio del archivo actual
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 

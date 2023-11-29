@@ -22,7 +22,7 @@ function DashHome() {
     const cantidadUsuario = () =>{
         fetch(`${GICE_API}/cantidad-usuarios`)
         .then(response => response.json())
-        .then(data => {setUsuarios(data)})
+        .then(data => {setUsuarios(data-1)})
         .catch(error => console.log(error))
     }
 
