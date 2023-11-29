@@ -45,9 +45,9 @@ const Divisas = () => {
     }
 
     useEffect(() => {
-        fetchExchangeRates("MXN"); // Llamada a la API al cargar el componente
+        fetchExchangeRates("MXN");
         window.scrollTo(0, 0);
-    }, []); // Dependencia vacía para que se ejecute solo una vez al montar el componente
+    }, []);
 
 
     function changeCurrency(event) {
@@ -123,16 +123,16 @@ const Divisas = () => {
                                 <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
                                     ¿Qué son las divisas?
                                 </h1>
-                                <p className='textIntro' style={{ marginBottom: 0, paddingBottom: 0 }}>
+                                <p className='textoIntroductorio' style={{ marginBottom: 0, paddingBottom: 0 }}>
                                 Las divisas son monedas extranjeras que se utilizan en un país diferente al de su origen. Se intercambian en el mercado monetario mundial para realizar transacciones comerciales, inversiones y pagos de deudas. El precio de las divisas fluctúa respecto a otras divisas, estableciendo distintos tipos de cambio. El tipo de cambio es la cantidad de dinero de una moneda que equivale a una unidad de otra divisa. 
                                 </p>
                                 <br></br>
 
-                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0 }}>
+                                <p className='textoIntroductorio' style={{ marginTop: 0, paddingTop: 0 }}>
                                 Las divisas son emitidas y reguladas por los gobiernos de cada país. Cada país tiene su propia divisa, que se reconoce por su acrónimo de tres letras. Las dos primeras letras corresponden al nombre del país y la tercera a la divisa. Por ejemplo, AUD se refiere al dólar australiano. 
                                 </p>
                                 <br></br>
-                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0}}>
+                                <p className='textoIntroductorio' style={{ marginTop: 0, paddingTop: 0}}>
                                 A continuación, encontrarás la lista completa de todas las divisas disponibles. Además, te recomendamos revisar el siguiente PDF para obtener más información acerca de los acrónimos utilizados.
                                 </p>
                                 <div className='buttonContainerDivisas'>

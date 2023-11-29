@@ -103,16 +103,16 @@ const Criptomonedas = () => {
                                 <h1 className='titleDivisas' style={{ fontSize: 40, padding: 10, margin: 10 }}>
                                 ¿Qué son las criptomonedas?
                                 </h1>
-                                <p className='textIntro' style={{ marginBottom: 0, paddingBottom: 0 }}>
+                                <p className='textoIntroductorio' style={{ marginBottom: 0, paddingBottom: 0 }}>
                                 Las criptomonedas son monedas digitales descentralizadas que emplean criptografía y blockchain para garantizar transacciones seguras, las cuales se utilizan para intercambiar bienes y servicios. Las unidades de criptomonedas se denominan monedas o tokens. 
                                 </p>
                                 <br></br>
 
-                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0 }}>
+                                <p className='textoIntroductorio' style={{ marginTop: 0, paddingTop: 0 }}>
                                 El valor de las criptomonedas varía en función de la oferta, de la demanda, y del compromiso de los usuarios. Este valor se  forma  en  ausencia  de mecanismos  eficaces  que  impidan  su  manipulación, esto las hace muy seguras y utiles.
                                 </p>
                                 <br></br>
-                                <p className='textIntro' style={{ marginTop: 0, paddingTop: 0}}>
+                                <p className='textoIntroductorio' style={{ marginTop: 0, paddingTop: 0}}>
                                 A continuación, se presenta la lista completa de todas las criptomonedas disponibles, acompañadas de su valor en dólares. Además, te recomendamos revisar el siguiente PDF para obtener más información sobre los términos y conceptos utilizados en el mundo de las criptomonedas.                                </p>
                                 
                                 <div className='buttonContainerDivisas'>
